@@ -1,3 +1,14 @@
 <resources>
-    <string name="app_name">WeatherForecast</string>
+    <string name="appName"> Weather Forecast </string>
+
+    <string name="textViewMain"> Weather Forecast </string>
+    <string name="editTextMain"> Enter location </string>
+    <string name="buttonMain"> Show </string>
+
+    <string name="textViewActivityLocation"> Location:  </string>
+    <string name="textViewActivityDay"> Day:  </string>
+    <string name="buttonActivityTemperature"> Temperature </string>
+    <string name="buttonActivitySns"> Sunrise and sunset </string>
+    <string name="buttonActivityWind"> Wind </string>
+
 </resources>

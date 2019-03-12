@@ -1,9 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DetailsActivity">
+    tools:context=".DetailsActivity"
+    android:orientation="vertical"
+    android:weightSum="11"
+    >
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_weight="2"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="vertical"
+        android:weightSum="3"
+        >
+
+        <TextView
+            android:id="@+id/textViewActivityLocation"
+            android:text="@string/textViewActivityLocation"
+            android:fontFamily="sans-serif"
+            android:layout_width="match_parent"
+            android:layout_weight="1.1"
+            android:layout_height="0dp"
+            />
+
+        <TextView
+            android:id="@+id/textViewActivityDay"
+            android:text="@string/textViewActivityDay"
+            android:fontFamily="sans-serif"
+            android:layout_width="match_parent"
+            android:layout_weight="1.1"
+            android:layout_height="0dp"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        >
+
+        <Button
+            android:id="@+id/buttonActivityTemperature"
+            android:text="@string/buttonActivityTemperature"
+            android:textColor="@color/colorWhite"
+            android:fontFamily="sans-serif"
+            android:backgroundTint="@color/colorLightBlue"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            />
+
+        <Button
+            android:id="@+id/buttonActivitySns"
+            android:text="@string/buttonActivitySns"
+            android:textColor="@color/colorWhite"
+            android:fontFamily="sans-serif"
+            android:backgroundTint="@color/colorLightBlue"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            />
+
+        <Button
+            android:id="@+id/buttonActivityWind"
+            android:text="@string/buttonActivityWind"
+            android:fontFamily="sans-serif"
+            android:textColor="@color/colorWhite"
+            android:backgroundTint="@color/colorLightBlue"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>
