@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="50dp"
+    android:layout_margin="30dp"
     tools:context=".MainActivity"
     android:orientation="vertical"
     android:weightSum="9"
@@ -23,11 +23,11 @@
         android:gravity="bottom"
         />
 
-    <LinearLayout
+    <View
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1.5">
-    </LinearLayout>
+    </View>
 
     <EditText
         android:id="@+id/editTextMain"
@@ -42,11 +42,11 @@
         android:gravity="center"
         />
 
-    <LinearLayout
+    <View
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
-    </LinearLayout>
+    </View>
 
     <Button
         android:id="@+id/buttonMain"

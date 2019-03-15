@@ -14,11 +14,9 @@
         android:layout_width="match_parent"
         android:layout_weight="2"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_margin="15dp"
         android:orientation="vertical"
-        android:weightSum="3"
+        android:weightSum="2"
         >
 
         <TextView
@@ -26,7 +24,7 @@
             android:text="@string/textViewActivityLocation"
             android:fontFamily="sans-serif"
             android:layout_width="match_parent"
-            android:layout_weight="1.1"
+            android:layout_weight="1"
             android:layout_height="0dp"
             />
 
@@ -35,7 +33,7 @@
             android:text="@string/textViewActivityDay"
             android:fontFamily="sans-serif"
             android:layout_width="match_parent"
-            android:layout_weight="1.1"
+            android:layout_weight="1"
             android:layout_height="0dp"
             />
 
@@ -82,13 +80,89 @@
 
     </LinearLayout>
 
-    <LinearLayout
+
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_weight="8"
         android:layout_height="0dp"
-        android:layout_margin="20dp"
+        android:layout_margin="15dp"
         >
 
-    </LinearLayout>
+        <!-- FRAME TEMPERATURA -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="3"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="0dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_sun"
+                    android:scaleType="fitCenter"/>
+
+                <Spinner
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent">
+                </Spinner>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_weight="2"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp"
+                android:weightSum="3">
+
+                <TextView
+                    android:id="@+id/textViewActivityFrameViewTemperature"
+                    android:text="Temperature: "
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"/>
+                <TextView
+                    android:id="@+id/textViewActivityDayFrameViewPressure"
+                    android:text="Pressure: "
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"/>
+                <TextView
+                    android:id="@+id/textViewActivityDayFrameViewHumidity"
+                    android:text="Humidity: "
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- FRAME S N S -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </LinearLayout>
+
+        <!-- FRAME WIND -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </LinearLayout>
+
+    </FrameLayout>
+
 
 </LinearLayout>
