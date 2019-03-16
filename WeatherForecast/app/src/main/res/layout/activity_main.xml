@@ -2,15 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="30dp"
-    tools:context=".MainActivity"
     android:orientation="vertical"
-    android:weightSum="9"
     android:gravity="bottom"
+    android:weightSum="9"
     >
 
+    <!-- Weather Forecast Header -->
     <TextView
         android:id="@+id/textViewMain"
         android:text="@string/textViewMain"
@@ -18,36 +19,40 @@
         android:fontFamily="sans-serif-thin"
         android:autoSizeTextType="uniform"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
         android:layout_weight="3"
+        android:layout_height="0dp"
         android:gravity="bottom"
         />
 
+    <!-- View, used as divider -->
     <View
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1.5">
     </View>
 
+    <!-- Location, for user to enter -->
     <EditText
         android:id="@+id/editTextMain"
-        android:inputType="text"
         android:text="@string/editTextMain"
         android:textColor="@color/colorLightBlue"
-        android:backgroundTint="@color/colorPrimaryDark"
         android:fontFamily="monospace"
+        android:backgroundTint="@color/colorPrimaryDark"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
         android:layout_weight="1"
+        android:layout_height="0dp"
         android:gravity="center"
+        android:inputType="text|textAutoComplete|textAutoCorrect|textCapCharacters"
         />
 
+    <!-- View, used as divider -->
     <View
         android:layout_width="match_parent"
+        android:layout_weight="1"
         android:layout_height="0dp"
-        android:layout_weight="1">
-    </View>
+        />
 
+    <!-- Big Button -->
     <Button
         android:id="@+id/buttonMain"
         android:text="@string/buttonMain"
@@ -56,8 +61,8 @@
         android:autoSizeTextType="uniform"
         android:backgroundTint="@color/colorLightBlue"
         android:layout_width="match_parent"
+        android:layout_weight="1"
         android:layout_height="0dp"
-        android:layout_weight="1.1"
         />
 
 </LinearLayout>
