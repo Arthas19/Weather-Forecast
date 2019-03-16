@@ -6,22 +6,24 @@
     android:layout_height="match_parent"
     tools:context=".DetailsActivity"
     android:orientation="vertical"
-    android:background="@color/colorWhite"
-    android:weightSum="11"
+    android:weightSum="10.5"
     >
 
+    <!-- Location, Day (textViews) -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_weight="2"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
         android:orientation="vertical"
-        android:weightSum="2"
+        android:weightSum="3"
         >
 
         <TextView
-            android:id="@+id/textViewActivityLocation"
-            android:text="@string/textViewActivityLocation"
+            android:id="@+id/textViewDetailsLocation"
+            android:text="@string/textViewDetailsLocation"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20sp"
             android:fontFamily="sans-serif"
             android:layout_width="match_parent"
             android:layout_weight="1"
@@ -29,8 +31,10 @@
             />
 
         <TextView
-            android:id="@+id/textViewActivityDay"
-            android:text="@string/textViewActivityDay"
+            android:id="@+id/textViewDetailsDay"
+            android:text="@string/textViewDetailsDay"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20sp"
             android:fontFamily="sans-serif"
             android:layout_width="match_parent"
             android:layout_weight="1"
@@ -39,40 +43,48 @@
 
     </LinearLayout>
 
+    <!-- Temperature, SNS, Wind (Buttons) -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_weight="1"
-        android:layout_height="wrap_content"
+        android:layout_weight="1.5"
+        android:layout_height="0dp"
+        android:weightSum="3"
         >
 
+        <!-- Temperature Button -->
         <Button
-            android:id="@+id/buttonActivityTemperature"
-            android:text="@string/buttonActivityTemperature"
+            android:id="@+id/buttonDetailsTemperature"
+            android:text="@string/buttonDetailsTemperature"
             android:textColor="@color/colorWhite"
+            android:textSize="16sp"
             android:fontFamily="sans-serif"
-            android:backgroundTint="@color/colorLightBlue"
+            android:backgroundTint="@color/colorPrimary"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
             />
 
+        <!-- SNS Button -->
         <Button
-            android:id="@+id/buttonActivitySns"
-            android:text="@string/buttonActivitySns"
+            android:id="@+id/buttonDetailsSns"
+            android:text="@string/buttonDetailsSns"
             android:textColor="@color/colorWhite"
+            android:textSize="16sp"
             android:fontFamily="sans-serif"
-            android:backgroundTint="@color/colorLightBlue"
+            android:backgroundTint="@color/colorPrimary"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
             />
 
+        <!-- Wind Button -->
         <Button
-            android:id="@+id/buttonActivityWind"
-            android:text="@string/buttonActivityWind"
-            android:fontFamily="sans-serif"
+            android:id="@+id/buttonDetailsWind"
+            android:text="@string/buttonDetailsWind"
+            android:textSize="16sp"
             android:textColor="@color/colorWhite"
-            android:backgroundTint="@color/colorLightBlue"
+            android:fontFamily="sans-serif"
+            android:backgroundTint="@color/colorPrimary"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
@@ -80,20 +92,22 @@
 
     </LinearLayout>
 
-
+    <!-- Temperature SNS Wind (ImageViews, TextViews) -->
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_weight="8"
+        android:layout_weight="7"
         android:layout_height="0dp"
         android:layout_margin="15dp"
         >
 
-        <!-- FRAME TEMPERATURA -->
+        <!-- FRAME TEMPERATURE -->
         <LinearLayout
+            android:id="@+id/temperatureFrameLayout"
+            android:visibility="invisible"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:weightSum="3"
+            android:weightSum="2"
             >
 
             <LinearLayout
@@ -101,46 +115,60 @@
                 android:layout_weight="1"
                 android:layout_height="0dp"
                 android:orientation="horizontal"
-                android:weightSum="2">
+                android:weightSum="2"
+                >
 
                 <ImageView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:src="@drawable/ic_sun"
-                    android:scaleType="fitCenter"/>
+                    android:scaleType="fitStart"
+                    tools:ignore="NestedWeights" />
 
                 <Spinner
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layout_gravity="top"
+                    >
                 </Spinner>
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_weight="2"
+                android:layout_weight="1"
                 android:layout_height="0dp"
                 android:orientation="vertical"
-                android:layout_marginTop="20dp"
-                android:weightSum="3">
+                android:weightSum='3'
+                >
 
                 <TextView
                     android:id="@+id/textViewActivityFrameViewTemperature"
-                    android:text="Temperature: "
+                    android:text="@string/textViewDetailsTemperature"
+                    android:textSize="20sp"
+                    android:textColor="@color/colorPrimaryDark"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"/>
+                    android:layout_marginBottom="10dp"
+                    />
+
                 <TextView
                     android:id="@+id/textViewActivityDayFrameViewPressure"
-                    android:text="Pressure: "
+                    android:text="@string/textViewDetailsPressure"
+                    android:textSize="20sp"
+                    android:textColor="@color/colorPrimaryDark"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"/>
+                    android:layout_marginBottom="10dp"
+                    />
+
                 <TextView
                     android:id="@+id/textViewActivityDayFrameViewHumidity"
-                    android:text="Humidity: "
+                    android:text="@string/textViewDetailsHumidity"
+                    android:textSize="20sp"
+                    android:textColor="@color/colorPrimaryDark"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"/>
@@ -150,19 +178,123 @@
 
         <!-- FRAME S N S -->
         <LinearLayout
+            android:id="@+id/snsFrameLayout"
+            android:visibility="invisible"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="3"
+            >
+
+            <!-- SNS imageView LinearLayout -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="0dp"
+                android:orientation="horizontal"
+                android:weightSum="1"
+                >
+
+                <ImageView
+                    android:src="@drawable/ic_sunrise"
+                    android:scaleType="fitCenter"
+                    android:layout_width="0dp"
+                    android:layout_weight="0.5"
+                    android:layout_height="match_parent"
+                    />
+
+                <ImageView
+                    android:src="@drawable/ic_sunset"
+                    android:scaleType="fitCenter"
+                    android:layout_width="0dp"
+                    android:layout_weight="0.5"
+                    android:layout_height="match_parent"
+                    />
+
+            </LinearLayout>
+
+            <!-- SNS textView LinearLayout -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="0dp"
+                android:orientation="horizontal"
+                android:weightSum="1"
+                >
+
+                <!-- Sunrise time -->
+                <TextView
+                    android:id="@+id/textViewDetailsSunrise"
+                    android:text="@string/textViewDetailsSunriseTime"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="55sp"
+                    android:layout_width="0dp"
+                    android:layout_weight="0.5"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    />
+
+                <!-- Sunset time -->
+                <TextView
+                    android:id="@+id/textViewDetailsSunset"
+                    android:text="@string/textViewDetailsSunsetTime"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="55sp"
+                    android:layout_width="0dp"
+                    android:layout_weight="0.5"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    />
+
+
+            </LinearLayout>
 
         </LinearLayout>
 
         <!-- FRAME WIND -->
         <LinearLayout
+            android:id="@+id/windFrameLayout"
+            android:visibility="invisible"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="3"
+            >
+
+            <!-- Wind ImageView -->
+            <ImageView
+                android:src="@drawable/ic_wind"
+                android:scaleType="fitCenter"
+                android:layout_width="match_parent"
+                android:layout_weight="1.5"
+                android:layout_height="0dp"
+                android:layout_marginBottom="20dp"
+                />
+
+            <!-- Wind spreed textView -->
+            <TextView
+                android:id="@+id/textViewDetailsWindSpeed"
+                android:text="@string/textViewDetailsWindSpeed"
+                android:textColor="@color/colorPrimary"
+                android:textSize="30sp"
+                android:layout_width="match_parent"
+                android:layout_weight="0.5"
+                android:layout_height="0dp"
+                />
+
+            <!-- Wind direction textView -->
+            <TextView
+                android:id="@+id/textViewDetailsWindDirection"
+                android:text="@string/textViewDetailsWindDirection"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="30sp"
+                android:layout_width="match_parent"
+                android:layout_weight="0.5"
+                android:layout_height="0dp"
+                />
 
         </LinearLayout>
 
     </FrameLayout>
-
 
 </LinearLayout>

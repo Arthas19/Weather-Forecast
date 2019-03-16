@@ -5,10 +5,19 @@
     <string name="editTextMain"> Enter location </string>
     <string name="buttonMain"> Show </string>
 
-    <string name="textViewActivityLocation"> Location:  </string>
-    <string name="textViewActivityDay"> Day:  </string>
-    <string name="buttonActivityTemperature"> Temperature </string>
-    <string name="buttonActivitySns"> Sunrise and sunset </string>
-    <string name="buttonActivityWind"> Wind </string>
+    <string name="textViewDetailsLocation"> Location:  </string>
+    <string name="textViewDetailsDay"> Day:  </string>
+    <string name="buttonDetailsTemperature"> Temperature </string>
+    <string name="buttonDetailsSns"> Sunrise\nand\nsunset </string>
+    <string name="buttonDetailsWind"> Wind </string>
 
+    <string name="textViewDetailsTemperature"> Temperature: </string>
+    <string name="textViewDetailsPressure"> Pressure: </string>
+    <string name="textViewDetailsHumidity"> Humidity: </string>
+
+    <string name="textViewDetailsSunriseTime"> 05:31 </string>
+    <string name="textViewDetailsSunsetTime"> 21:22 </string>
+
+    <string name="textViewDetailsWindSpeed"> Wind speed: 6 km/h </string>
+    <string name="textViewDetailsWindDirection"> Wind direction: N </string>
 </resources>
