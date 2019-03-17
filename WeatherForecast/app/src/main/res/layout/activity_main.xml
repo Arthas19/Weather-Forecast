@@ -2,67 +2,61 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".MainActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="30dp"
+    android:gravity="bottom|center_horizontal"
     android:orientation="vertical"
-    android:gravity="bottom"
     android:weightSum="9"
-    >
+    tools:context=".MainActivity">
 
     <!-- Weather Forecast Header -->
     <TextView
         android:id="@+id/textViewMain"
-        android:text="@string/textViewMain"
-        android:textColor="@color/colorLightBlue"
-        android:fontFamily="sans-serif-thin"
-        android:autoSizeTextType="uniform"
         android:layout_width="match_parent"
-        android:layout_weight="3"
         android:layout_height="0dp"
-        android:gravity="bottom"
-        />
+        android:layout_weight="3"
+        android:autoSizeTextType="uniform"
+        android:fontFamily="sans-serif-thin"
+        android:gravity="center"
+        android:text="@string/textViewMain"
+        android:textColor="@color/colorPrimary" />
 
     <!-- View, used as divider -->
     <View
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1.5">
-    </View>
+        android:layout_weight="1.5" />
 
     <!-- Location, for user to enter -->
     <EditText
-        android:id="@+id/editTextMain"
-        android:text="@string/editTextMain"
-        android:textColor="@color/colorLightBlue"
-        android:fontFamily="monospace"
-        android:backgroundTint="@color/colorPrimaryDark"
+        android:id="@+id/editTextMainLocation"
         android:layout_width="match_parent"
-        android:layout_weight="1"
         android:layout_height="0dp"
+        android:layout_weight="1"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:fontFamily="monospace"
         android:gravity="center"
-        android:inputType="text|textAutoComplete|textAutoCorrect|textCapCharacters"
-        />
+        android:inputType="text|textAutoComplete|textAutoCorrect|textCapWords"
+        android:text="@string/editTextMain"
+        android:textColor="@color/colorPrimary" />
 
     <!-- View, used as divider -->
     <View
         android:layout_width="match_parent"
-        android:layout_weight="1"
         android:layout_height="0dp"
-        />
+        android:layout_weight="1" />
 
-    <!-- Big Button -->
+    <!-- Show, Button -->
     <Button
-        android:id="@+id/buttonMain"
-        android:text="@string/buttonMain"
-        android:textColor="@color/colorWhite"
-        android:fontFamily="sans-serif"
-        android:autoSizeTextType="uniform"
-        android:backgroundTint="@color/colorLightBlue"
+        android:id="@+id/buttonMainShow"
         android:layout_width="match_parent"
-        android:layout_weight="1"
         android:layout_height="0dp"
-        />
+        android:layout_weight="1"
+        android:autoSizeTextType="uniform"
+        android:backgroundTint="@color/colorPrimary"
+        android:fontFamily="sans-serif"
+        android:text="@string/buttonMain"
+        android:textColor="@color/colorWhite" />
 
 </LinearLayout>

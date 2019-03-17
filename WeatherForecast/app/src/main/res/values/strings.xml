@@ -1,23 +1,36 @@
 <resources>
     <string name="appName"> Weather Forecast </string>
 
+    <!-- Used in MainActivity -->
     <string name="textViewMain"> Weather Forecast </string>
     <string name="editTextMain"> Enter location </string>
     <string name="buttonMain"> Show </string>
 
+
+    <!-- Used in DetailsActivity -->
     <string name="textViewDetailsLocation"> Location:  </string>
     <string name="textViewDetailsDay"> Day:  </string>
+
     <string name="buttonDetailsTemperature"> Temperature </string>
+        <!-- Used when temperature button is pressed -->
+        <string name="textViewDetailsTemperature"> Temperature: </string>
+        <string name="textViewDetailsPressure"> Pressure: </string>
+        <string name="textViewDetailsHumidity"> Humidity: </string>
+        <string-array name="spinnerDetailsCF">
+            <item> C </item>
+            <item> F </item>
+        </string-array>
+        <string name="promptTempScale"> Pick a temperature scale </string>
+
     <string name="buttonDetailsSns"> Sunrise\nand\nsunset </string>
+        <!-- Used when sns button is pressed -->
+        <string name="textViewDetailsSunriseTime"> 05:31 </string>
+        <string name="textViewDetailsSunsetTime"> 21:22 </string>
+
     <string name="buttonDetailsWind"> Wind </string>
+        <!-- Used when wind button is pressed -->
+        <string name="textViewDetailsWindSpeed"> Wind speed: 6 km/h </string>
+        <string name="textViewDetailsWindDirection"> Wind direction: N </string>
 
-    <string name="textViewDetailsTemperature"> Temperature: </string>
-    <string name="textViewDetailsPressure"> Pressure: </string>
-    <string name="textViewDetailsHumidity"> Humidity: </string>
 
-    <string name="textViewDetailsSunriseTime"> 05:31 </string>
-    <string name="textViewDetailsSunsetTime"> 21:22 </string>
-
-    <string name="textViewDetailsWindSpeed"> Wind speed: 6 km/h </string>
-    <string name="textViewDetailsWindDirection"> Wind direction: N </string>
 </resources>
