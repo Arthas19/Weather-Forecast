@@ -166,6 +166,7 @@
                     android:text="@string/textViewDetailsHumidity"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="20sp" />
+
             </LinearLayout>
 
         </LinearLayout>
@@ -233,7 +234,6 @@
                     android:text="@string/textViewDetailsSunsetTime"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="50sp" />
-
 
             </LinearLayout>
 

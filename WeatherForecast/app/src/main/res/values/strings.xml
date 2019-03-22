@@ -13,9 +13,9 @@
 
     <string name="buttonDetailsTemperature"> Temperature </string>
         <!-- Used when temperature button is pressed -->
-        <string name="textViewDetailsTemperature"> Temperature: </string>
-        <string name="textViewDetailsPressure"> Pressure: </string>
-        <string name="textViewDetailsHumidity"> Humidity: </string>
+    <string name="textViewDetailsTemperature"> Temperature: 39.2 </string>
+    <string name="textViewDetailsPressure"> Pressure:  1033.00 </string>
+    <string name="textViewDetailsHumidity"> Humidity: 19 </string>
         <string-array name="spinnerDetailsCF">
             <item> C </item>
             <item> F </item>
