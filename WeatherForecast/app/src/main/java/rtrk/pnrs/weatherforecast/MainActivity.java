@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,9 +26,17 @@ public class MainActivity extends AppCompatActivity {
         show.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, DetailsActivity.class);
-                intent.putExtra(KEY, location.getText().toString());
-                startActivity(intent);
+                if(!location.getText().toString().equals(""))
+                {
+                    Intent intent = new Intent(MainActivity.this, DetailsActivity.class);
+                    intent.putExtra(KEY, location.getText().toString());
+
+                    startActivity(intent);
+                }
+                else
+                {
+                    Toast.makeText(show.getContext(), "You need to enter location", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
