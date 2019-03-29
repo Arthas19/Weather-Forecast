@@ -12,25 +12,30 @@
     <string name="textViewDetailsDay"> Day:  </string>
 
     <string name="buttonDetailsTemperature"> Temperature </string>
-        <!-- Used when temperature button is pressed -->
+    <!-- Used when temperature button is pressed -->
     <string name="textViewDetailsTemperature"> Temperature: 39.2 </string>
     <string name="textViewDetailsPressure"> Pressure:  1033.00 </string>
     <string name="textViewDetailsHumidity"> Humidity: 19 </string>
-        <string-array name="spinnerDetailsCF">
-            <item> C </item>
-            <item> F </item>
-        </string-array>
-        <string name="promptTempScale"> Pick a temperature scale </string>
+    <string-array name="spinnerDetailsCF">
+        <item> C </item>
+        <item> F </item>
+    </string-array>
+    <string name="promptTempScale"> Pick a temperature scale </string>
 
     <string name="buttonDetailsSns"> Sunrise\nand\nsunset </string>
-        <!-- Used when sns button is pressed -->
-        <string name="textViewDetailsSunriseTime"> 05:31 </string>
-        <string name="textViewDetailsSunsetTime"> 21:22 </string>
+    <!-- Used when sns button is pressed -->
+    <string name="textViewDetailsSunriseTime"> 05:31 </string>
+    <string name="textViewDetailsSunsetTime"> 21:22 </string>
 
     <string name="buttonDetailsWind"> Wind </string>
-        <!-- Used when wind button is pressed -->
-        <string name="textViewDetailsWindSpeed"> Wind speed: 6 km/h </string>
-        <string name="textViewDetailsWindDirection"> Wind direction: N </string>
+    <!-- Used when wind button is pressed -->
+    <string name="textViewDetailsWindSpeed"> Wind speed: 6 km/h </string>
+    <string name="textViewDetailsWindDirection"> Wind direction: N </string>
 
+
+    <!-- Used in ListActivity -->
+
+    <string name="buttonList"> Add </string>
+    <string name="editTextList"> Enter new city </string>
 
 </resources>

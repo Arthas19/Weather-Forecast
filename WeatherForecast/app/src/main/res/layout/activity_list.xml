@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="15dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/editTextListActivity"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:gravity="center"
+            android:hint="@string/editTextList"
+            android:inputType="textCapWords"
+            android:textColor="@color/colorPrimary" />
+
+        <Button
+            android:id="@+id/buttonListActivity"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:autoSizeTextType="uniform"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:text="@string/buttonList"
+            android:textColor="@color/colorAccent" />
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/listViewListActivity"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>
