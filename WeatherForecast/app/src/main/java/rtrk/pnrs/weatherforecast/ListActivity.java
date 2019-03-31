@@ -25,33 +25,27 @@ public class ListActivity extends AppCompatActivity {
         listView = findViewById(R.id.listViewListActivity);
 
         myAdapter = new MyAdapter(this);
-        myAdapter.addItem(new MyItem("novi sad", null));
-        myAdapter.addItem(new MyItem("sombor", null));
-        myAdapter.addItem(new MyItem("subotica", null));
+        myAdapter.addItem(new MyItem("Novi Sad", null, null));
+        myAdapter.addItem(new MyItem("Sombor", null, null));
+        myAdapter.addItem(new MyItem("Subotica", null, null));
 
         listView.setAdapter(myAdapter);
-        //listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                String txt = editText.getText().toString().toLowerCase();
+                String txt = editText.getText().toString();
 
                 if (!txt.equals("")) {
-                    if (!myAdapter.addItem(new MyItem(txt, null))) {
+                    if (!myAdapter.addItem(new MyItem(txt, null, null))) {
                         Toast.makeText(button.getContext(), "City already in the list", Toast.LENGTH_SHORT).show();
                     }
+                    editText.setText(null);
                 } else {
                     Toast.makeText(button.getContext(), "You need to enter a new city", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-    }
-
-
-    @Override
-    protected void onResume() {
-        super.onResume();
     }
 }

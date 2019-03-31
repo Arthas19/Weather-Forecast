@@ -5,45 +5,48 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.CompoundButton;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class MyAdapter extends BaseAdapter implements AdapterView.OnItemLongClickListener {
+public class MyAdapter extends BaseAdapter {
 
     private static String KEY = "location";
 
-    private Context context;
-    private ArrayList<MyItem> myItems;
+    private ArrayList<MyItem> arrayList;
 
+    private Context context;
     public MyAdapter(Context context) {
         this.context = context;
-        myItems = new ArrayList<MyItem>();
+        arrayList = new ArrayList<>();
     }
 
     public boolean addItem(MyItem item) {
         if (!isItemInList(item)) {
-            myItems.add(item);
+            arrayList.add(item);
             notifyDataSetChanged();
-
             return true;
         }
-
         return false;
     }
 
     public void remove(MyItem item) {
-        myItems.remove(item);
+        arrayList.remove(item);
+        notifyDataSetChanged();
+    }
+
+    public void togle(int i) {
+        arrayList.get(i).toggle();
         notifyDataSetChanged();
     }
 
     @Override
     public int getCount() {
-        return myItems.size();
+        return arrayList.size();
     }
 
     @Override
@@ -51,7 +54,7 @@ public class MyAdapter extends BaseAdapter implements AdapterView.OnItemLongClic
         Object rv = null;
 
         try {
-            rv = myItems.get(position);
+            rv = arrayList.get(position);
         } catch (IndexOutOfBoundsException e) {
             e.printStackTrace();
         }
@@ -60,49 +63,31 @@ public class MyAdapter extends BaseAdapter implements AdapterView.OnItemLongClic
     }
 
     @Override
-    public long getItemId(int position) {
-        return 0;
-    }
-
-    @Override
-    public View getView(final int position, View convertView, final ViewGroup parent) {
+    public View getView(final int position, final View convertView, final ViewGroup parent) {
 
         // convertView is providing us with Recycle Mechanism, and he is a good friend of our RAM
-        View view = convertView;
-        ViewHolder holder;
+        View rowView;
+        // Adding view on empty spot, there is still empty screen space!
+        if (convertView == null) {
 
-        // There is still screen space!
-        if (view == null) {
+            LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+            rowView = inflater.inflate(R.layout.element_row, null /*parent*/);
 
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            ViewHolder viewHolder = new ViewHolder(rowView);
+            rowView.setTag(viewHolder);
 
-            view = inflater.inflate(R.layout.element_row, null);
-            holder = new ViewHolder();
-
-            holder.textView = view.findViewById(R.id.textViewElementRow);
-            holder.radioButton = view.findViewById(R.id.radioButtonElementRow);
-            view.setTag(holder);
+        } else {
+            rowView = convertView;
         }
 
         final MyItem item = (MyItem) getItem(position);
 
-        holder = (ViewHolder) view.getTag();
+        ViewHolder viewHolder = (ViewHolder) rowView.getTag();
 
-        holder.textView.setText(item.getText());
-        holder.textView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
+        viewHolder.textView.setText(item.getText());
 
-                if (!myItems.isEmpty()) {
-                    remove(item);
-                    notifyDataSetChanged();
-                }
-
-                return true;
-            }
-        });
-
-        holder.radioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        viewHolder.radioButton.setChecked(false);
+        viewHolder.radioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
@@ -114,27 +99,46 @@ public class MyAdapter extends BaseAdapter implements AdapterView.OnItemLongClic
             }
         });
 
-        return view;
+        viewHolder.linearLayout.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+
+                if (!arrayList.isEmpty()) {
+                    remove(item);
+                    notifyDataSetChanged();
+                }
+
+                return true;
+            }
+        });
+
+        return rowView;
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return 0;
     }
 
     private boolean isItemInList(MyItem item) {
-        for (MyItem i : myItems)
-            if (i.getText().equals(item.getText()))
+        for (MyItem it :
+                arrayList) {
+            if (it.getText().equalsIgnoreCase(item.getText()))
                 return true;
+        }
 
         return false;
     }
 
-    @Override
-    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-
-        myItems.remove(position);
-
-        return true;
-    }
-
-    private class ViewHolder {
+    private static class ViewHolder {
         private TextView textView = null;
         private RadioButton radioButton = null;
+        private LinearLayout linearLayout = null;
+
+        public ViewHolder(View view) {
+            this.textView = view.findViewById(R.id.textViewElementRow);
+            this.radioButton = view.findViewById(R.id.radioButtonElementRow);
+            this.linearLayout = view.findViewById(R.id.linearLayoutElementRow);
+        }
     }
 }

@@ -1,16 +1,19 @@
 package rtrk.pnrs.weatherforecast;
 
 import android.widget.Checkable;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 
 public class MyItem implements Checkable {
 
     private String myString;
     private RadioButton myRadioButton;
+    private LinearLayout myLinearLayout;
 
-    public MyItem(String string, RadioButton radioButton) {
-        this.myString = string;
-        this.myRadioButton = radioButton;
+    public MyItem(String myString, RadioButton myRadioButton, LinearLayout myLinearLayout) {
+        this.myString = myString;
+        this.myRadioButton = myRadioButton;
+        this.myLinearLayout = myLinearLayout;
     }
 
     public String getText() {

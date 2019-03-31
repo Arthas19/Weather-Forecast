@@ -64,15 +64,16 @@ public class DetailsActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String str = parent.getItemAtPosition(position).toString();
-                Toast.makeText(parent.getContext(), str, Toast.LENGTH_SHORT).show();
+                if (linearLayoutTemperature.getVisibility() == View.VISIBLE)
+                    Toast.makeText(parent.getContext(), str, Toast.LENGTH_SHORT).show();
 
                 if(parent.getItemAtPosition(position).toString().equals("F"))
                 {
-
+                    // TODO
                 }
                 else
                 {
-
+                    // TODO
                 }
             }
 
@@ -130,4 +131,13 @@ public class DetailsActivity extends AppCompatActivity {
 
         return location;
     }
+
+
+    private String capWords(String string) {
+
+        // TODO
+
+        return string;
+    }
+
 }

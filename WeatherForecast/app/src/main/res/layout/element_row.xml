@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linearLayoutElementRow"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="10dp"
@@ -10,8 +11,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-
-        />
+        android:buttonTint="@color/colorPrimaryDark"
+        android:checked="false" />
 
     <TextView
         android:id="@+id/textViewElementRow"
@@ -21,9 +22,6 @@
         android:fontFamily="sans-serif"
         android:textAllCaps="true"
         android:textColor="@color/colorPrimary"
-        android:clickable="false"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
         android:textSize="30sp" />
 
 </LinearLayout>
