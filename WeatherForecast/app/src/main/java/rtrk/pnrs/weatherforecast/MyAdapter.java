@@ -20,6 +20,7 @@ public class MyAdapter extends BaseAdapter {
     private ArrayList<MyItem> arrayList;
 
     private Context context;
+
     public MyAdapter(Context context) {
         this.context = context;
         arrayList = new ArrayList<>();
@@ -44,6 +45,16 @@ public class MyAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    private boolean isItemInList(MyItem item) {
+        for (MyItem it :
+                arrayList) {
+            if (it.getText().equalsIgnoreCase(item.getText()))
+                return true;
+        }
+
+        return false;
+    }
+
     @Override
     public int getCount() {
         return arrayList.size();
@@ -66,7 +77,7 @@ public class MyAdapter extends BaseAdapter {
     public View getView(final int position, final View convertView, final ViewGroup parent) {
 
         // convertView is providing us with Recycle Mechanism, and he is a good friend of our RAM
-        View rowView;
+        final View rowView;
         // Adding view on empty spot, there is still empty screen space!
         if (convertView == null) {
 
@@ -82,7 +93,7 @@ public class MyAdapter extends BaseAdapter {
 
         final MyItem item = (MyItem) getItem(position);
 
-        ViewHolder viewHolder = (ViewHolder) rowView.getTag();
+        final ViewHolder viewHolder = (ViewHolder) rowView.getTag();
 
         viewHolder.textView.setText(item.getText());
 
@@ -102,7 +113,6 @@ public class MyAdapter extends BaseAdapter {
         viewHolder.linearLayout.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-
                 if (!arrayList.isEmpty()) {
                     remove(item);
                     notifyDataSetChanged();
@@ -120,20 +130,10 @@ public class MyAdapter extends BaseAdapter {
         return 0;
     }
 
-    private boolean isItemInList(MyItem item) {
-        for (MyItem it :
-                arrayList) {
-            if (it.getText().equalsIgnoreCase(item.getText()))
-                return true;
-        }
-
-        return false;
-    }
-
-    private static class ViewHolder {
-        private TextView textView = null;
-        private RadioButton radioButton = null;
-        private LinearLayout linearLayout = null;
+    private class ViewHolder {
+        private TextView textView;
+        private RadioButton radioButton;
+        private LinearLayout linearLayout;
 
         public ViewHolder(View view) {
             this.textView = view.findViewById(R.id.textViewElementRow);
