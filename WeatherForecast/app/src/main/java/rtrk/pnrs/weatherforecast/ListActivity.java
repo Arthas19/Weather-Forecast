@@ -1,9 +1,8 @@
 package rtrk.pnrs.weatherforecast;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -14,6 +13,7 @@ public class ListActivity extends AppCompatActivity {
     private Button button;
     private EditText editText;
     private ListView listView;
+    private MyAdapter myAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,12 +24,13 @@ public class ListActivity extends AppCompatActivity {
         editText = findViewById(R.id.editTextListActivity);
         listView = findViewById(R.id.listViewListActivity);
 
-        final MyAdapter myAdapter = new MyAdapter(this);
-        myAdapter.addItem(new MyItem("Novi Sad", null));
-        myAdapter.addItem(new MyItem("Sombor", null));
-        myAdapter.addItem(new MyItem("Subotica", null));
+        myAdapter = new MyAdapter(this);
+        myAdapter.addItem(new MyItem("novi sad", null));
+        myAdapter.addItem(new MyItem("sombor", null));
+        myAdapter.addItem(new MyItem("subotica", null));
 
         listView.setAdapter(myAdapter);
+        //listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,23 +47,11 @@ public class ListActivity extends AppCompatActivity {
                 }
             }
         });
+    }
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-            }
-        });
-
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                if (!myAdapter.isEmpty()) {
-                    myAdapter.removeItem(position);
-                }
-
-                return true;
-            }
-        });
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 }

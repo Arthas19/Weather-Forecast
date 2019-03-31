@@ -1,30 +1,34 @@
 package rtrk.pnrs.weatherforecast;
 
-import android.widget.Button;
+import android.widget.Checkable;
+import android.widget.RadioButton;
 
-public class MyItem {
+public class MyItem implements Checkable {
 
-    private String text;
-    private Button button;
+    private String myString;
+    private RadioButton myRadioButton;
 
-    public MyItem(String text, Button button) {
-        this.text = text;
-        this.button = button;
+    public MyItem(String string, RadioButton radioButton) {
+        this.myString = string;
+        this.myRadioButton = radioButton;
     }
 
     public String getText() {
-        return text;
+        return myString;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    @Override
+    public boolean isChecked() {
+        return myRadioButton.isChecked();
     }
 
-    public Button getButton() {
-        return button;
+    @Override
+    public void setChecked(boolean checked) {
+        myRadioButton.setChecked(checked);
     }
 
-    public void setButton(Button button) {
-        this.button = button;
+    @Override
+    public void toggle() {
+        myRadioButton.toggle();
     }
 }
