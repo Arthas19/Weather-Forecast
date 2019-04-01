@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CompoundButton;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -17,9 +16,8 @@ public class MyAdapter extends BaseAdapter {
 
     private static String KEY = "location";
 
-    private ArrayList<MyItem> arrayList;
-
     private Context context;
+    private ArrayList<MyItem> arrayList;
 
     public MyAdapter(Context context) {
         this.context = context;
@@ -29,7 +27,9 @@ public class MyAdapter extends BaseAdapter {
     public boolean addItem(MyItem item) {
         if (!isItemInList(item)) {
             arrayList.add(item);
+
             notifyDataSetChanged();
+
             return true;
         }
         return false;
@@ -40,8 +40,10 @@ public class MyAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
-    public void togle(int i) {
-        arrayList.get(i).toggle();
+    public void resetChecks() {
+        for (int i = 0; i < arrayList.size(); i++)
+            arrayList.get(i).setChecked(false);
+
         notifyDataSetChanged();
     }
 
@@ -61,8 +63,8 @@ public class MyAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int position) {
-        Object rv = null;
+    public MyItem getItem(int position) {
+        MyItem rv = null;
 
         try {
             rv = arrayList.get(position);
@@ -91,13 +93,11 @@ public class MyAdapter extends BaseAdapter {
             rowView = convertView;
         }
 
-        final MyItem item = (MyItem) getItem(position);
+        final MyItem item = getItem(position);
 
-        final ViewHolder viewHolder = (ViewHolder) rowView.getTag();
+        ViewHolder viewHolder = (ViewHolder) rowView.getTag();
 
         viewHolder.textView.setText(item.getText());
-
-        viewHolder.radioButton.setChecked(false);
         viewHolder.radioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -107,18 +107,6 @@ public class MyAdapter extends BaseAdapter {
 
                     context.startActivity(intent);
                 }
-            }
-        });
-
-        viewHolder.linearLayout.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                if (!arrayList.isEmpty()) {
-                    remove(item);
-                    notifyDataSetChanged();
-                }
-
-                return true;
             }
         });
 
@@ -133,12 +121,10 @@ public class MyAdapter extends BaseAdapter {
     private class ViewHolder {
         private TextView textView;
         private RadioButton radioButton;
-        private LinearLayout linearLayout;
 
         public ViewHolder(View view) {
             this.textView = view.findViewById(R.id.textViewElementRow);
             this.radioButton = view.findViewById(R.id.radioButtonElementRow);
-            this.linearLayout = view.findViewById(R.id.linearLayoutElementRow);
         }
     }
 }

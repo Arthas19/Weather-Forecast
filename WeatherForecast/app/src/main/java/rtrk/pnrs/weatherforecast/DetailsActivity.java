@@ -124,20 +124,27 @@ public class DetailsActivity extends AppCompatActivity {
 
         String location = "Novi Sad";
 
-        if(getIntent().hasExtra(KEY))
+        if (getIntent().hasExtra(KEY)) {
             location = getIntent().getStringExtra(KEY);
-        else
+            location = capWords(location);
+        } else {
             throw new IllegalArgumentException("Activity cannot find extras " + KEY);
+        }
 
         return location;
     }
 
 
     private String capWords(String string) {
+        String[] words = string.toLowerCase().split(" ");
+        String rv = "";
 
-        // TODO
+        for (String word : words)
+            rv += (Character.toUpperCase(word.charAt(0)) + word.substring(1) + " ");
 
-        return string;
+        rv.trim();
+
+        return rv;
     }
 
 }

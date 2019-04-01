@@ -12,7 +12,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:buttonTint="@color/colorPrimaryDark"
-        android:checked="false" />
+        android:checked="false"
+        android:focusable="false" />
 
     <TextView
         android:id="@+id/textViewElementRow"
