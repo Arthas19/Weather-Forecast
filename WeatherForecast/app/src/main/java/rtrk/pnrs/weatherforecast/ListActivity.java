@@ -39,8 +39,6 @@ public class ListActivity extends AppCompatActivity {
         adapter.addItem(new MyItem("Amsterdam", null));
         adapter.addItem(new MyItem("Lisbon", null));
 
-        adapter.getItem(22);
-
         listView.setAdapter(adapter);
 
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
