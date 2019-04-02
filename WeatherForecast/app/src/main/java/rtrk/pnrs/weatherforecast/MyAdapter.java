@@ -95,7 +95,7 @@ public class MyAdapter extends BaseAdapter {
 
         final MyItem item = getItem(position);
 
-        ViewHolder viewHolder = (ViewHolder) rowView.getTag();
+        final ViewHolder viewHolder = (ViewHolder) rowView.getTag();
 
         viewHolder.textView.setText(item.getText());
         viewHolder.radioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -104,6 +104,8 @@ public class MyAdapter extends BaseAdapter {
                 if (isChecked) {
                     Intent intent = new Intent(context, DetailsActivity.class);
                     intent.putExtra(KEY, item.getText());
+
+                    viewHolder.radioButton.setChecked(false);
 
                     context.startActivity(intent);
                 }
