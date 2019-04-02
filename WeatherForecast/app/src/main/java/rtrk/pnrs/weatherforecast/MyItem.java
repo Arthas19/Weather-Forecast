@@ -1,9 +1,8 @@
 package rtrk.pnrs.weatherforecast;
 
-import android.widget.Checkable;
 import android.widget.RadioButton;
 
-public class MyItem implements Checkable {
+public class MyItem {
 
     private String string;
     private RadioButton radioButton;
@@ -15,20 +14,5 @@ public class MyItem implements Checkable {
 
     public String getText() {
         return string;
-    }
-
-    @Override
-    public boolean isChecked() {
-        return radioButton.isChecked();
-    }
-
-    @Override
-    public void setChecked(boolean checked) {
-        radioButton.setChecked(checked);
-    }
-
-    @Override
-    public void toggle() {
-        radioButton.toggle();
     }
 }

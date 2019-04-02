@@ -2,7 +2,6 @@ package rtrk.pnrs.weatherforecast;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -15,7 +14,7 @@ public class ListActivity extends AppCompatActivity {
     private Button button;
     private EditText editText;
     private ListView listView;
-    private MyAdapter myAdapter;
+    private MyAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,18 +25,28 @@ public class ListActivity extends AppCompatActivity {
         editText = findViewById(R.id.editTextListActivity);
         listView = findViewById(R.id.listViewListActivity);
 
-        myAdapter = new MyAdapter(this);
-        myAdapter.addItem(new MyItem("nOvi sAd", null));
-        myAdapter.addItem(new MyItem("somBor", null));
-        myAdapter.addItem(new MyItem("subotica", null));
+        adapter = new MyAdapter(this);
 
-        listView.setAdapter(myAdapter);
+        adapter.addItem(new MyItem("Copenhagen", null));
+        adapter.addItem(new MyItem("Oslo", null));
+        adapter.addItem(new MyItem("Novi Sad", null));
+        adapter.addItem(new MyItem("Tallinn", null));
+        adapter.addItem(new MyItem("Istanbul", null));
+        adapter.addItem(new MyItem("Nice", null));
+        adapter.addItem(new MyItem("Edinburgh", null));
+        adapter.addItem(new MyItem("Naples", null));
+        adapter.addItem(new MyItem("Toulouse", null));
+        adapter.addItem(new MyItem("Amsterdam", null));
+        adapter.addItem(new MyItem("Lisbon", null));
+
+        adapter.getItem(22);
+
+        listView.setAdapter(adapter);
 
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("onLongClik", "registrovao klik");
-                myAdapter.remove(myAdapter.getItem(position));
+                adapter.remove(adapter.getItem(position));
 
                 return true;
             }
@@ -48,7 +57,8 @@ public class ListActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String txt = editText.getText().toString();
                 if (!txt.equals("")) {
-                    if (!myAdapter.addItem(new MyItem(txt, null))) {
+                    txt = capWords(txt);
+                    if (!adapter.addItem(new MyItem(txt, null))) {
                         Toast.makeText(button.getContext(), "City already in the list", Toast.LENGTH_SHORT).show();
                     }
                     editText.setText(null);
@@ -59,15 +69,15 @@ public class ListActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        //myAdapter.reset();
-    }
+    private String capWords(String string) {
+        String[] words = string.trim().toLowerCase().split(" ");
+        String rv = "";
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        //myAdapter.resetChecks();
+        for (String word : words)
+            rv += (Character.toUpperCase(word.charAt(0)) + word.substring(1) + " ");
+
+        rv = rv.trim();
+
+        return rv;
     }
 }

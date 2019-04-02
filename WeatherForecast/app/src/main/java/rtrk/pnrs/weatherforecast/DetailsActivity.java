@@ -67,12 +67,9 @@ public class DetailsActivity extends AppCompatActivity {
                 if (linearLayoutTemperature.getVisibility() == View.VISIBLE)
                     Toast.makeText(parent.getContext(), str, Toast.LENGTH_SHORT).show();
 
-                if(parent.getItemAtPosition(position).toString().equals("F"))
-                {
+                if (parent.getItemAtPosition(position).toString().equals("F")) {
                     // TODO
-                }
-                else
-                {
+                } else {
                     // TODO
                 }
             }
@@ -86,7 +83,7 @@ public class DetailsActivity extends AppCompatActivity {
         buttonTemperature.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(linearLayoutTemperature.getVisibility() == View.INVISIBLE) {
+                if (linearLayoutTemperature.getVisibility() == View.INVISIBLE) {
                     linearLayoutTemperature.setVisibility(View.VISIBLE);
 
                     linearLayoutSns.setVisibility(View.INVISIBLE);
@@ -98,7 +95,7 @@ public class DetailsActivity extends AppCompatActivity {
         buttonSns.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(linearLayoutSns.getVisibility() == View.INVISIBLE) {
+                if (linearLayoutSns.getVisibility() == View.INVISIBLE) {
                     linearLayoutSns.setVisibility(View.VISIBLE);
 
                     linearLayoutTemperature.setVisibility(View.INVISIBLE);
@@ -110,7 +107,7 @@ public class DetailsActivity extends AppCompatActivity {
         buttonWind.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(linearLayoutWind.getVisibility() == View.INVISIBLE) {
+                if (linearLayoutWind.getVisibility() == View.INVISIBLE) {
                     linearLayoutWind.setVisibility(View.VISIBLE);
 
                     linearLayoutTemperature.setVisibility(View.INVISIBLE);
@@ -134,17 +131,15 @@ public class DetailsActivity extends AppCompatActivity {
         return location;
     }
 
-
     private String capWords(String string) {
-        String[] words = string.toLowerCase().split(" ");
+        String[] words = string.trim().toLowerCase().split(" ");
         String rv = "";
 
         for (String word : words)
             rv += (Character.toUpperCase(word.charAt(0)) + word.substring(1) + " ");
 
-        rv.trim();
+        rv = rv.trim();
 
         return rv;
     }
-
 }

@@ -40,13 +40,6 @@ public class MyAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
-    public void resetChecks() {
-        for (int i = 0; i < arrayList.size(); i++)
-            arrayList.get(i).setChecked(false);
-
-        notifyDataSetChanged();
-    }
-
     private boolean isItemInList(MyItem item) {
         for (MyItem it :
                 arrayList) {
@@ -79,22 +72,19 @@ public class MyAdapter extends BaseAdapter {
     public View getView(final int position, final View convertView, final ViewGroup parent) {
 
         // convertView is providing us with Recycle Mechanism, and he is a good friend of our RAM
-        final View rowView;
+        View rowView;
         // Adding view on empty spot, there is still empty screen space!
         if (convertView == null) {
-
             LayoutInflater inflater = LayoutInflater.from(parent.getContext());
             rowView = inflater.inflate(R.layout.element_row, null /*parent*/);
 
             ViewHolder viewHolder = new ViewHolder(rowView);
             rowView.setTag(viewHolder);
-
         } else {
             rowView = convertView;
         }
 
         final MyItem item = getItem(position);
-
         final ViewHolder viewHolder = (ViewHolder) rowView.getTag();
 
         viewHolder.textView.setText(item.getText());
@@ -120,11 +110,11 @@ public class MyAdapter extends BaseAdapter {
         return 0;
     }
 
-    private class ViewHolder {
+    private static class ViewHolder {
         private TextView textView;
         private RadioButton radioButton;
 
-        public ViewHolder(View view) {
+        private ViewHolder(View view) {
             this.textView = view.findViewById(R.id.textViewElementRow);
             this.radioButton = view.findViewById(R.id.radioButtonElementRow);
         }
