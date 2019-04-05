@@ -38,4 +38,6 @@
     <string name="buttonList"> Add </string>
     <string name="editTextList"> Enter new city </string>
 
+    <string name="buttonElemRow"> Remove </string>
+
 </resources>

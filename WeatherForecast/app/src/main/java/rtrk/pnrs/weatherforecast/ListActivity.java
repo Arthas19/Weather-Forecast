@@ -27,17 +27,17 @@ public class ListActivity extends AppCompatActivity {
 
         adapter = new MyAdapter(this);
 
-        adapter.addItem(new MyItem("Copenhagen", null));
-        adapter.addItem(new MyItem("Oslo", null));
-        adapter.addItem(new MyItem("Novi Sad", null));
-        adapter.addItem(new MyItem("Tallinn", null));
-        adapter.addItem(new MyItem("Istanbul", null));
-        adapter.addItem(new MyItem("Nice", null));
-        adapter.addItem(new MyItem("Edinburgh", null));
-        adapter.addItem(new MyItem("Naples", null));
-        adapter.addItem(new MyItem("Toulouse", null));
-        adapter.addItem(new MyItem("Amsterdam", null));
-        adapter.addItem(new MyItem("Lisbon", null));
+        adapter.addItem(new MyItem("Copenhagen", null, null));
+        adapter.addItem(new MyItem("Oslo", null, null));
+        adapter.addItem(new MyItem("Novi Sad", null, null));
+        adapter.addItem(new MyItem("Tallinn", null, null));
+        adapter.addItem(new MyItem("Istanbul", null, null));
+        adapter.addItem(new MyItem("Nice", null, null));
+        adapter.addItem(new MyItem("Edinburgh", null, null));
+        adapter.addItem(new MyItem("Naples", null, null));
+        adapter.addItem(new MyItem("Toulouse", null, null));
+        adapter.addItem(new MyItem("Amsterdam", null, null));
+        adapter.addItem(new MyItem("Lisbon", null, null));
 
         listView.setAdapter(adapter);
 
@@ -54,9 +54,10 @@ public class ListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String txt = editText.getText().toString();
+                txt = capWords(txt);
+
                 if (!txt.equals("")) {
-                    txt = capWords(txt);
-                    if (!adapter.addItem(new MyItem(txt, null))) {
+                    if (!adapter.addItem(new MyItem(txt, null, null))) {
                         Toast.makeText(button.getContext(), "City already in the list", Toast.LENGTH_SHORT).show();
                     }
                     editText.setText(null);
@@ -68,13 +69,18 @@ public class ListActivity extends AppCompatActivity {
     }
 
     private String capWords(String string) {
-        String[] words = string.trim().toLowerCase().split(" ");
         String rv = "";
 
-        for (String word : words)
-            rv += (Character.toUpperCase(word.charAt(0)) + word.substring(1) + " ");
+        try {
+            String[] words = string.trim().toLowerCase().split(" ");
 
-        rv = rv.trim();
+            for (String word : words)
+                rv += (Character.toUpperCase(word.charAt(0)) + word.substring(1) + " ");
+
+            rv = rv.trim();
+        } catch (IndexOutOfBoundsException e) {
+            e.printStackTrace();
+        }
 
         return rv;
     }
