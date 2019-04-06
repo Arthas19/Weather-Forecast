@@ -1,6 +1,7 @@
 package rtrk.pnrs.weatherforecast;
 
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -11,12 +12,28 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 public class DetailsActivity extends AppCompatActivity {
 
-    public static final String KEY = "location";
+    private static final String KEY = "location";
+
+    private static final String BASE_URL = "https://api.darksky.net/forecast/";
+    private static final String SECRET_KEY = "1300b6a561b5e3fe758d6ba61fed2701/";
+    private static final String COORDINATES = "45.25167, 19.83694";
+    private static final String UNITS = "?units=ca";
+    private static final String URL = BASE_URL + SECRET_KEY + COORDINATES + UNITS;
+
+    private HttpHelper httpHelper;
 
     LinearLayout linearLayoutTemperature, linearLayoutSns, linearLayoutWind;
     TextView day, location;
@@ -45,11 +62,13 @@ public class DetailsActivity extends AppCompatActivity {
         textViewWindSpeed = findViewById(R.id.textViewDetailsWindSpeed);
         textViewWindDirection = findViewById(R.id.textViewDetailsWindDirection);
 
+        httpHelper = new HttpHelper();
+
         day = findViewById(R.id.textViewDetailsDay);
-        day.setText(getResources().getString(R.string.textViewDetailsDay) + ' ' + Calendar.getInstance().getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault()));
+        day.setText( String.format( "%s %s", getString(R.string.textViewDetailsDay), Calendar.getInstance().getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault()) ) );
 
         location = findViewById(R.id.textViewDetailsLocation);
-        location.setText(getResources().getString(R.string.textViewDetailsLocation) + ' ' + getLocationFromMain());
+        location.setText( String.format( "%s %s", getString(R.string.textViewDetailsLocation), getLocationFromMain() ) );
 
         linearLayoutTemperature = findViewById(R.id.temperatureLinearLayout);
         linearLayoutSns = findViewById(R.id.snsLinearLayout);
@@ -76,7 +95,6 @@ public class DetailsActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
 
@@ -115,6 +133,13 @@ public class DetailsActivity extends AppCompatActivity {
                 }
             }
         });
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                refreshData();
+            }
+        }).start();
     }
 
     private String getLocationFromMain() {
@@ -141,5 +166,28 @@ public class DetailsActivity extends AppCompatActivity {
         rv = rv.trim();
 
         return rv;
+    }
+
+    private void refreshData() {
+
+        try {
+            JSONObject jsonObject = httpHelper.getJSONObjectFromURL( URL );
+            JSONObject currently = jsonObject.getJSONObject("currently");
+
+            String temperature = currently.getString("temperature");
+            String humidity = currently.getString("humidity");
+            String pressure = currently.getString("pressure");
+            String windSpeed = currently.getString("windSpeed");
+
+            textViewTemperature.setText( String.format("%s %s", getString(R.string.textViewDetailsTemperature), temperature) );
+            textViewHumidity.setText( String.format("%s %s", getString(R.string.textViewDetailsHumidity), humidity) );
+            textViewPressure.setText( String.format("%s %s", getString(R.string.textViewDetailsPressure), pressure) );
+            textViewWindSpeed.setText( String.format("%s %s", getString(R.string.textViewDetailsWindSpeed), windSpeed) );
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }
