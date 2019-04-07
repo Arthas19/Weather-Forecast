@@ -218,10 +218,10 @@ public class DetailsActivity extends AppCompatActivity {
         long ut = Long.parseLong(time);
 
         Date date = new Date(ut * 1000L);
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.US);
         sdf.setTimeZone(TimeZone.getTimeZone("GMT+2"));
-        String rv = sdf.format(date);
 
-        return rv;
+        return sdf.format(date);
+
     }
 }
