@@ -1,7 +1,6 @@
 package rtrk.pnrs.weatherforecast;
 
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,12 +11,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -30,7 +30,7 @@ public class DetailsActivity extends AppCompatActivity {
     private static final String BASE_URL = "https://api.darksky.net/forecast/";
     private static final String SECRET_KEY = "1300b6a561b5e3fe758d6ba61fed2701/";
     private static final String COORDINATES = "45.25167, 19.83694";
-    private static final String UNITS = "?units=ca";
+    private static final String UNITS = "?units=ca&exclude=hourly,minutely,alerts,flags";
     private static final String URL = BASE_URL + SECRET_KEY + COORDINATES + UNITS;
 
     private HttpHelper httpHelper;
@@ -63,6 +63,12 @@ public class DetailsActivity extends AppCompatActivity {
         textViewWindDirection = findViewById(R.id.textViewDetailsWindDirection);
 
         httpHelper = new HttpHelper();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                refreshData();
+            }
+        }).start();
 
         day = findViewById(R.id.textViewDetailsDay);
         day.setText( String.format( "%s %s", getString(R.string.textViewDetailsDay), Calendar.getInstance().getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault()) ) );
@@ -86,10 +92,17 @@ public class DetailsActivity extends AppCompatActivity {
                 if (linearLayoutTemperature.getVisibility() == View.VISIBLE)
                     Toast.makeText(parent.getContext(), str, Toast.LENGTH_SHORT).show();
 
-                if (parent.getItemAtPosition(position).toString().equals("F")) {
-                    // TODO
-                } else {
-                    // TODO
+                try {
+                    double temp = Double.parseDouble(textViewTemperature.getText().toString().split(" ")[1]);
+
+                    if (parent.getItemAtPosition(position).toString().equals("F"))
+                        temp = temp * 1.8 + 32;
+                    else
+                        temp = (temp - 32) / 1.8;
+
+                    textViewTemperature.setText(String.format("%s %s", getString(R.string.textViewDetailsTemperature), (int) temp));
+                } catch (IndexOutOfBoundsException e) {
+                    e.printStackTrace();
                 }
             }
 
@@ -133,13 +146,6 @@ public class DetailsActivity extends AppCompatActivity {
                 }
             }
         });
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                refreshData();
-            }
-        }).start();
     }
 
     private String getLocationFromMain() {
@@ -173,21 +179,49 @@ public class DetailsActivity extends AppCompatActivity {
         try {
             JSONObject jsonObject = httpHelper.getJSONObjectFromURL( URL );
             JSONObject currently = jsonObject.getJSONObject("currently");
+            JSONObject daily = jsonObject.getJSONObject("daily");
+            JSONArray data = daily.getJSONArray("data");
 
             String temperature = currently.getString("temperature");
             String humidity = currently.getString("humidity");
             String pressure = currently.getString("pressure");
             String windSpeed = currently.getString("windSpeed");
 
-            textViewTemperature.setText( String.format("%s %s", getString(R.string.textViewDetailsTemperature), temperature) );
+            final String sunrise = data.getJSONObject(0).getString("sunriseTime");
+            final String sunset = data.getJSONObject(0).getString("sunsetTime");
+
+            DateFormat df = new SimpleDateFormat("HH:mm", Locale.getDefault());
+
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    textViewSunrise.setText(convertUnixTime(sunrise));
+                    textViewSunset.setText(convertUnixTime(sunset));
+                }
+            });
+
+
+            textViewTemperature.setText(String.format("%s %s", getString(R.string.textViewDetailsTemperature), String.valueOf(temperature)));
             textViewHumidity.setText( String.format("%s %s", getString(R.string.textViewDetailsHumidity), humidity) );
             textViewPressure.setText( String.format("%s %s", getString(R.string.textViewDetailsPressure), pressure) );
             textViewWindSpeed.setText( String.format("%s %s", getString(R.string.textViewDetailsWindSpeed), windSpeed) );
+
 
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    private String convertUnixTime(String time) {
+        long ut = Long.parseLong(time);
+
+        Date date = new Date(ut * 1000L);
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT+2"));
+        String rv = sdf.format(date);
+
+        return rv;
     }
 }
