@@ -13,7 +13,7 @@ public class ListActivity extends AppCompatActivity {
 
     private Button button;
     private EditText editText;
-    private ListView listView;
+    //private ListView listView;
     private MyAdapter adapter;
 
     @Override
@@ -23,6 +23,8 @@ public class ListActivity extends AppCompatActivity {
 
         button = findViewById(R.id.buttonListActivity);
         editText = findViewById(R.id.editTextListActivity);
+
+        ListView listView;
         listView = findViewById(R.id.listViewListActivity);
 
         adapter = new MyAdapter(this);
@@ -74,9 +76,15 @@ public class ListActivity extends AppCompatActivity {
         try {
             String[] words = string.trim().toLowerCase().split(" ");
 
-            for (String word : words)
-                rv += (Character.toUpperCase(word.charAt(0)) + word.substring(1) + " ");
+            StringBuilder sb = new StringBuilder();
 
+            for (String word : words) {
+                sb.append(Character.toUpperCase(word.charAt(0)));
+                sb.append(word.substring(1));
+                sb.append(" ");
+            }
+
+            rv = sb.toString();
             rv = rv.trim();
         } catch (IndexOutOfBoundsException e) {
             e.printStackTrace();

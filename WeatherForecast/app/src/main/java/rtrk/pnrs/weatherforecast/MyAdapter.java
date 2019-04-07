@@ -20,12 +20,12 @@ public class MyAdapter extends BaseAdapter {
     private Context context;
     private ArrayList<MyItem> arrayList;
 
-    public MyAdapter(Context context) {
+    MyAdapter(Context context) {
         this.context = context;
         arrayList = new ArrayList<>();
     }
 
-    public boolean addItem(MyItem item) {
+    boolean addItem(MyItem item) {
         if (!isItemInList(item)) {
             arrayList.add(item);
 
@@ -36,7 +36,7 @@ public class MyAdapter extends BaseAdapter {
         return false;
     }
 
-    public void remove(MyItem item) {
+    void remove(MyItem item) {
         arrayList.remove(item);
         notifyDataSetChanged();
     }
