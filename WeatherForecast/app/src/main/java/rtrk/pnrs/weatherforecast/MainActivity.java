@@ -26,18 +26,39 @@ public class MainActivity extends AppCompatActivity {
         show.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!location.getText().toString().equals(""))
+                String txt = location.getText().toString();
+                txt = capWords(txt);
+
+                if (!txt.equals(""))
                 {
                     Intent intent = new Intent(MainActivity.this, DetailsActivity.class);
-                    intent.putExtra(KEY, location.getText().toString());
+                    intent.putExtra(KEY, txt);
 
                     startActivity(intent);
                 }
                 else
                 {
                     Toast.makeText(show.getContext(), "You need to enter location", Toast.LENGTH_SHORT).show();
+                    location.setText(null);
                 }
             }
         });
+    }
+
+    private String capWords(String string) {
+        String rv = "";
+
+        try {
+            String[] words = string.trim().toLowerCase().split(" ");
+
+            for (String word : words)
+                rv += (Character.toUpperCase(word.charAt(0)) + word.substring(1) + " ");
+
+            rv = rv.trim();
+        } catch (IndexOutOfBoundsException e) {
+            e.printStackTrace();
+        }
+
+        return rv;
     }
 }

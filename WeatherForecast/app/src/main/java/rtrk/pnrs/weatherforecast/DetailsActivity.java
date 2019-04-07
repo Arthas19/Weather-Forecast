@@ -17,11 +17,9 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-import java.util.TimeZone;
 
 public class DetailsActivity extends AppCompatActivity {
 
@@ -30,8 +28,8 @@ public class DetailsActivity extends AppCompatActivity {
     private static final String BASE_URL = "https://api.darksky.net/forecast/";
     private static final String SECRET_KEY = "1300b6a561b5e3fe758d6ba61fed2701/";
     private static final String COORDINATES = "45.25167, 19.83694";
-    private static final String UNITS = "?units=ca&exclude=hourly,minutely,alerts,flags";
-    private static final String URL = BASE_URL + SECRET_KEY + COORDINATES + UNITS;
+    private static final String EXTRAS = "?units=ca&exclude=hourly,minutely,alerts,flags";
+    private static final String URL = BASE_URL + SECRET_KEY + COORDINATES + EXTRAS;
 
     private HttpHelper httpHelper;
 
@@ -71,10 +69,10 @@ public class DetailsActivity extends AppCompatActivity {
         }).start();
 
         day = findViewById(R.id.textViewDetailsDay);
-        day.setText( String.format( "%s %s", getString(R.string.textViewDetailsDay), Calendar.getInstance().getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault()) ) );
+        day.setText(String.format("%s %s", getString(R.string.textViewDetailsDay), Calendar.getInstance().getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault())));
 
         location = findViewById(R.id.textViewDetailsLocation);
-        location.setText( String.format( "%s %s", getString(R.string.textViewDetailsLocation), getLocationFromMain() ) );
+        location.setText(String.format("%s %s", getString(R.string.textViewDetailsLocation), getLocationFromMain()));
 
         linearLayoutTemperature = findViewById(R.id.temperatureLinearLayout);
         linearLayoutSns = findViewById(R.id.snsLinearLayout);
@@ -152,32 +150,20 @@ public class DetailsActivity extends AppCompatActivity {
 
         String location = "Novi Sad";
 
-        if (getIntent().hasExtra(KEY)) {
-            location = getIntent().getStringExtra(KEY);
-            location = capWords(location);
-        } else {
-            throw new IllegalArgumentException("Activity cannot find extras " + KEY);
+        try {
+            if (getIntent().hasExtra(KEY))
+                location = getIntent().getStringExtra(KEY);
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
         }
 
         return location;
     }
 
-    private String capWords(String string) {
-        String[] words = string.trim().toLowerCase().split(" ");
-        String rv = "";
-
-        for (String word : words)
-            rv += (Character.toUpperCase(word.charAt(0)) + word.substring(1) + " ");
-
-        rv = rv.trim();
-
-        return rv;
-    }
-
     private void refreshData() {
 
         try {
-            JSONObject jsonObject = httpHelper.getJSONObjectFromURL( URL );
+            JSONObject jsonObject = httpHelper.getJSONObjectFromURL(URL);
             JSONObject currently = jsonObject.getJSONObject("currently");
             JSONObject daily = jsonObject.getJSONObject("daily");
             JSONArray data = daily.getJSONArray("data");
@@ -190,8 +176,6 @@ public class DetailsActivity extends AppCompatActivity {
             final String sunrise = data.getJSONObject(0).getString("sunriseTime");
             final String sunset = data.getJSONObject(0).getString("sunsetTime");
 
-            DateFormat df = new SimpleDateFormat("HH:mm", Locale.getDefault());
-
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -202,9 +186,9 @@ public class DetailsActivity extends AppCompatActivity {
 
 
             textViewTemperature.setText(String.format("%s %s", getString(R.string.textViewDetailsTemperature), String.valueOf(temperature)));
-            textViewHumidity.setText( String.format("%s %s", getString(R.string.textViewDetailsHumidity), humidity) );
-            textViewPressure.setText( String.format("%s %s", getString(R.string.textViewDetailsPressure), pressure) );
-            textViewWindSpeed.setText( String.format("%s %s", getString(R.string.textViewDetailsWindSpeed), windSpeed) );
+            textViewHumidity.setText(String.format("%s %s", getString(R.string.textViewDetailsHumidity), humidity));
+            textViewPressure.setText(String.format("%s %s", getString(R.string.textViewDetailsPressure), pressure));
+            textViewWindSpeed.setText(String.format("%s %s", getString(R.string.textViewDetailsWindSpeed), windSpeed));
 
 
         } catch (IOException e) {
@@ -216,12 +200,9 @@ public class DetailsActivity extends AppCompatActivity {
 
     private String convertUnixTime(String time) {
         long ut = Long.parseLong(time);
-
         Date date = new Date(ut * 1000L);
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.US);
-        sdf.setTimeZone(TimeZone.getTimeZone("GMT+2"));
 
-        return sdf.format(date);
+        return DateFormat.getTimeInstance(DateFormat.SHORT, Locale.getDefault()).format(date);
 
     }
 }
