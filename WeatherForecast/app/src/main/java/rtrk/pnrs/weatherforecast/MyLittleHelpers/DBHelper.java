@@ -6,39 +6,43 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import rtrk.pnrs.weatherforecast.Data.DataEntry;
+
 public class DBHelper extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "data.db";
-    private static final String TABLE_NAME = "geography";
-    private static final String COLUMN_ID = "id";
-    private static final String COLUMN_CITY = "city";
-    private static final String COLUMN_COORDINATES = "coordinates";
+    private static final int DATABASE_VERSION = 1;
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
+
     //"CREATE TABLE data(id INTEGER PRIMARY KEY AUTOINCREMENT, item TEXT);";
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createTable = "CREATE TABLE " + TABLE_NAME + "(" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_ITEM + " TEXT);";
-        db.execSQL(createTable);
+        final String SQL_TABLE = "CREATE TABLE " +
+                DataEntry.TABLE_NAME + " (" +
+                DataEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                DataEntry.COLUMN_CITY + " TEXT NOT NULL, " +
+                DataEntry.COLUMN_COORDINATES + " TEXT NOT NULL);";
+        db.execSQL(SQL_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + DataEntry.TABLE_NAME);
         onCreate(db);
     }
 
     //Add a new row to the database
-    public boolean addData(String city, String coordinates) {
+    public boolean insert(String city, String coordinates) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COLUMN_ITEM, city);
+        contentValues.put(DataEntry.COLUMN_CITY, city);
+        contentValues.put(DataEntry.COLUMN_COORDINATES, coordinates);
 
-        if(db.insert(TABLE_NAME, null, contentValues) == -1) {
+        if (db.insert(DataEntry.TABLE_NAME, null, contentValues) == -1) {
             db.close();
             return false;
         } else {
@@ -48,11 +52,11 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     //Delete data from the database
-    public boolean removeData(String item) {
+    public boolean remove(String item) {
         SQLiteDatabase db = this.getWritableDatabase();
         //db.delete(TABLE_NAME, COLUMN_ITEM + "=?", new String[] {item}); SQL injection proof
         //db.execSQL("DELETE FROM " + TABLE_NAME + " WHERE " + COLUMN_ITEM + "=\"" + item + "\";");
-        if(db.delete(TABLE_NAME, COLUMN_ITEM + "=" + item, null) > 0) {
+        if (db.delete(DataEntry.TABLE_NAME, DataEntry.COLUMN_CITY + "=" + item, null) > 0) {
             db.close();
             return true;
         } else {
@@ -63,6 +67,6 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public Cursor getListContnets() {
         SQLiteDatabase db = this.getWritableDatabase();
-        return db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
+        return db.rawQuery("SELECT * FROM " + DataEntry.TABLE_NAME, null);
     }
 }

@@ -9,6 +9,8 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import rtrk.pnrs.weatherforecast.MyLittleHelpers.DBHelper;
+
 public class ListActivity extends AppCompatActivity {
 
     private Button button;
@@ -20,6 +22,8 @@ public class ListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
+
+        DBHelper dbHelper = new DBHelper(this);
 
         button = findViewById(R.id.buttonListActivity);
         editText = findViewById(R.id.editTextListActivity);
