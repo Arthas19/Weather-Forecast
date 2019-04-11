@@ -1,12 +1,12 @@
 package rtrk.pnrs.weatherforecast;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -69,6 +69,7 @@ public class MyAdapter extends BaseAdapter {
         return rv;
     }
 
+    @SuppressLint("InflateParams")
     @Override
     public View getView(final int position, final View convertView, final ViewGroup parent) {
 
@@ -103,16 +104,6 @@ public class MyAdapter extends BaseAdapter {
             }
         });
 
-        viewHolder.button.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-
-                remove(item);
-
-                return true;
-            }
-        });
-
         return rowView;
     }
 
@@ -123,12 +114,10 @@ public class MyAdapter extends BaseAdapter {
 
     private static class ViewHolder {
         private TextView textView;
-        private Button button;
         private RadioButton radioButton;
 
         private ViewHolder(View view) {
             this.textView = view.findViewById(R.id.textViewElementRow);
-            this.button = view.findViewById(R.id.buttonElementRow);
             this.radioButton = view.findViewById(R.id.radioButtonElementRow);
         }
     }

@@ -26,7 +26,7 @@
             android:fontFamily="sans-serif"
             android:text="@string/textViewDetailsLocation"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="20sp" />
+            android:textSize="25sp" />
 
         <!-- Day, textView -->
         <TextView
@@ -37,7 +37,7 @@
             android:fontFamily="sans-serif"
             android:text="@string/textViewDetailsDay"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="20sp" />
+            android:textSize="25sp" />
 
     </LinearLayout>
 
@@ -138,8 +138,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:orientation="vertical"
-                android:weightSum='3'>
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/textViewDetailsTemperature"
@@ -148,7 +147,7 @@
                     android:layout_marginBottom="10dp"
                     android:text="@string/textViewDetailsTemperature"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textSize="20sp" />
+                    android:textSize="30sp" />
 
                 <TextView
                     android:id="@+id/textViewDetailsPressure"
@@ -157,7 +156,7 @@
                     android:layout_marginBottom="10dp"
                     android:text="@string/textViewDetailsPressure"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textSize="20sp" />
+                    android:textSize="30sp" />
 
                 <TextView
                     android:id="@+id/textViewDetailsHumidity"
@@ -166,7 +165,7 @@
                     android:layout_marginBottom="10dp"
                     android:text="@string/textViewDetailsHumidity"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textSize="20sp" />
+                    android:textSize="30sp" />
 
             </LinearLayout>
 
@@ -197,12 +196,16 @@
                     android:scaleType="fitCenter"
                     android:src="@drawable/ic_sunrise" />
 
-                <ImageView
+                <!-- Sunrise time -->
+                <TextView
+                    android:id="@+id/textViewDetailsSunrise"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.5"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/ic_sunset" />
+                    android:gravity="center"
+                    android:text="@string/textViewDetailsSunriseTime"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="45sp" />
 
             </LinearLayout>
 
@@ -214,17 +217,6 @@
                 android:orientation="horizontal"
                 android:weightSum="1">
 
-                <!-- Sunrise time -->
-                <TextView
-                    android:id="@+id/textViewDetailsSunrise"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.5"
-                    android:gravity="center"
-                    android:text="@string/textViewDetailsSunriseTime"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="50sp" />
-
                 <!-- Sunset time -->
                 <TextView
                     android:id="@+id/textViewDetailsSunset"
@@ -234,7 +226,14 @@
                     android:gravity="center"
                     android:text="@string/textViewDetailsSunsetTime"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textSize="50sp" />
+                    android:textSize="45sp" />
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_sunset" />
 
             </LinearLayout>
 
@@ -274,7 +273,7 @@
                 android:id="@+id/textViewDetailsWindDirection"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="0.5"
+                android:layout_weight="1"
                 android:text="@string/textViewDetailsWindDirection"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="30sp" />

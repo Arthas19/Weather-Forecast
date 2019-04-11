@@ -23,14 +23,4 @@
         android:textColor="@color/colorPrimary"
         android:textSize="30sp" />
 
-    <Button
-        android:id="@+id/buttonElementRow"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:backgroundTint="@color/colorPrimary"
-        android:focusable="false"
-        android:text="@string/buttonElemRow"
-        android:textColor="@color/colorAccent"
-        android:textSize="15sp" />
-
 </LinearLayout>

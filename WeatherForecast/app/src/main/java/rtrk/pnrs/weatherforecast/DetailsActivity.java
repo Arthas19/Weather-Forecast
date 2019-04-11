@@ -1,5 +1,6 @@
 package rtrk.pnrs.weatherforecast;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -11,14 +12,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.text.DateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 
 public class DetailsActivity extends AppCompatActivity {
@@ -31,8 +25,6 @@ public class DetailsActivity extends AppCompatActivity {
     private static final String EXTRAS = "?units=ca&exclude=hourly,minutely,alerts,flags";
     private static final String URL = BASE_URL + SECRET_KEY + COORDINATES + EXTRAS;
 
-    private HttpHelper httpHelper;
-
     LinearLayout linearLayoutTemperature, linearLayoutSns, linearLayoutWind;
     TextView day, location;
     TextView textViewTemperature, textViewPressure, textViewHumidity;
@@ -40,6 +32,8 @@ public class DetailsActivity extends AppCompatActivity {
     TextView textViewWindSpeed, textViewWindDirection;
     Button buttonTemperature, buttonSns, buttonWind;
     Spinner spinner;
+
+    Forecast forecast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,13 +54,13 @@ public class DetailsActivity extends AppCompatActivity {
         textViewWindSpeed = findViewById(R.id.textViewDetailsWindSpeed);
         textViewWindDirection = findViewById(R.id.textViewDetailsWindDirection);
 
-        httpHelper = new HttpHelper();
         new Thread(new Runnable() {
             @Override
             public void run() {
                 refreshData();
             }
         }).start();
+
 
         day = findViewById(R.id.textViewDetailsDay);
         day.setText(String.format("%s %s", getString(R.string.textViewDetailsDay), Calendar.getInstance().getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault())));
@@ -84,6 +78,7 @@ public class DetailsActivity extends AppCompatActivity {
         spinner.setAdapter(adapter);
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @SuppressLint("DefaultLocale")
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String str = parent.getItemAtPosition(position).toString();
@@ -98,7 +93,7 @@ public class DetailsActivity extends AppCompatActivity {
                     else
                         temp = (temp - 32) / 1.8;
 
-                    textViewTemperature.setText(String.format("%s %s", getString(R.string.textViewDetailsTemperature), (int) temp));
+                    textViewTemperature.setText(String.format("%s %.2f", getString(R.string.textViewDetailsTemperature), temp));
                 } catch (IndexOutOfBoundsException e) {
                     e.printStackTrace();
                 }
@@ -160,49 +155,27 @@ public class DetailsActivity extends AppCompatActivity {
         return location;
     }
 
+    @SuppressLint("DefaultLocale")
     private void refreshData() {
 
-        try {
-            JSONObject jsonObject = httpHelper.getJSONObjectFromURL(URL);
-            JSONObject currently = jsonObject.getJSONObject("currently");
-            JSONObject daily = jsonObject.getJSONObject("daily");
-            JSONArray data = daily.getJSONArray("data");
+        forecast = new Forecast(URL);
 
-            String temperature = currently.getString("temperature");
-            String humidity = currently.getString("humidity");
-            String pressure = currently.getString("pressure");
-            String windSpeed = currently.getString("windSpeed");
+        /*
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
 
-            final String sunrise = data.getJSONObject(0).getString("sunriseTime");
-            final String sunset = data.getJSONObject(0).getString("sunsetTime");
+            }
+        }); */
 
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    textViewSunrise.setText(convertUnixTime(sunrise));
-                    textViewSunset.setText(convertUnixTime(sunset));
-                }
-            });
+        textViewTemperature.setText(String.format("%s %.2f", getString(R.string.textViewDetailsTemperature), forecast.getTemperature()));
+        textViewHumidity.setText(String.format("%s %.2f", getString(R.string.textViewDetailsHumidity), forecast.getHumidity()));
+        textViewPressure.setText(String.format("%s %.2f", getString(R.string.textViewDetailsPressure), forecast.getPressure()));
 
+        textViewWindSpeed.setText(String.format("%s %.2f", getString(R.string.textViewDetailsWindSpeed), forecast.getWindSpeed()));
+        textViewWindDirection.setText(String.format("%s %s", getString(R.string.textViewDetailsWindDirection), forecast.getWindDirection()));
 
-            textViewTemperature.setText(String.format("%s %s", getString(R.string.textViewDetailsTemperature), String.valueOf(temperature)));
-            textViewHumidity.setText(String.format("%s %s", getString(R.string.textViewDetailsHumidity), humidity));
-            textViewPressure.setText(String.format("%s %s", getString(R.string.textViewDetailsPressure), pressure));
-            textViewWindSpeed.setText(String.format("%s %s", getString(R.string.textViewDetailsWindSpeed), windSpeed));
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private String convertUnixTime(String time) {
-        long ut = Long.parseLong(time);
-        Date date = new Date(ut * 1000L);
-
-        return DateFormat.getTimeInstance(DateFormat.SHORT, Locale.getDefault()).format(date);
-
+        textViewSunrise.setText(forecast.getSunrise());
+        textViewSunset.setText(forecast.getSunset());
     }
 }

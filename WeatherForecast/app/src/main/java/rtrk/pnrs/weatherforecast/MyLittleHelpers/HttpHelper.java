@@ -1,4 +1,4 @@
-package rtrk.pnrs.weatherforecast;
+package rtrk.pnrs.weatherforecast.MyLittleHelpers;
 
 import android.util.Log;
 
@@ -11,11 +11,11 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-class HttpHelper {
+public class HttpHelper {
 
     private static final int SUCCESS = 200;
 
-    JSONObject getJSONObjectFromURL(String urlString) throws IOException, JSONException {
+    public JSONObject getJSONObjectFromURL(String urlString) throws IOException, JSONException {
 
         URL url = new URL(urlString);
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();

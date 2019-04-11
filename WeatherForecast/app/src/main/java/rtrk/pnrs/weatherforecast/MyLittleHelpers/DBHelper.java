@@ -1,4 +1,4 @@
-package rtrk.pnrs.weatherforecast;
+package rtrk.pnrs.weatherforecast.MyLittleHelpers;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -10,9 +10,10 @@ public class DBHelper extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "data.db";
-    private static final String TABLE_NAME = "data";
+    private static final String TABLE_NAME = "geography";
     private static final String COLUMN_ID = "id";
-    private static final String COLUMN_ITEM = "item";
+    private static final String COLUMN_CITY = "city";
+    private static final String COLUMN_COORDINATES = "coordinates";
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -32,10 +33,10 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     //Add a new row to the database
-    public boolean addData(String item) {
+    public boolean addData(String city, String coordinates) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COLUMN_ITEM, item);
+        contentValues.put(COLUMN_ITEM, city);
 
         if(db.insert(TABLE_NAME, null, contentValues) == -1) {
             db.close();
@@ -62,7 +63,6 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public Cursor getListContnets() {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor data = db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
-        return data;
+        return db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
     }
 }

@@ -13,7 +13,7 @@ public class ListActivity extends AppCompatActivity {
 
     private Button button;
     private EditText editText;
-    //private ListView listView;
+    private ListView listView;
     private MyAdapter adapter;
 
     @Override
@@ -24,22 +24,23 @@ public class ListActivity extends AppCompatActivity {
         button = findViewById(R.id.buttonListActivity);
         editText = findViewById(R.id.editTextListActivity);
 
-        ListView listView;
+        /* Just to make IDE happy */
+        // ListView listView;
         listView = findViewById(R.id.listViewListActivity);
 
         adapter = new MyAdapter(this);
 
-        adapter.addItem(new MyItem("Copenhagen", null, null));
-        adapter.addItem(new MyItem("Oslo", null, null));
-        adapter.addItem(new MyItem("Novi Sad", null, null));
-        adapter.addItem(new MyItem("Tallinn", null, null));
-        adapter.addItem(new MyItem("Istanbul", null, null));
-        adapter.addItem(new MyItem("Nice", null, null));
-        adapter.addItem(new MyItem("Edinburgh", null, null));
-        adapter.addItem(new MyItem("Naples", null, null));
-        adapter.addItem(new MyItem("Toulouse", null, null));
-        adapter.addItem(new MyItem("Amsterdam", null, null));
-        adapter.addItem(new MyItem("Lisbon", null, null));
+        adapter.addItem(new MyItem("Copenhagen"));
+        adapter.addItem(new MyItem("Oslo"));
+        adapter.addItem(new MyItem("Novi Sad"));
+        adapter.addItem(new MyItem("Tallinn"));
+        adapter.addItem(new MyItem("Istanbul"));
+        adapter.addItem(new MyItem("Nice"));
+        adapter.addItem(new MyItem("Edinburgh"));
+        adapter.addItem(new MyItem("Naples"));
+        adapter.addItem(new MyItem("Toulouse"));
+        adapter.addItem(new MyItem("Amsterdam"));
+        adapter.addItem(new MyItem("Lisbon"));
 
         listView.setAdapter(adapter);
 
@@ -59,7 +60,7 @@ public class ListActivity extends AppCompatActivity {
                 txt = capWords(txt);
 
                 if (!txt.equals("")) {
-                    if (!adapter.addItem(new MyItem(txt, null, null))) {
+                    if (!adapter.addItem(new MyItem(txt))) {
                         Toast.makeText(button.getContext(), "City already in the list", Toast.LENGTH_SHORT).show();
                     }
                     editText.setText(null);
