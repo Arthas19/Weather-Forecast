@@ -12,8 +12,5 @@ public class Data {
         public static final String TABLE_NAME = "data";
         public static final String COLUMN_CITY = "city";
         public static final String COLUMN_COORDINATES = "coordinates";
-
     }
-
-
 }

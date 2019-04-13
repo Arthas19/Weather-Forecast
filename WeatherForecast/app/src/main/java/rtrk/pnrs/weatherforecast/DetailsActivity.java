@@ -15,15 +15,13 @@ import android.widget.Toast;
 import java.util.Calendar;
 import java.util.Locale;
 
+import static rtrk.pnrs.weatherforecast.Forecast.BASE_URL;
+import static rtrk.pnrs.weatherforecast.Forecast.EXTRAS;
+import static rtrk.pnrs.weatherforecast.Forecast.SECRET_KEY;
+
 public class DetailsActivity extends AppCompatActivity {
 
     private static final String KEY = "location";
-
-    private static final String BASE_URL = "https://api.darksky.net/forecast/";
-    private static final String SECRET_KEY = "1300b6a561b5e3fe758d6ba61fed2701/";
-    private static final String COORDINATES = "45.25167, 19.83694";
-    private static final String EXTRAS = "?units=ca&exclude=hourly,minutely,alerts,flags";
-    private static final String URL = BASE_URL + SECRET_KEY + COORDINATES + EXTRAS;
 
     LinearLayout linearLayoutTemperature, linearLayoutSns, linearLayoutWind;
     TextView day, location;
@@ -54,19 +52,18 @@ public class DetailsActivity extends AppCompatActivity {
         textViewWindSpeed = findViewById(R.id.textViewDetailsWindSpeed);
         textViewWindDirection = findViewById(R.id.textViewDetailsWindDirection);
 
+        day = findViewById(R.id.textViewDetailsDay);
+        day.setText(String.format("%s %s", getString(R.string.textViewDetailsDay), Calendar.getInstance().getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault())));
+
+        location = findViewById(R.id.textViewDetailsLocation);
+        location.setText(String.format("%s %s", getString(R.string.textViewDetailsLocation), getLocationFromMain()));
+
         new Thread(new Runnable() {
             @Override
             public void run() {
                 refreshData();
             }
         }).start();
-
-
-        day = findViewById(R.id.textViewDetailsDay);
-        day.setText(String.format("%s %s", getString(R.string.textViewDetailsDay), Calendar.getInstance().getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault())));
-
-        location = findViewById(R.id.textViewDetailsLocation);
-        location.setText(String.format("%s %s", getString(R.string.textViewDetailsLocation), getLocationFromMain()));
 
         linearLayoutTemperature = findViewById(R.id.temperatureLinearLayout);
         linearLayoutSns = findViewById(R.id.snsLinearLayout);
@@ -158,7 +155,8 @@ public class DetailsActivity extends AppCompatActivity {
     @SuppressLint("DefaultLocale")
     private void refreshData() {
 
-        forecast = new Forecast(URL);
+        final String url = BASE_URL + getLocationFromMain() + EXTRAS + SECRET_KEY;
+        forecast = new Forecast(url);
 
         /*
         runOnUiThread(new Runnable() {

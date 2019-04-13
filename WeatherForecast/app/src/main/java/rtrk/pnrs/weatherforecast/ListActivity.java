@@ -9,13 +9,11 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import rtrk.pnrs.weatherforecast.MyLittleHelpers.DBHelper;
-
 public class ListActivity extends AppCompatActivity {
 
     private Button button;
     private EditText editText;
-    private ListView listView;
+    //private ListView listView;
     private MyAdapter adapter;
 
     @Override
@@ -23,13 +21,13 @@ public class ListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
-        DBHelper dbHelper = new DBHelper(this);
+        //DBHelper dbHelper = new DBHelper(this);
 
         button = findViewById(R.id.buttonListActivity);
         editText = findViewById(R.id.editTextListActivity);
 
         /* Just to make IDE happy */
-        // ListView listView;
+        ListView listView;
         listView = findViewById(R.id.listViewListActivity);
 
         adapter = new MyAdapter(this);
