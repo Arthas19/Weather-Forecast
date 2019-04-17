@@ -3,6 +3,7 @@ package rtrk.pnrs.weatherforecast;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -79,20 +80,22 @@ public class DetailsActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String str = parent.getItemAtPosition(position).toString();
-                if (linearLayoutTemperature.getVisibility() == View.VISIBLE)
+                if (linearLayoutTemperature.getVisibility() == View.VISIBLE) {
                     Toast.makeText(parent.getContext(), str, Toast.LENGTH_SHORT).show();
 
-                try {
-                    double temp = Double.parseDouble(textViewTemperature.getText().toString().split(" ")[1]);
+                    try {
+                        double temp = Double.parseDouble(textViewTemperature.getText().toString().split(" ")[1]);
 
-                    if (parent.getItemAtPosition(position).toString().equals("F"))
-                        temp = temp * 1.8 + 32;
-                    else
-                        temp = (temp - 32) / 1.8;
+                        if (parent.getItemAtPosition(position).toString().equals("F"))
+                            temp = temp * 1.8 + 32;
+                        else
+                            temp = (temp - 32) / 1.8;
 
-                    textViewTemperature.setText(String.format("%s %.2f", getString(R.string.textViewDetailsTemperature), temp));
-                } catch (IndexOutOfBoundsException e) {
-                    e.printStackTrace();
+                        textViewTemperature.setText(String.format("%s %.2f", getString(R.string.textViewDetailsTemperature), temp));
+
+                    } catch (IndexOutOfBoundsException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
 
@@ -158,22 +161,22 @@ public class DetailsActivity extends AppCompatActivity {
         final String url = BASE_URL + getLocationFromMain() + EXTRAS + SECRET_KEY;
         forecast = new Forecast(url);
 
-        /*
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                textViewTemperature.setText(String.format("%s %.2f", getString(R.string.textViewDetailsTemperature), forecast.getTemperature()));
+                textViewHumidity.setText(String.format("%s %.2f", getString(R.string.textViewDetailsHumidity), forecast.getHumidity()));
+                textViewPressure.setText(String.format("%s %.2f", getString(R.string.textViewDetailsPressure), forecast.getPressure()));
 
+                textViewWindSpeed.setText(String.format("%s %.2f", getString(R.string.textViewDetailsWindSpeed), forecast.getWindSpeed()));
+                textViewWindDirection.setText(String.format("%s %s", getString(R.string.textViewDetailsWindDirection), forecast.getWindDirection()));
+
+                Log.d("---------------------------------------SUNRISE", forecast.getSunrise());
+                textViewSunrise.setText(forecast.getSunrise());
+
+                Log.d("---------------------------------------SUNSET", forecast.getSunset());
+                textViewSunset.setText(forecast.getSunset());
             }
-        }); */
-
-        textViewTemperature.setText(String.format("%s %.2f", getString(R.string.textViewDetailsTemperature), forecast.getTemperature()));
-        textViewHumidity.setText(String.format("%s %.2f", getString(R.string.textViewDetailsHumidity), forecast.getHumidity()));
-        textViewPressure.setText(String.format("%s %.2f", getString(R.string.textViewDetailsPressure), forecast.getPressure()));
-
-        textViewWindSpeed.setText(String.format("%s %.2f", getString(R.string.textViewDetailsWindSpeed), forecast.getWindSpeed()));
-        textViewWindDirection.setText(String.format("%s %s", getString(R.string.textViewDetailsWindDirection), forecast.getWindDirection()));
-
-        textViewSunrise.setText(forecast.getSunrise());
-        textViewSunset.setText(forecast.getSunset());
+        });
     }
 }

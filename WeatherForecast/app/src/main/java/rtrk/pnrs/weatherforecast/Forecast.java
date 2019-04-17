@@ -1,5 +1,7 @@
 package rtrk.pnrs.weatherforecast;
 
+import android.util.Log;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -39,7 +41,13 @@ class Forecast {
             this.pressure = main.getDouble("pressure");
 
             this.windSpeed = wind.getDouble("speed");
-            this.windDirection = convertDegreesToDirection(wind.getDouble("deg"));
+
+            try {
+                this.windDirection = convertDegreesToDirection(wind.getDouble("deg"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+                this.windDirection = "404";
+            }
 
             this.sunrise = convertUnixTime(sys.getString("sunrise"));
             this.sunset = convertUnixTime(sys.getString("sunset"));
@@ -48,10 +56,12 @@ class Forecast {
             e.printStackTrace();
         } catch (JSONException e) {
             e.printStackTrace();
+            Log.e("-----------------------------------------FORECAST", "Drunken Lullabies", e);
         }
     }
 
     private static String convertUnixTime(String time) {
+        Log.d("-------------------------------------------CONVERT UNIX TIME", "GOT == " + time);
         long ut = Long.parseLong(time);
         Date date = new Date(ut * 1000L);
 
@@ -60,7 +70,7 @@ class Forecast {
 
     private static String convertDegreesToDirection(double deg) {
 
-        if ((deg >= 348.75 && deg < 360.00) || (deg >= 0 && deg < 11.25)) {
+        if ((deg >= 348.75 && deg <= 360.00) || (deg >= 0 && deg < 11.25)) {
             return "North";
         } else if (deg >= 11.25 && deg < 33.75) {
             return "North-North-East";
