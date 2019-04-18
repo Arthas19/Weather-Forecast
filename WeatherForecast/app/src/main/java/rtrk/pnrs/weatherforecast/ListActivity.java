@@ -65,10 +65,11 @@ public class ListActivity extends AppCompatActivity {
                     if (!adapter.addItem(new MyItem(txt))) {
                         Toast.makeText(button.getContext(), "City already in the list", Toast.LENGTH_SHORT).show();
                     }
-                    editText.setText(null);
                 } else {
                     Toast.makeText(button.getContext(), "You need to enter a new city", Toast.LENGTH_SHORT).show();
                 }
+
+                editText.setText(null);
             }
         });
     }

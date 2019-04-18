@@ -117,7 +117,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:scaleType="fitStart"
-                    android:src="@drawable/ic_sun" />
+                    android:src="@drawable/ic_sunny" />
 
                 <!-- View, used as divider -->
                 <View
@@ -155,7 +155,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     android:text="@string/textViewDetailsPressure"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="30sp" />
 
                 <TextView
@@ -204,7 +204,7 @@
                     android:layout_weight="0.5"
                     android:gravity="center"
                     android:text="@string/textViewDetailsSunriseTime"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="45sp" />
 
             </LinearLayout>
@@ -265,7 +265,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="0.5"
                 android:text="@string/textViewDetailsWindSpeed"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/colorPrimaryDark"
                 android:textSize="30sp" />
 
             <!-- Wind direction, TextView -->
@@ -275,7 +275,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:text="@string/textViewDetailsWindDirection"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/colorPrimary"
                 android:textSize="30sp" />
 
         </LinearLayout>

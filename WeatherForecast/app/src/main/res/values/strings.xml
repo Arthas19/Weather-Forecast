@@ -1,5 +1,5 @@
 <resources>
-    <string name="appName"> Weather Forecast </string>
+    <string name="appName"> Blue Weather </string>
 
     <!-- Used in MainActivity -->
     <string name="textViewMain"> Weather Forecast </string>
