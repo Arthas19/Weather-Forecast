@@ -25,7 +25,7 @@ class Forecast {
     private double windSpeed;
     private String windDirection;
 
-    public Forecast(String url) {
+    Forecast(String url) {
 
         HttpHelper httpHelper = new HttpHelper();
 
@@ -68,6 +68,34 @@ class Forecast {
         return DateFormat.getTimeInstance(DateFormat.SHORT, Locale.getDefault()).format(date);
     }
 
+    double getTemperature() {
+        return temperature;
+    }
+
+    double getHumidity() {
+        return humidity;
+    }
+
+    double getPressure() {
+        return pressure;
+    }
+
+    String getSunrise() {
+        return sunrise;
+    }
+
+    String getSunset() {
+        return sunset;
+    }
+
+    double getWindSpeed() {
+        return windSpeed;
+    }
+
+    String getWindDirection() {
+        return windDirection;
+    }
+
     private static String convertDegreesToDirection(double deg) {
 
         if ((deg >= 348.75 && deg <= 360.00) || (deg >= 0 && deg < 11.25)) {
@@ -105,33 +133,5 @@ class Forecast {
         } else {
             return "";
         }
-    }
-
-    double getTemperature() {
-        return temperature;
-    }
-
-    double getHumidity() {
-        return humidity;
-    }
-
-    double getPressure() {
-        return pressure;
-    }
-
-    String getSunrise() {
-        return sunrise;
-    }
-
-    String getSunset() {
-        return sunset;
-    }
-
-    double getWindSpeed() {
-        return windSpeed;
-    }
-
-    String getWindDirection() {
-        return windDirection;
     }
 }
