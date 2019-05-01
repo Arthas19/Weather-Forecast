@@ -1,4 +1,4 @@
-package rtrk.pnrs.weatherforecast;
+package rtrk.pnrs.weatherforecast.MyLittleHelpers;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -14,7 +14,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import rtrk.pnrs.weatherforecast.MyLittleHelpers.MyItem;
+import rtrk.pnrs.weatherforecast.DetailsActivity;
+import rtrk.pnrs.weatherforecast.R;
 
 public class MyAdapter extends BaseAdapter {
 
@@ -23,12 +24,12 @@ public class MyAdapter extends BaseAdapter {
     private Context mContext;
     private ArrayList<MyItem> mList;
 
-    MyAdapter(Context context) {
+    public MyAdapter(Context context) {
         this.mContext = context;
         mList = new ArrayList<>();
     }
 
-    boolean addItem(MyItem item) {
+    public boolean addItem(MyItem item) {
         if (!isItemInList(item)) {
             mList.add(item);
 
@@ -42,12 +43,12 @@ public class MyAdapter extends BaseAdapter {
     /**
      * Currently not being used
      */
-    void remove(MyItem item) {
+    public void remove(MyItem item) {
         mList.remove(item);
         notifyDataSetChanged();
     }
 
-    void update(MyItem[] myItems) {
+    public void update(MyItem[] myItems) {
         mList.clear();
         if (myItems != null)
             Collections.addAll(mList, myItems);

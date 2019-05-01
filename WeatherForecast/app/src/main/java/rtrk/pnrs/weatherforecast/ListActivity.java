@@ -10,6 +10,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import rtrk.pnrs.weatherforecast.MyLittleHelpers.DBHelper;
+import rtrk.pnrs.weatherforecast.MyLittleHelpers.MyAdapter;
 import rtrk.pnrs.weatherforecast.MyLittleHelpers.MyItem;
 
 public class ListActivity extends AppCompatActivity {

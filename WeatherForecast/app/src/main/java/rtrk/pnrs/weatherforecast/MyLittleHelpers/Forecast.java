@@ -1,4 +1,4 @@
-package rtrk.pnrs.weatherforecast;
+package rtrk.pnrs.weatherforecast.MyLittleHelpers;
 
 import android.util.Log;
 
@@ -10,13 +10,11 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import rtrk.pnrs.weatherforecast.MyLittleHelpers.HttpHelper;
+public class Forecast {
 
-class Forecast {
-
-    static final String BASE_URL = "https://api.openweathermap.org/data/2.5/weather?q=";
-    static final String SECRET_KEY = "&APPID=8827e28e1ab35a7ff0a4a64651bea798";
-    static final String EXTRAS = "&units=metric";
+    public static final String BASE_URL = "https://api.openweathermap.org/data/2.5/weather?q=";
+    public static final String SECRET_KEY = "&APPID=8827e28e1ab35a7ff0a4a64651bea798";
+    public static final String EXTRAS = "&units=metric";
 
     private double temperature, humidity, pressure;
 
@@ -25,7 +23,7 @@ class Forecast {
     private double windSpeed;
     private String windDirection;
 
-    Forecast(String url) {
+    public Forecast(String url) {
 
         HttpHelper httpHelper = new HttpHelper();
 
@@ -68,31 +66,31 @@ class Forecast {
         return DateFormat.getTimeInstance(DateFormat.SHORT, Locale.getDefault()).format(date);
     }
 
-    double getTemperature() {
+    public double getTemperature() {
         return temperature;
     }
 
-    double getHumidity() {
+    public double getHumidity() {
         return humidity;
     }
 
-    double getPressure() {
+    public double getPressure() {
         return pressure;
     }
 
-    String getSunrise() {
+    public String getSunrise() {
         return sunrise;
     }
 
-    String getSunset() {
+    public String getSunset() {
         return sunset;
     }
 
-    double getWindSpeed() {
+    public double getWindSpeed() {
         return windSpeed;
     }
 
-    String getWindDirection() {
+    public String getWindDirection() {
         return windDirection;
     }
 

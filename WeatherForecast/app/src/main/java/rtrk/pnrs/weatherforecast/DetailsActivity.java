@@ -15,9 +15,11 @@ import android.widget.Toast;
 import java.util.Calendar;
 import java.util.Locale;
 
-import static rtrk.pnrs.weatherforecast.Forecast.BASE_URL;
-import static rtrk.pnrs.weatherforecast.Forecast.EXTRAS;
-import static rtrk.pnrs.weatherforecast.Forecast.SECRET_KEY;
+import rtrk.pnrs.weatherforecast.MyLittleHelpers.Forecast;
+
+import static rtrk.pnrs.weatherforecast.MyLittleHelpers.Forecast.BASE_URL;
+import static rtrk.pnrs.weatherforecast.MyLittleHelpers.Forecast.EXTRAS;
+import static rtrk.pnrs.weatherforecast.MyLittleHelpers.Forecast.SECRET_KEY;
 
 public class DetailsActivity extends AppCompatActivity {
 
