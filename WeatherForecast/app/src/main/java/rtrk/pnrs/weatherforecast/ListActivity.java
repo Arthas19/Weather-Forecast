@@ -9,19 +9,32 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import rtrk.pnrs.weatherforecast.MyLittleHelpers.DBHelper;
+import rtrk.pnrs.weatherforecast.MyLittleHelpers.MyItem;
+
 public class ListActivity extends AppCompatActivity {
 
     private Button button;
     private EditText editText;
-    //private ListView listView;
     private MyAdapter adapter;
+    private DBHelper dbHelper;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                refreshData();
+            }
+        }).start();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
-
-        //DBHelper dbHelper = new DBHelper(this);
 
         button = findViewById(R.id.buttonListActivity);
         editText = findViewById(R.id.editTextListActivity);
@@ -30,26 +43,23 @@ public class ListActivity extends AppCompatActivity {
         ListView listView;
         listView = findViewById(R.id.listViewListActivity);
 
+        dbHelper = new DBHelper(this);
         adapter = new MyAdapter(this);
-
-        adapter.addItem(new MyItem("Copenhagen"));
-        adapter.addItem(new MyItem("Oslo"));
-        adapter.addItem(new MyItem("Novi Sad"));
-        adapter.addItem(new MyItem("Tallinn"));
-        adapter.addItem(new MyItem("Istanbul"));
-        adapter.addItem(new MyItem("Nice"));
-        adapter.addItem(new MyItem("Edinburgh"));
-        adapter.addItem(new MyItem("Naples"));
-        adapter.addItem(new MyItem("Toulouse"));
-        adapter.addItem(new MyItem("Amsterdam"));
-        adapter.addItem(new MyItem("Lisbon"));
 
         listView.setAdapter(adapter);
 
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                adapter.remove(adapter.getItem(position));
+                if (dbHelper.remove(adapter.getItem(position).getText())) {
+
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            refreshData();
+                        }
+                    }).start();
+                }
 
                 return true;
             }
@@ -64,6 +74,16 @@ public class ListActivity extends AppCompatActivity {
                 if (!txt.equals("")) {
                     if (!adapter.addItem(new MyItem(txt))) {
                         Toast.makeText(button.getContext(), "City already in the list", Toast.LENGTH_SHORT).show();
+                    } else {
+                        if (dbHelper.insert(txt)) {
+
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    refreshData();
+                                }
+                            }).start();
+                        }
                     }
                 } else {
                     Toast.makeText(button.getContext(), "You need to enter a new city", Toast.LENGTH_SHORT).show();
@@ -95,5 +115,15 @@ public class ListActivity extends AppCompatActivity {
         }
 
         return rv;
+    }
+
+    private void refreshData() {
+        final MyItem[] myItems = dbHelper.getItems();
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                adapter.update(myItems);
+            }
+        });
     }
 }

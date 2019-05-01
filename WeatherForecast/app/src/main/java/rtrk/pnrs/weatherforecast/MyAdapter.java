@@ -12,22 +12,25 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+
+import rtrk.pnrs.weatherforecast.MyLittleHelpers.MyItem;
 
 public class MyAdapter extends BaseAdapter {
 
     private static String KEY = "location";
 
-    private Context context;
-    private ArrayList<MyItem> arrayList;
+    private Context mContext;
+    private ArrayList<MyItem> mList;
 
     MyAdapter(Context context) {
-        this.context = context;
-        arrayList = new ArrayList<>();
+        this.mContext = context;
+        mList = new ArrayList<>();
     }
 
     boolean addItem(MyItem item) {
         if (!isItemInList(item)) {
-            arrayList.add(item);
+            mList.add(item);
 
             notifyDataSetChanged();
 
@@ -36,14 +39,25 @@ public class MyAdapter extends BaseAdapter {
         return false;
     }
 
+    /**
+     * Currently not being used
+     */
     void remove(MyItem item) {
-        arrayList.remove(item);
+        mList.remove(item);
+        notifyDataSetChanged();
+    }
+
+    void update(MyItem[] myItems) {
+        mList.clear();
+        if (myItems != null)
+            Collections.addAll(mList, myItems);
+
         notifyDataSetChanged();
     }
 
     private boolean isItemInList(MyItem item) {
         for (MyItem it :
-                arrayList) {
+                mList) {
             if (it.getText().equalsIgnoreCase(item.getText()))
                 return true;
         }
@@ -53,7 +67,7 @@ public class MyAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return arrayList.size();
+        return mList.size();
     }
 
     @Override
@@ -61,12 +75,17 @@ public class MyAdapter extends BaseAdapter {
         MyItem rv = null;
 
         try {
-            rv = arrayList.get(position);
+            rv = mList.get(position);
         } catch (IndexOutOfBoundsException e) {
             e.printStackTrace();
         }
 
         return rv;
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
     }
 
     @SuppressLint("InflateParams")
@@ -94,22 +113,17 @@ public class MyAdapter extends BaseAdapter {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    Intent intent = new Intent(context, DetailsActivity.class);
+                    Intent intent = new Intent(mContext, DetailsActivity.class);
                     intent.putExtra(KEY, item.getText());
 
                     viewHolder.radioButton.setChecked(false);
 
-                    context.startActivity(intent);
+                    mContext.startActivity(intent);
                 }
             }
         });
 
         return rowView;
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return 0;
     }
 
     private static class ViewHolder {

@@ -3,7 +3,6 @@ package rtrk.pnrs.weatherforecast;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -171,10 +170,7 @@ public class DetailsActivity extends AppCompatActivity {
                 textViewWindSpeed.setText(String.format("%s %.2f", getString(R.string.textViewDetailsWindSpeed), forecast.getWindSpeed()));
                 textViewWindDirection.setText(String.format("%s %s", getString(R.string.textViewDetailsWindDirection), forecast.getWindDirection()));
 
-                Log.d("---------------------------------------SUNRISE", forecast.getSunrise());
                 textViewSunrise.setText(forecast.getSunrise());
-
-                Log.d("---------------------------------------SUNSET", forecast.getSunset());
                 textViewSunset.setText(forecast.getSunset());
             }
         });

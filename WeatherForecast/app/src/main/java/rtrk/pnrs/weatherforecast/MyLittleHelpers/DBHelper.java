@@ -5,13 +5,15 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.provider.BaseColumns;
 
-import rtrk.pnrs.weatherforecast.Data.DataEntry;
-
-public class DBHelper extends SQLiteOpenHelper {
+public class DBHelper extends SQLiteOpenHelper implements BaseColumns {
 
     private static final String DATABASE_NAME = "data.db";
     private static final int DATABASE_VERSION = 1;
+
+    private static final String TABLE_NAME = "data";
+    private static final String COLUMN_CITY = "city";
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -21,28 +23,24 @@ public class DBHelper extends SQLiteOpenHelper {
     //"CREATE TABLE data(id INTEGER PRIMARY KEY AUTOINCREMENT, item TEXT);";
     @Override
     public void onCreate(SQLiteDatabase db) {
-        final String SQL_TABLE = "CREATE TABLE " +
-                DataEntry.TABLE_NAME + " (" +
-                DataEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                DataEntry.COLUMN_CITY + " TEXT NOT NULL, " +
-                DataEntry.COLUMN_COORDINATES + " TEXT NOT NULL);";
+        final String SQL_TABLE = "CREATE TABLE " + TABLE_NAME + " (" + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_CITY + " TEXT NOT NULL" + ");";
         db.execSQL(SQL_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + DataEntry.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(db);
     }
 
     //Add a new row to the database
-    public boolean insert(String city, String coordinates) {
+    public boolean insert(String city) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(DataEntry.COLUMN_CITY, city);
-        contentValues.put(DataEntry.COLUMN_COORDINATES, coordinates);
 
-        if (db.insert(DataEntry.TABLE_NAME, null, contentValues) == -1) {
+        contentValues.put(COLUMN_CITY, city);
+
+        if (db.insert(TABLE_NAME, null, contentValues) == -1) {
             db.close();
             return false;
         } else {
@@ -52,21 +50,53 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     //Delete data from the database
-    public boolean remove(String item) {
+    public boolean remove(String city) {
         SQLiteDatabase db = this.getWritableDatabase();
-        //db.delete(TABLE_NAME, COLUMN_ITEM + "=?", new String[] {item}); SQL injection proof
-        //db.execSQL("DELETE FROM " + TABLE_NAME + " WHERE " + COLUMN_ITEM + "=\"" + item + "\";");
-        if (db.delete(DataEntry.TABLE_NAME, DataEntry.COLUMN_CITY + "=" + item, null) > 0) {
-            db.close();
-            return true;
-        } else {
+
+        if (db.delete(TABLE_NAME, COLUMN_CITY + "=?", new String[]{city}) == -1) {
             db.close();
             return false;
+        } else {
+            db.close();
+            return true;
         }
     }
 
-    public Cursor getListContnets() {
-        SQLiteDatabase db = this.getWritableDatabase();
-        return db.rawQuery("SELECT * FROM " + DataEntry.TABLE_NAME, null);
+    public MyItem[] getItems() {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.query(TABLE_NAME, null, null, null, null, null, null, null);
+
+        if (cursor.getCount() <= 0) {
+            return null;
+        }
+
+        MyItem[] myItems = new MyItem[cursor.getCount()];
+
+        int i = 0;
+        for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+            myItems[i++] = createMyItem(cursor);
+        }
+
+        db.close();
+
+        return myItems;
+    }
+
+    public MyItem getItem(String city) {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.query(TABLE_NAME, null, COLUMN_CITY + "=?", new String[]{city}, null, null, null, null);
+
+        cursor.moveToFirst();
+        MyItem myItem = createMyItem(cursor);
+
+        db.close();
+
+        return myItem;
+    }
+
+    private MyItem createMyItem(Cursor cursor) {
+        String string = cursor.getString(cursor.getColumnIndex(COLUMN_CITY));
+
+        return new MyItem(string);
     }
 }
