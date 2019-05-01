@@ -1,7 +1,5 @@
 package rtrk.pnrs.weatherforecast.MyLittleHelpers;
 
-import android.util.Log;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -54,12 +52,10 @@ public class Forecast {
             e.printStackTrace();
         } catch (JSONException e) {
             e.printStackTrace();
-            Log.e("-----------------------------------------FORECAST", "Drunken Lullabies", e);
         }
     }
 
     private static String convertUnixTime(String time) {
-        Log.d("-------------------------------------------CONVERT UNIX TIME", "GOT == " + time);
         long ut = Long.parseLong(time);
         Date date = new Date(ut * 1000L);
 
