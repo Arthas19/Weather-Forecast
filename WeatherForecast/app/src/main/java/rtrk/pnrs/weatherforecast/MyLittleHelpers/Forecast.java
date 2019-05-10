@@ -21,6 +21,7 @@ public class Forecast {
     private double windSpeed;
     private String windDirection;
 
+    /* Friend of http and brother JSON, but we good  */
     public Forecast(String url) {
 
         HttpHelper httpHelper = new HttpHelper();
@@ -54,6 +55,12 @@ public class Forecast {
             e.printStackTrace();
         }
     }
+
+    /* Deep in dat data */
+    public Forecast() {
+
+    }
+
 
     private static String convertUnixTime(String time) {
         long ut = Long.parseLong(time);

@@ -12,7 +12,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.Calendar;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 import rtrk.pnrs.weatherforecast.MyLittleHelpers.Forecast;
@@ -55,7 +56,8 @@ public class DetailsActivity extends AppCompatActivity {
         textViewWindDirection = findViewById(R.id.textViewDetailsWindDirection);
 
         day = findViewById(R.id.textViewDetailsDay);
-        day.setText(String.format("%s %s", getString(R.string.textViewDetailsDay), Calendar.getInstance().getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault())));
+        String date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+        day.setText(String.format("%s %s", getString(R.string.textViewDetailsDate), date));
 
         location = findViewById(R.id.textViewDetailsLocation);
         location.setText(String.format("%s %s", getString(R.string.textViewDetailsLocation), getLocationFromMain()));

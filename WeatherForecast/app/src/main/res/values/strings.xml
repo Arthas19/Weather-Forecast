@@ -9,7 +9,9 @@
 
     <!-- Used in DetailsActivity -->
     <string name="textViewDetailsLocation"> Location:  </string>
-    <string name="textViewDetailsDay"> Day:  </string>
+    <string name="textViewDetailsDate"> Date:  </string>
+    <string name="textViewDetailsLastUpdated"> (last updated) </string>
+    <string name="textViewDetailsStats"> Statistics </string>
 
     <string name="buttonDetailsTemperature"> Temperature </string>
     <!-- Used when temperature button is pressed -->
@@ -20,7 +22,6 @@
         <item> C </item>
         <item> F </item>
     </string-array>
-    <string name="promptTempScale"> Pick a temperature scale </string>
 
     <string name="buttonDetailsSns"> Sunrise\nand\nsunset </string>
     <!-- Used when sns button is pressed -->
