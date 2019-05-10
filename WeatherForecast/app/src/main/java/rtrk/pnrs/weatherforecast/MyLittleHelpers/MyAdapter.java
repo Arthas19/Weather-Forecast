@@ -22,14 +22,14 @@ public class MyAdapter extends BaseAdapter {
     private static String KEY = "location";
 
     private Context mContext;
-    private ArrayList<MyItem> mList;
+    private ArrayList<MyCityItem> mList;
 
     public MyAdapter(Context context) {
         this.mContext = context;
         mList = new ArrayList<>();
     }
 
-    public boolean addItem(MyItem item) {
+    public boolean addItem(MyCityItem item) {
         if (!isItemInList(item)) {
             mList.add(item);
 
@@ -43,12 +43,12 @@ public class MyAdapter extends BaseAdapter {
     /**
      * Currently not being used
      */
-    public void remove(MyItem item) {
+    public void remove(MyCityItem item) {
         mList.remove(item);
         notifyDataSetChanged();
     }
 
-    public void update(MyItem[] myItems) {
+    public void update(MyCityItem[] myItems) {
         mList.clear();
         if (myItems != null)
             Collections.addAll(mList, myItems);
@@ -56,8 +56,8 @@ public class MyAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
-    private boolean isItemInList(MyItem item) {
-        for (MyItem it :
+    private boolean isItemInList(MyCityItem item) {
+        for (MyCityItem it :
                 mList) {
             if (it.getText().equalsIgnoreCase(item.getText()))
                 return true;
@@ -72,8 +72,8 @@ public class MyAdapter extends BaseAdapter {
     }
 
     @Override
-    public MyItem getItem(int position) {
-        MyItem rv = null;
+    public MyCityItem getItem(int position) {
+        MyCityItem rv = null;
 
         try {
             rv = mList.get(position);
@@ -106,7 +106,7 @@ public class MyAdapter extends BaseAdapter {
             rowView = convertView;
         }
 
-        final MyItem item = getItem(position);
+        final MyCityItem item = getItem(position);
         final ViewHolder viewHolder = (ViewHolder) rowView.getTag();
 
         viewHolder.textView.setText(item.getText());

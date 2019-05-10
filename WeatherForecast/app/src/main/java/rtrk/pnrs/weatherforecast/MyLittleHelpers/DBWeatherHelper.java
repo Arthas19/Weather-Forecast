@@ -16,7 +16,7 @@ public class DBWeatherHelper extends SQLiteOpenHelper implements BaseColumns {
 
     private static final String COLUMN_CITY = "city";
     private static final String COLUMN_DATE = "date";
-    private static final String COLUMN_TEMP = "temperature";
+    private static final String COLUMN_TEMPERATURE = "temperature";
     private static final String COLUMN_PRESSURE = "pressure";
     private static final String COLUMN_HUMIDITY = "humidity";
     private static final String COLUMN_SUNRISE = "sunrise";
@@ -35,12 +35,12 @@ public class DBWeatherHelper extends SQLiteOpenHelper implements BaseColumns {
                                                     _ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                                                     COLUMN_CITY + " TEXT NOT NULL," +
                                                     COLUMN_DATE + " TEXT NOT NULL," +
-                                                    COLUMN_TEMP + " TEXT NOT NULL," +
-                                                    COLUMN_PRESSURE + " TEXT NOT NULL," +
-                                                    COLUMN_HUMIDITY + " TEXT NOT NULL," +
+                COLUMN_TEMPERATURE + " DOUBLE NOT NULL," +
+                COLUMN_PRESSURE + " DOUBLE NOT NULL," +
+                COLUMN_HUMIDITY + " DOUBLE NOT NULL," +
                                                     COLUMN_SUNRISE + " TEXT NOT NULL," +
                                                     COLUMN_SUNSET + " TEXT NOT NULL," +
-                                                    COLUMN_WIND_SPEED + " TEXT NOT NULL," +
+                COLUMN_WIND_SPEED + " DOUBLE NOT NULL," +
                                                     COLUMN_WIND_DIR + " TEXT NOT NULL" +
                                                     ");";
         db.execSQL(SQL_TABLE);
@@ -57,11 +57,9 @@ public class DBWeatherHelper extends SQLiteOpenHelper implements BaseColumns {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
-        /*
-        TODO : contentValues.put(COLUMN_CITY, forecast.getCity());
-               contentValues.put(COLUMN_DATE, forecast.getDate());
-        */
-        contentValues.put(COLUMN_TEMP, forecast.getTemperature());
+        contentValues.put(COLUMN_CITY, forecast.getCity());
+        contentValues.put(COLUMN_DATE, forecast.getDate());
+        contentValues.put(COLUMN_TEMPERATURE, forecast.getTemperature());
         contentValues.put(COLUMN_PRESSURE, forecast.getPressure());
         contentValues.put(COLUMN_HUMIDITY, forecast.getHumidity());
         contentValues.put(COLUMN_SUNRISE, forecast.getSunrise());
@@ -91,7 +89,7 @@ public class DBWeatherHelper extends SQLiteOpenHelper implements BaseColumns {
         }
     }
 
-    public MyItem[] getItems(String column, String selection) {
+    public Forecast[] getItems() {
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.query(TABLE_NAME, null, null, null, null, null, null, null);
 
@@ -99,33 +97,45 @@ public class DBWeatherHelper extends SQLiteOpenHelper implements BaseColumns {
             return null;
         }
 
-        MyItem[] myItems = new MyItem[cursor.getCount()];
+        Forecast[] forecasts = new Forecast[cursor.getCount()];
 
         int i = 0;
         for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-            myItems[i++] = createMyItem(cursor);
+            forecasts[i++] = createForecastItem(cursor);
         }
 
         db.close();
 
-        return myItems;
+        return forecasts;
     }
 
-    public MyItem getItem(String city) {
+    public Forecast getItem(String city) {
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.query(TABLE_NAME, null, COLUMN_CITY + "=?", new String[]{city}, null, null, null, null);
 
-        cursor.moveToFirst();
-        MyItem myItem = createMyItem(cursor);
+        if (cursor.getCount() <= 0) {
+            return null;
+        }
+
+        cursor.moveToLast();
+        Forecast forecast = createForecastItem(cursor);
 
         db.close();
 
-        return myItem;
+        return forecast;
     }
 
-    private MyItem createMyItem(Cursor cursor) {
-        String string = cursor.getString(cursor.getColumnIndex(COLUMN_CITY));
+    private Forecast createForecastItem(Cursor cursor) {
+        String city = cursor.getString(cursor.getColumnIndex(COLUMN_CITY));
+        String date = cursor.getString(cursor.getColumnIndex(COLUMN_DATE));
+        Double temperature = cursor.getDouble(cursor.getColumnIndex(COLUMN_TEMPERATURE));
+        Double humidity = cursor.getDouble(cursor.getColumnIndex(COLUMN_HUMIDITY));
+        Double pressure = cursor.getDouble(cursor.getColumnIndex(COLUMN_PRESSURE));
+        String sunrise = cursor.getString(cursor.getColumnIndex(COLUMN_SUNRISE));
+        String sunset = cursor.getString(cursor.getColumnIndex(COLUMN_SUNSET));
+        Double wind_speed = cursor.getDouble(cursor.getColumnIndex(COLUMN_WIND_SPEED));
+        String wind_direction = cursor.getString(cursor.getColumnIndex(COLUMN_WIND_DIR));
 
-        return new MyItem(string);
+        return new Forecast(city, date, temperature, humidity, pressure, sunrise, sunset, wind_speed, wind_direction);
     }
 }

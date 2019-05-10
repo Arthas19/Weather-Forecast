@@ -9,16 +9,16 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import rtrk.pnrs.weatherforecast.MyLittleHelpers.DBHelper;
+import rtrk.pnrs.weatherforecast.MyLittleHelpers.DBCitiesHelper;
 import rtrk.pnrs.weatherforecast.MyLittleHelpers.MyAdapter;
-import rtrk.pnrs.weatherforecast.MyLittleHelpers.MyItem;
+import rtrk.pnrs.weatherforecast.MyLittleHelpers.MyCityItem;
 
 public class ListActivity extends AppCompatActivity {
 
     private Button button;
     private EditText editText;
     private MyAdapter adapter;
-    private DBHelper dbHelper;
+    private DBCitiesHelper dbCitiesHelper;
 
     @Override
     protected void onResume() {
@@ -44,7 +44,7 @@ public class ListActivity extends AppCompatActivity {
         ListView listView;
         listView = findViewById(R.id.listViewListActivity);
 
-        dbHelper = new DBHelper(this);
+        dbCitiesHelper = new DBCitiesHelper(this);
         adapter = new MyAdapter(this);
 
         listView.setAdapter(adapter);
@@ -52,7 +52,7 @@ public class ListActivity extends AppCompatActivity {
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                if (dbHelper.remove(adapter.getItem(position).getText())) {
+                if (dbCitiesHelper.remove(adapter.getItem(position).getText())) {
 
                     new Thread(new Runnable() {
                         @Override
@@ -73,10 +73,10 @@ public class ListActivity extends AppCompatActivity {
                 txt = capWords(txt);
 
                 if (!txt.equals("")) {
-                    if (!adapter.addItem(new MyItem(txt))) {
+                    if (!adapter.addItem(new MyCityItem(txt))) {
                         Toast.makeText(button.getContext(), "City already in the list", Toast.LENGTH_SHORT).show();
                     } else {
-                        if (dbHelper.insert(txt)) {
+                        if (dbCitiesHelper.insert(txt)) {
 
                             new Thread(new Runnable() {
                                 @Override
@@ -119,7 +119,7 @@ public class ListActivity extends AppCompatActivity {
     }
 
     private void refreshData() {
-        final MyItem[] myItems = dbHelper.getItems();
+        final MyCityItem[] myItems = dbCitiesHelper.getItems();
         runOnUiThread(new Runnable() {
             @Override
             public void run() {

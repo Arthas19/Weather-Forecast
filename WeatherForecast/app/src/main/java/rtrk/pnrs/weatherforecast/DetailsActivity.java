@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -16,6 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import rtrk.pnrs.weatherforecast.MyLittleHelpers.DBWeatherHelper;
 import rtrk.pnrs.weatherforecast.MyLittleHelpers.Forecast;
 
 import static rtrk.pnrs.weatherforecast.MyLittleHelpers.Forecast.BASE_URL;
@@ -27,19 +29,34 @@ public class DetailsActivity extends AppCompatActivity {
     private static final String KEY = "location";
 
     LinearLayout linearLayoutTemperature, linearLayoutSns, linearLayoutWind;
-    TextView day, location;
+    TextView date, location;
+    TextView lastUpdated;
     TextView textViewTemperature, textViewPressure, textViewHumidity;
     TextView textViewSunrise, textViewSunset;
     TextView textViewWindSpeed, textViewWindDirection;
     Button buttonTemperature, buttonSns, buttonWind;
+    ImageButton imageButtonRefresh;
     Spinner spinner;
 
     Forecast forecast;
+    DBWeatherHelper dbWeatherHelper;
+
+    String currDate = new SimpleDateFormat("EE", Locale.getDefault()).format(new Date());
+    // String currDate = "11-05-2019";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
+
+        date = findViewById(R.id.textViewDetailsDay);
+        //date.setText(String.format("%s %s", getString(R.string.textViewDetailsDate), currDate));
+
+        location = findViewById(R.id.textViewDetailsLocation);
+        //location.setText(String.format("%s %s", getString(R.string.textViewDetailsLocation), getLocation()));
+
+        lastUpdated = findViewById(R.id.textViewDetailsLastUpdated);
+        imageButtonRefresh = findViewById(R.id.imageButtonDetailsRefresh);
 
         buttonTemperature = findViewById(R.id.buttonDetailsTemperature);
         buttonSns = findViewById(R.id.buttonDetailsSns);
@@ -55,20 +72,6 @@ public class DetailsActivity extends AppCompatActivity {
         textViewWindSpeed = findViewById(R.id.textViewDetailsWindSpeed);
         textViewWindDirection = findViewById(R.id.textViewDetailsWindDirection);
 
-        day = findViewById(R.id.textViewDetailsDay);
-        String date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
-        day.setText(String.format("%s %s", getString(R.string.textViewDetailsDate), date));
-
-        location = findViewById(R.id.textViewDetailsLocation);
-        location.setText(String.format("%s %s", getString(R.string.textViewDetailsLocation), getLocationFromMain()));
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                refreshData();
-            }
-        }).start();
-
         linearLayoutTemperature = findViewById(R.id.temperatureLinearLayout);
         linearLayoutSns = findViewById(R.id.snsLinearLayout);
         linearLayoutWind = findViewById(R.id.windLinearLayout);
@@ -77,6 +80,13 @@ public class DetailsActivity extends AppCompatActivity {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.spinnerDetailsCF, R.layout.spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                refreshData();
+            }
+        }).start();
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @SuppressLint("DefaultLocale")
@@ -104,6 +114,18 @@ public class DetailsActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+        imageButtonRefresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        refreshData();
+                    }
+                }).start();
             }
         });
 
@@ -144,7 +166,7 @@ public class DetailsActivity extends AppCompatActivity {
         });
     }
 
-    private String getLocationFromMain() {
+    private String getLocation() {
 
         String location = "Novi Sad";
 
@@ -161,12 +183,23 @@ public class DetailsActivity extends AppCompatActivity {
     @SuppressLint("DefaultLocale")
     private void refreshData() {
 
-        final String url = BASE_URL + getLocationFromMain() + EXTRAS + SECRET_KEY;
-        forecast = new Forecast(url);
+        final String CITY = getLocation();
+        final String URL = BASE_URL + CITY + EXTRAS + SECRET_KEY;
+
+        dbWeatherHelper = new DBWeatherHelper(this);
+
+        forecast = dbWeatherHelper.getItem(CITY);
+
+        if (forecast == null)
+            forecast = new Forecast(URL);
 
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
+
+                location.setText(String.format("%s %s", getString(R.string.textViewDetailsLocation), CITY));
+                date.setText(String.format("%s %s", getString(R.string.textViewDetailsDate), forecast.getDate()));
+
                 textViewTemperature.setText(String.format("%s %.2f", getString(R.string.textViewDetailsTemperature), forecast.getTemperature()));
                 textViewHumidity.setText(String.format("%s %.2f", getString(R.string.textViewDetailsHumidity), forecast.getHumidity()));
                 textViewPressure.setText(String.format("%s %.2f", getString(R.string.textViewDetailsPressure), forecast.getPressure()));
@@ -176,6 +209,11 @@ public class DetailsActivity extends AppCompatActivity {
 
                 textViewSunrise.setText(forecast.getSunrise());
                 textViewSunset.setText(forecast.getSunset());
+
+                if (!currDate.equals(forecast.getDate()))
+                    lastUpdated.setVisibility(View.VISIBLE);
+                else
+                    lastUpdated.setVisibility(View.INVISIBLE);
             }
         });
     }

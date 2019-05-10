@@ -62,7 +62,7 @@ public class DBCitiesHelper extends SQLiteOpenHelper implements BaseColumns {
         }
     }
 
-    public MyItem[] getItems(String column, String selection) {
+    public MyCityItem[] getItems() {
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.query(TABLE_NAME, null, null, null, null, null, null, null);
 
@@ -70,7 +70,7 @@ public class DBCitiesHelper extends SQLiteOpenHelper implements BaseColumns {
             return null;
         }
 
-        MyItem[] myItems = new MyItem[cursor.getCount()];
+        MyCityItem[] myItems = new MyCityItem[cursor.getCount()];
 
         int i = 0;
         for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
@@ -82,21 +82,21 @@ public class DBCitiesHelper extends SQLiteOpenHelper implements BaseColumns {
         return myItems;
     }
 
-    public MyItem getItem(String city) {
+    public MyCityItem getItem(String city) {
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.query(TABLE_NAME, null, COLUMN_CITY + "=?", new String[]{city}, null, null, null, null);
 
         cursor.moveToFirst();
-        MyItem myItem = createMyItem(cursor);
+        MyCityItem item = createMyItem(cursor);
 
         db.close();
 
-        return myItem;
+        return item;
     }
 
-    private MyItem createMyItem(Cursor cursor) {
+    private MyCityItem createMyItem(Cursor cursor) {
         String string = cursor.getString(cursor.getColumnIndex(COLUMN_CITY));
 
-        return new MyItem(string);
+        return new MyCityItem(string);
     }
 }

@@ -24,6 +24,7 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:fontFamily="sans-serif"
+            android:gravity="center_vertical"
             android:text="@string/textViewDetailsLocation"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="25sp" />
@@ -40,37 +41,32 @@
                 android:id="@+id/textViewDetailsDay"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="2"
+                android:layout_weight="1.5"
                 android:fontFamily="sans-serif"
+                android:gravity="center_vertical"
                 android:text="@string/textViewDetailsDate"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="25sp" />
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/textViewDetailsLastUpdated"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:orientation="vertical"
-                android:weightSum="1">
+                android:fontFamily="sans-serif-condensed-light"
+                android:gravity="center"
+                android:text="@string/textViewDetailsLastUpdated"
+                android:textColor="@color/colorPrimaryDark"
+                android:visibility="visible" />
 
-                <ImageButton
-                    android:id="@+id/imageButtonDetailsRefresh"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="0.5"
-                    android:backgroundTint="@color/colorWhite"
-                    android:src="@drawable/ic_refresh" />
-
-                <TextView
-                    android:id="@+id/textViewDetailsLastUpdated"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="0.5"
-                    android:fontFamily="sans-serif-condensed-light"
-                    android:gravity="center"
-                    android:text="@string/textViewDetailsLastUpdated"
-                    android:textColor="@color/colorPrimaryDark" />
-            </LinearLayout>
+            <ImageButton
+                android:id="@+id/imageButtonDetailsRefresh"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:background="?android:selectableItemBackgroundBorderless"
+                android:scaleType="center"
+                android:src="@drawable/ic_refresh" />
 
         </LinearLayout>
 
@@ -82,8 +78,10 @@
             android:layout_marginEnd="130dp"
             android:layout_weight="1"
             android:backgroundTint="@color/colorPrimary"
+            android:fontFamily="sans-serif"
             android:text="@string/textViewDetailsStats"
-            android:textColor="@color/colorWhite" />
+            android:textColor="@color/colorWhite"
+            android:textSize="13sp" />
 
     </LinearLayout>
 
