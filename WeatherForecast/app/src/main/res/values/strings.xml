@@ -37,5 +37,6 @@
     <!-- Used in ListActivity -->
     <string name="buttonList"> Add </string>
     <string name="editTextList"> Enter new city </string>
+    <string name="title_activity_statistics">StatisticsActivity</string>
 
 </resources>

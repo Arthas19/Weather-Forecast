@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 
-public class DBHelper extends SQLiteOpenHelper implements BaseColumns {
+public class DBCitiesHelper extends SQLiteOpenHelper implements BaseColumns {
 
     private static final String DATABASE_NAME = "data.db";
     private static final int DATABASE_VERSION = 1;
@@ -15,7 +15,7 @@ public class DBHelper extends SQLiteOpenHelper implements BaseColumns {
     private static final String TABLE_NAME = "data";
     private static final String COLUMN_CITY = "city";
 
-    public DBHelper(Context context) {
+    public DBCitiesHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
@@ -62,7 +62,7 @@ public class DBHelper extends SQLiteOpenHelper implements BaseColumns {
         }
     }
 
-    public MyItem[] getItems() {
+    public MyItem[] getItems(String column, String selection) {
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.query(TABLE_NAME, null, null, null, null, null, null, null);
 

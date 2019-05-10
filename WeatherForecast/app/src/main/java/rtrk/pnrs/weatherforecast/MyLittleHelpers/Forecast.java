@@ -18,6 +18,9 @@ public class Forecast {
 
     private String sunrise, sunset;
 
+    private String city;
+    private String date;
+
     private double windSpeed;
     private String windDirection;
 
@@ -38,6 +41,8 @@ public class Forecast {
             this.pressure = main.getDouble("pressure");
 
             this.windSpeed = wind.getDouble("speed");
+
+            this.city =
 
             try {
                 this.windDirection = convertDegreesToDirection(wind.getDouble("deg"));
