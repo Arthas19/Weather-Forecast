@@ -15,7 +15,7 @@
         android:fontFamily="monospace"
         android:text="Novi Sad"
         android:textColor="@color/colorPrimary"
-        android:textSize="40sp" />
+        android:textSize="50sp" />
 
     <TextView
         android:layout_width="match_parent"
@@ -35,7 +35,7 @@
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="3">
+            android:layout_weight="2.5">
 
             <TableRow
 
@@ -43,23 +43,31 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:layout_marginEnd="30dp"
+                    android:fontFamily="sans-serif-condensed-medium"
                     android:text="Week day:"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/table_font_size" />
 
                 <TextView
-                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="20dp"
+                    android:fontFamily="sans-serif-condensed-medium"
                     android:text="Temperature:"
+
+                    android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/table_font_size" />
 
                 <TextView
-                    android:layout_marginEnd="20dp"
-                    android:text="Pressure"
+                    android:layout_marginStart="20dp"
+                    android:fontFamily="sans-serif-condensed-medium"
+                    android:text="Pressure:"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/table_font_size" />
 
                 <TextView
-                    android:layout_marginEnd="20dp"
-                    android:text="Humidity"
+                    android:layout_marginStart="20dp"
+                    android:fontFamily="sans-serif-condensed-medium"
+                    android:text="Humidity:"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/table_font_size" />
             </TableRow>
 
@@ -77,22 +85,34 @@
                 android:layout_height="match_parent">
 
                 <TextView
+                    android:id="@+id/textViewStatsTableMon"
+                    android:fontFamily="sans-serif-condensed"
                     android:text="Monday"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/table_font_size" />
 
                 <TextView
-                    android:layout_marginEnd="20dp"
-                    android:text="Temperature:"
+                    android:id="@+id/textViewStatsTableMonTemp"
+                    android:fontFamily="sans-serif-condensed"
+                    android:gravity="end"
+                    android:text="Temperature"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/table_font_size" />
 
                 <TextView
-                    android:layout_marginEnd="20dp"
+                    android:id="@+id/textViewStatsTableMonPressure"
+                    android:fontFamily="sans-serif-condensed"
+                    android:gravity="end"
                     android:text="Pressure"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/table_font_size" />
 
                 <TextView
-                    android:layout_marginEnd="20dp"
+                    android:id="@+id/textViewStatsTableMonHumidity"
+                    android:fontFamily="sans-serif-condensed"
+                    android:gravity="end"
                     android:text="Humidity"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/table_font_size" />
             </TableRow>
 
@@ -101,24 +121,36 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/textViewStatsTableTue"
+                    android:fontFamily="sans-serif-condensed"
                     android:text="Tuesday"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/table_font_size"
 
                     />
 
                 <TextView
-                    android:layout_marginEnd="20dp"
-                    android:text="Temperature:"
+                    android:id="@+id/textViewStatsTableTueTemp"
+                    android:fontFamily="sans-serif-condensed"
+                    android:gravity="end"
+                    android:text="Temperature"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/table_font_size" />
 
                 <TextView
-                    android:layout_marginEnd="20dp"
+                    android:id="@+id/textViewStatsTableTuePressure"
+                    android:fontFamily="sans-serif-condensed"
+                    android:gravity="end"
                     android:text="Pressure"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/table_font_size" />
 
                 <TextView
-                    android:layout_marginEnd="20dp"
+                    android:id="@+id/textViewStatsTableTueHumidity"
+                    android:fontFamily="sans-serif-condensed"
+                    android:gravity="end"
                     android:text="Humidity"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/table_font_size" />
 
             </TableRow>
@@ -128,24 +160,36 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/textViewStatsTableWed"
+                    android:fontFamily="sans-serif-condensed"
                     android:text="Wednesday"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/table_font_size"
 
                     />
 
                 <TextView
-                    android:layout_marginEnd="20dp"
-                    android:text="Temperature:"
+                    android:id="@+id/textViewStatsTableWedTemp"
+                    android:fontFamily="sans-serif-condensed"
+                    android:gravity="end"
+                    android:text="Temperature"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/table_font_size" />
 
                 <TextView
-                    android:layout_marginEnd="20dp"
+                    android:id="@+id/textViewStatsTableWedPressure"
+                    android:fontFamily="sans-serif-condensed"
+                    android:gravity="end"
                     android:text="Pressure"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/table_font_size" />
 
                 <TextView
-                    android:layout_marginEnd="20dp"
+                    android:id="@+id/textViewStatsTableWedHumidity"
+                    android:fontFamily="sans-serif-condensed"
+                    android:gravity="end"
                     android:text="Humidity"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/table_font_size" />
 
             </TableRow>
@@ -155,24 +199,34 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/textViewStatsTableThu"
+                    android:fontFamily="sans-serif-condensed"
                     android:text="Thursday"
-                    android:textSize="@dimen/table_font_size"
-
-                    />
-
-                <TextView
-                    android:layout_marginEnd="20dp"
-                    android:text="Temperature:"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/table_font_size" />
 
                 <TextView
-                    android:layout_marginEnd="20dp"
+                    android:id="@+id/textViewStatsTableThuTemp"
+                    android:fontFamily="sans-serif-condensed"
+                    android:gravity="end"
+                    android:text="Temperature"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/table_font_size" />
+
+                <TextView
+                    android:id="@+id/textViewStatsTableThuPressure"
+                    android:fontFamily="sans-serif-condensed"
+                    android:gravity="end"
                     android:text="Pressure"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/table_font_size" />
 
                 <TextView
-                    android:layout_marginEnd="20dp"
+                    android:id="@+id/textViewStatsTableThuHumidity"
+                    android:fontFamily="sans-serif-condensed"
+                    android:gravity="end"
                     android:text="Humidity"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/table_font_size" />
 
             </TableRow>
@@ -182,52 +236,137 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/textViewStatsTableFri"
+                    android:fontFamily="sans-serif-condensed"
                     android:text="Friday"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/table_font_size"
 
                     />
 
                 <TextView
-                    android:layout_marginEnd="20dp"
-                    android:text="Temperature:"
+                    android:id="@+id/textViewStatsTableFriTemp"
+                    android:fontFamily="sans-serif-condensed"
+                    android:gravity="end"
+                    android:text="Temperature"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/table_font_size" />
 
                 <TextView
-                    android:layout_marginEnd="20dp"
+                    android:id="@+id/textViewStatsTableFriPressure"
+                    android:fontFamily="sans-serif-condensed"
+                    android:gravity="end"
                     android:text="Pressure"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/table_font_size" />
 
                 <TextView
-                    android:layout_marginEnd="20dp"
+                    android:id="@+id/textViewStatsTableFriHumidity"
+                    android:fontFamily="sans-serif-condensed"
+                    android:gravity="end"
                     android:text="Humidity"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/table_font_size" />
 
             </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:fontFamily="sans-serif-condensed-medium"
+                    android:text="Min temperature:"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/table_font_size" />
+
+                <TextView
+                    android:gravity="end"
+                    android:text="Monday"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/table_font_size" />
+
+                <TextView />
+
+                <TextView
+                    android:gravity="end"
+                    android:text="11"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/table_font_size" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:fontFamily="sans-serif-condensed-medium"
+                    android:text="Max temperature:"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/table_font_size" />
+
+                <TextView
+                    android:gravity="end"
+                    android:text="Friday"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/table_font_size" />
+
+                <TextView />
+
+                <TextView
+                    android:gravity="end"
+                    android:text="31"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/table_font_size" />
+            </TableRow>
+
 
         </TableLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.5"
-            android:orientation="horizontal">
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
 
             <ImageButton
-                android:layout_width="wrap_content"
+                android:id="@+id/imageButtonStatsSun"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_weight="0.5"
                 android:background="?android:selectableItemBackgroundBorderless"
-                android:scaleType="center"
+                android:scaleType="fitStart"
+                android:src="@drawable/ic_sunny" />
+
+            <ImageButton
+                android:id="@+id/imageButtonStatsSnowflake"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:background="?android:selectableItemBackgroundBorderless"
+                android:scaleType="fitEnd"
                 android:src="@drawable/ic_snowflake" />
 
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="?android:selectableItemBackgroundBorderless"
-                android:scaleType="center"
-                android:src="@drawable/ic_sunny" />
         </LinearLayout>
 
         <TextView
+
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.5" />
