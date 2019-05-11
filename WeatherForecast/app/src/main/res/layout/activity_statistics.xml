@@ -345,6 +345,49 @@
                 android:textSize="@dimen/table_font_size" />
         </TableRow>
 
+        <TableRow>
+
+            <TextView
+                android:id="@+id/textViewStatsTableSun"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif-condensed"
+                android:text="@string/sunday"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/table_font_size" />
+
+            <TextView
+                android:id="@+id/textViewStatsTableSunTemp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif-condensed"
+                android:gravity="end"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/table_font_size" />
+
+            <TextView
+                android:id="@+id/textViewStatsTableSunPressure"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif-condensed"
+                android:gravity="end"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/table_font_size" />
+
+            <TextView
+                android:id="@+id/textViewStatsTableSunHumidity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif-condensed"
+                android:gravity="end"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/table_font_size" />
+        </TableRow>
+
 
         <TableRow
             android:layout_width="match_parent"

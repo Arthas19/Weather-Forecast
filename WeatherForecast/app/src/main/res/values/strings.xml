@@ -57,5 +57,6 @@
     <string name="min_temperature">Min temperature:</string>
     <string name="max_temperature">Max temperature:</string>
     <string name="saturday">Saturday</string>
+    <string name="sunday">Sunday</string>
 
 </resources>
