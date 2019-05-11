@@ -7,11 +7,6 @@ import android.widget.ImageButton;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import rtrk.pnrs.weatherforecast.MyLittleHelpers.DBWeatherHelper;
 import rtrk.pnrs.weatherforecast.MyLittleHelpers.Forecast;
 
@@ -79,20 +74,11 @@ public class StatisticsActivity extends AppCompatActivity {
     }
 
     private void setMinTmp() {
-        Forecast forecast = dbWeatherHelper.getItem("Novi Sad");
+        Forecast forecast = dbWeatherHelper.getItem(getCity());
 
-        DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-        Date date = null;
-        try {
-            date = df.parse(forecast.getDate());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        String weekDay = forecast.convertDateToWeekDay();
 
-        SimpleDateFormat sdf = new SimpleDateFormat("EEE");
-        String d = sdf.format(date);
-
-        minTempDay.setText(d);
+        minTempDay.setText(weekDay);
         minTempValue.setText(String.valueOf(forecast.getTemperature()));
     }
 }

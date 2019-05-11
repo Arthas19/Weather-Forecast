@@ -5,6 +5,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -155,5 +156,23 @@ public class Forecast {
         } else {
             return "";
         }
+    }
+
+    public String convertDateToWeekDay() {
+        String weekDay = null;
+
+        Date date = null;
+        DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE");
+
+        try {
+            date = df.parse(this.date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        weekDay = sdf.format(date);
+
+        return weekDay;
     }
 }

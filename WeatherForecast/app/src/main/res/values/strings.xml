@@ -37,13 +37,11 @@
     <!-- Used in ListActivity -->
     <string name="buttonList"> Add </string>
     <string name="editTextList"> Enter new city </string>
+
+    <!-- Used in StatisticsActivity -->
     <string name="title_activity_statistics">StatisticsActivity</string>
-    <string name="textViewStatsCity" />
     <string name="textViewStatsLastWeek">Last week:</string>
     <string name="textViewStatsWeekDay">Week day:</string>
-    <string name="textViewStatsTemp">Temperature:</string>
-    <string name="textViewStatsPressure">Pressure:</string>
-    <string name="textViewHumidity">Humidity:</string>
     <string name="last_week">Last week:</string>
     <string name="week_day">Week day:</string>
     <string name="temperature">Temperature:</string>
