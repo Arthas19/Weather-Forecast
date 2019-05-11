@@ -42,7 +42,8 @@ public class StatisticsActivity extends AppCompatActivity {
         sun = findViewById(R.id.imageButtonStatsSun);
         snowflake = findViewById(R.id.imageButtonStatsSnowflake);
 
-        setMinTmp();
+        setMinTemp();
+        setMaxTemp();
 
         sun.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,12 +74,21 @@ public class StatisticsActivity extends AppCompatActivity {
         return city;
     }
 
-    private void setMinTmp() {
+    private void setMinTemp() {
         Forecast forecast = dbWeatherHelper.getItem(getCity());
 
         String weekDay = forecast.convertDateToWeekDay();
 
         minTempDay.setText(weekDay);
         minTempValue.setText(String.valueOf(forecast.getTemperature()));
+    }
+
+    private void setMaxTemp() {
+        Forecast forecast = dbWeatherHelper.getItem(getCity());
+
+        String weekDay = forecast.convertDateToWeekDay();
+
+        maxTempDay.setText(weekDay);
+        maxTempValue.setText(String.valueOf(forecast.getTemperature()));
     }
 }

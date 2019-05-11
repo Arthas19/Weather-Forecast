@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
-import android.util.Log;
 
 public class DBWeatherHelper extends SQLiteOpenHelper implements BaseColumns {
 
@@ -113,11 +112,13 @@ public class DBWeatherHelper extends SQLiteOpenHelper implements BaseColumns {
     public Forecast getItem(String city) {
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.query(TABLE_NAME, null, COLUMN_CITY + "=?", new String[]{city}, null, null, null, null);
+        //String sellArgs = "select * from " + TABLE_NAME + " where max(" + COLUMN_TEMPERATURE + ") and " + COLUMN_CITY + " == " + city + ";";
+        //Cursor cursor = db.rawQuery(sellArgs,null,  null);
 
-        if (cursor.getCount() <= 0) {
-            Log.d("UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUuu", "RADIM POSAO");
+
+        if (cursor.getCount() <= 0)
             return null;
-        }
+
 
         cursor.moveToLast();
         Forecast forecast = createForecastItem(cursor);
