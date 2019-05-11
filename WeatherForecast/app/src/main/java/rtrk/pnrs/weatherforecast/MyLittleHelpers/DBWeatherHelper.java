@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
+import android.util.Log;
 
 public class DBWeatherHelper extends SQLiteOpenHelper implements BaseColumns {
 
@@ -114,6 +115,7 @@ public class DBWeatherHelper extends SQLiteOpenHelper implements BaseColumns {
         Cursor cursor = db.query(TABLE_NAME, null, COLUMN_CITY + "=?", new String[]{city}, null, null, null, null);
 
         if (cursor.getCount() <= 0) {
+            Log.d("UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUuu", "RADIM POSAO");
             return null;
         }
 

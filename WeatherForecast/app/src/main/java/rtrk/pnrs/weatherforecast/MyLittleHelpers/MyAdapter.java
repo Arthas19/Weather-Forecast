@@ -19,7 +19,7 @@ import rtrk.pnrs.weatherforecast.R;
 
 public class MyAdapter extends BaseAdapter {
 
-    private static String KEY = "location";
+    private static String KEY = "city";
 
     private Context mContext;
     private ArrayList<MyCityItem> mList;

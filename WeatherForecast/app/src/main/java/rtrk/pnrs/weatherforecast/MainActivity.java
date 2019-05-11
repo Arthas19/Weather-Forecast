@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final String KEY = "location";
+    public static final String KEY = "city";
 
     Button show;
     EditText location;

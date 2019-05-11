@@ -1,4 +1,4 @@
 <resources>
     <dimen name="stats_margin">15dp</dimen>
-    <dimen name="table_font_size">16sp</dimen>
+    <dimen name="table_font_size"> 16sp </dimen>
 </resources>

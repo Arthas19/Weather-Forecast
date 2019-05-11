@@ -38,5 +38,24 @@
     <string name="buttonList"> Add </string>
     <string name="editTextList"> Enter new city </string>
     <string name="title_activity_statistics">StatisticsActivity</string>
+    <string name="textViewStatsCity" />
+    <string name="textViewStatsLastWeek">Last week:</string>
+    <string name="textViewStatsWeekDay">Week day:</string>
+    <string name="textViewStatsTemp">Temperature:</string>
+    <string name="textViewStatsPressure">Pressure:</string>
+    <string name="textViewHumidity">Humidity:</string>
+    <string name="last_week">Last week:</string>
+    <string name="week_day">Week day:</string>
+    <string name="temperature">Temperature:</string>
+    <string name="pressure">Pressure:</string>
+    <string name="humidity">Humidity:</string>
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="min_temperature">Min temperature:</string>
+    <string name="max_temperature">Max temperature:</string>
+    <string name="saturday">Saturday</string>
 
 </resources>

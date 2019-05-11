@@ -1,8 +1,10 @@
 package rtrk.pnrs.weatherforecast;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -26,7 +28,7 @@ import static rtrk.pnrs.weatherforecast.MyLittleHelpers.Forecast.SECRET_KEY;
 
 public class DetailsActivity extends AppCompatActivity {
 
-    private static final String KEY = "location";
+    private static final String KEY = "city";
 
     LinearLayout linearLayoutTemperature, linearLayoutSns, linearLayoutWind;
     TextView date, location;
@@ -35,6 +37,7 @@ public class DetailsActivity extends AppCompatActivity {
     TextView textViewSunrise, textViewSunset;
     TextView textViewWindSpeed, textViewWindDirection;
     Button buttonTemperature, buttonSns, buttonWind;
+    Button buttonStats;
     ImageButton imageButtonRefresh;
     Spinner spinner;
 
@@ -49,6 +52,8 @@ public class DetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
 
+        dbWeatherHelper = new DBWeatherHelper(this);
+
         date = findViewById(R.id.textViewDetailsDay);
         //date.setText(String.format("%s %s", getString(R.string.textViewDetailsDate), currDate));
 
@@ -61,6 +66,7 @@ public class DetailsActivity extends AppCompatActivity {
         buttonTemperature = findViewById(R.id.buttonDetailsTemperature);
         buttonSns = findViewById(R.id.buttonDetailsSns);
         buttonWind = findViewById(R.id.buttonDetailsWind);
+        buttonStats = findViewById(R.id.buttonDetailsStats);
 
         textViewTemperature = findViewById(R.id.textViewDetailsTemperature);
         textViewPressure = findViewById(R.id.textViewDetailsPressure);
@@ -129,6 +135,15 @@ public class DetailsActivity extends AppCompatActivity {
             }
         });
 
+        buttonStats.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DetailsActivity.this, StatisticsActivity.class);
+                intent.putExtra(KEY, forecast.getCity());
+                startActivity(intent);
+            }
+        });
+
         buttonTemperature.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -168,16 +183,16 @@ public class DetailsActivity extends AppCompatActivity {
 
     private String getLocation() {
 
-        String location = "Novi Sad";
+        String city = "Novi Sad";
 
         try {
             if (getIntent().hasExtra(KEY))
-                location = getIntent().getStringExtra(KEY);
+                city = getIntent().getStringExtra(KEY);
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
         }
 
-        return location;
+        return city;
     }
 
     @SuppressLint("DefaultLocale")
@@ -186,12 +201,14 @@ public class DetailsActivity extends AppCompatActivity {
         final String CITY = getLocation();
         final String URL = BASE_URL + CITY + EXTRAS + SECRET_KEY;
 
-        dbWeatherHelper = new DBWeatherHelper(this);
-
         forecast = dbWeatherHelper.getItem(CITY);
 
-        if (forecast == null)
+        if (forecast == null) {
             forecast = new Forecast(URL);
+            if( dbWeatherHelper.insert(forecast) ) {
+                Log.d("RADIM RADIM I UBACUJEM MAJSTORE", "RADIM RADIM");
+            }
+        }
 
         runOnUiThread(new Runnable() {
             @Override
@@ -211,10 +228,14 @@ public class DetailsActivity extends AppCompatActivity {
                 textViewSunset.setText(forecast.getSunset());
 
                 if (!currDate.equals(forecast.getDate()))
-                    lastUpdated.setVisibility(View.VISIBLE);
-                else
                     lastUpdated.setVisibility(View.INVISIBLE);
+                else
+                    lastUpdated.setVisibility(View.VISIBLE);
             }
         });
+
+        if ( dbWeatherHelper.getItem(CITY) != null ) {
+            Log.d("JA SAM SKROZ OK NIJE DO MENE", "Sudbina je u zivotu nagradila mene.");
+        }
     }
 }
