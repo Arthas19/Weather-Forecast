@@ -5,7 +5,6 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -16,7 +15,7 @@ public class Forecast {
     public static final String SECRET_KEY = "&APPID=8827e28e1ab35a7ff0a4a64651bea798";
     public static final String EXTRAS = "&units=metric";
 
-    private String city, date;
+    private String city, date, weekday;
 
     private double temperature, humidity, pressure;
 
@@ -45,6 +44,7 @@ public class Forecast {
 
             this.city = json.getString("name");
             this.date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+            this.weekday = new SimpleDateFormat("EEE", Locale.getDefault()).format(new Date());
 
             try {
                 this.windDirection = convertDegreesToDirection(wind.getDouble("deg"));
@@ -64,9 +64,10 @@ public class Forecast {
     }
 
     /* Deep in dat data */
-    public Forecast(String city, String date, double temperature, double humidity, double pressure, String sunrise, String sunset, double windSpeed, String windDirection) {
+    public Forecast(String city, String date, String weekday, double temperature, double humidity, double pressure, String sunrise, String sunset, double windSpeed, String windDirection) {
         this.city = city;
         this.date = date;
+        this.weekday = weekday;
         this.temperature = temperature;
         this.humidity = humidity;
         this.pressure = pressure;
@@ -81,6 +82,14 @@ public class Forecast {
         Date date = new Date(ut * 1000L);
 
         return DateFormat.getTimeInstance(DateFormat.SHORT, Locale.getDefault()).format(date);
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getDate() {
+        return date;
     }
 
     public double getTemperature() {
@@ -109,14 +118,6 @@ public class Forecast {
 
     public String getWindDirection() {
         return windDirection;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public String getDate() {
-        return date;
     }
 
     private static String convertDegreesToDirection(double deg) {
@@ -158,21 +159,7 @@ public class Forecast {
         }
     }
 
-    public String convertDateToWeekDay() {
-        String weekDay = null;
-
-        Date date = null;
-        DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-        SimpleDateFormat sdf = new SimpleDateFormat("EEE");
-
-        try {
-            date = df.parse(this.date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        weekDay = sdf.format(date);
-
-        return weekDay;
+    public String getWeekDay() {
+        return weekday;
     }
 }

@@ -44,8 +44,7 @@ public class DetailsActivity extends AppCompatActivity {
     Forecast forecast;
     DBWeatherHelper dbWeatherHelper;
 
-    String currDate = new SimpleDateFormat("EE", Locale.getDefault()).format(new Date());
-    // String currDate = "11-05-2019";
+    String currDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,11 +53,11 @@ public class DetailsActivity extends AppCompatActivity {
 
         dbWeatherHelper = new DBWeatherHelper(this);
 
+        dummyValues();
+
         date = findViewById(R.id.textViewDetailsDay);
-        //date.setText(String.format("%s %s", getString(R.string.textViewDetailsDate), currDate));
 
         location = findViewById(R.id.textViewDetailsLocation);
-        //location.setText(String.format("%s %s", getString(R.string.textViewDetailsLocation), getLocation()));
 
         lastUpdated = findViewById(R.id.textViewDetailsLastUpdated);
         imageButtonRefresh = findViewById(R.id.imageButtonDetailsRefresh);
@@ -90,7 +89,7 @@ public class DetailsActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                refreshData();
+                refreshData(0);
             }
         }).start();
 
@@ -129,7 +128,7 @@ public class DetailsActivity extends AppCompatActivity {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        refreshData();
+                        refreshData(1);
                     }
                 }).start();
             }
@@ -196,17 +195,17 @@ public class DetailsActivity extends AppCompatActivity {
     }
 
     @SuppressLint("DefaultLocale")
-    private void refreshData() {
+    private void refreshData(int force) {
 
         final String CITY = getLocation();
         final String URL = BASE_URL + CITY + EXTRAS + SECRET_KEY;
 
         forecast = dbWeatherHelper.getItem(CITY);
 
-        if (forecast == null) {
+        if (forecast == null || force == 1) {
             forecast = new Forecast(URL);
             if( dbWeatherHelper.insert(forecast) ) {
-                Log.d("RADIM RADIM I UBACUJEM MAJSTORE", "RADIM RADIM");
+                Log.d("Insert in DB", "SUCCESSFUL");
             }
         }
 
@@ -227,15 +226,20 @@ public class DetailsActivity extends AppCompatActivity {
                 textViewSunrise.setText(forecast.getSunrise());
                 textViewSunset.setText(forecast.getSunset());
 
-                if (!currDate.equals(forecast.getDate()))
+                if (currDate.equals(forecast.getDate()))
                     lastUpdated.setVisibility(View.INVISIBLE);
                 else
                     lastUpdated.setVisibility(View.VISIBLE);
             }
         });
+    }
 
-        if ( dbWeatherHelper.getItem(CITY) != null ) {
-            Log.d("JA SAM SKROZ OK NIJE DO MENE", "Sudbina je u zivotu nagradila mene.");
-        }
+    private void dummyValues() {
+        dbWeatherHelper.insert(new Forecast("Novi Sad", "06-05-2019", "Mon", 19.0, 0.66, 1.01, "05:00", "21:00", 16.0, "NE"));
+        dbWeatherHelper.insert(new Forecast("Novi Sad", "07-05-2019", "Tue", 15.0, 0.66, 1.01, "05:00", "21:00", 16.0, "NE"));
+        dbWeatherHelper.insert(new Forecast("Novi Sad", "08-05-2019", "Wed", 12.0, 0.66, 1.01, "05:00", "21:00", 16.0, "NE"));
+        dbWeatherHelper.insert(new Forecast("Novi Sad", "09-05-2019", "Thu", 10.0, 0.66, 1.01, "05:00", "21:00", 16.0, "NE"));
+        dbWeatherHelper.insert(new Forecast("Novi Sad", "10-05-2019", "Fri", 15.0, 0.66, 1.01, "05:00", "21:00", 16.0, "NE"));
+        dbWeatherHelper.insert(new Forecast("Novi Sad", "11-05-2019", "Sat", 19.0, 0.66, 1.01, "05:00", "21:00", 16.0, "NE"));
     }
 }

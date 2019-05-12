@@ -75,20 +75,18 @@ public class StatisticsActivity extends AppCompatActivity {
     }
 
     private void setMinTemp() {
-        Forecast forecast = dbWeatherHelper.getItem(getCity());
+        Forecast[] forecasts = dbWeatherHelper.getItems(getCity(), 1);
 
-        String weekDay = forecast.convertDateToWeekDay();
+        minTempDay.setText(forecasts[0].getWeekDay());
+        minTempValue.setText(String.valueOf(forecasts[0].getTemperature()));
 
-        minTempDay.setText(weekDay);
-        minTempValue.setText(String.valueOf(forecast.getTemperature()));
     }
 
     private void setMaxTemp() {
-        Forecast forecast = dbWeatherHelper.getItem(getCity());
+        Forecast[] forecasts = dbWeatherHelper.getItems(getCity(), 2);
 
-        String weekDay = forecast.convertDateToWeekDay();
+        maxTempDay.setText(forecasts[0].getWeekDay());
+        maxTempValue.setText(String.valueOf(forecasts[0].getTemperature()));
 
-        maxTempDay.setText(weekDay);
-        maxTempValue.setText(String.valueOf(forecast.getTemperature()));
     }
 }
