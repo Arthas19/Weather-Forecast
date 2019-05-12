@@ -239,7 +239,7 @@ public class DetailsActivity extends AppCompatActivity {
         dbWeatherHelper.insert(new Forecast("Novi Sad", "07-05-2019", "Tue", 15.0, 0.66, 1.01, "05:00", "21:00", 16.0, "NE"));
         dbWeatherHelper.insert(new Forecast("Novi Sad", "08-05-2019", "Wed", 12.0, 0.66, 1.01, "05:00", "21:00", 16.0, "NE"));
         dbWeatherHelper.insert(new Forecast("Novi Sad", "09-05-2019", "Thu", 10.0, 0.66, 1.01, "05:00", "21:00", 16.0, "NE"));
-        dbWeatherHelper.insert(new Forecast("Novi Sad", "10-05-2019", "Fri", 15.0, 0.66, 1.01, "05:00", "21:00", 16.0, "NE"));
-        dbWeatherHelper.insert(new Forecast("Novi Sad", "11-05-2019", "Sat", 19.0, 0.66, 1.01, "05:00", "21:00", 16.0, "NE"));
+        dbWeatherHelper.insert(new Forecast("Novi Sad", "10-05-2019", "Fri", 31.9, 0.66, 1.01, "05:00", "21:00", 16.0, "NE"));
+        dbWeatherHelper.insert(new Forecast("Novi Sad", "11-05-2019", "Sat", 31.9, 0.66, 1.01, "05:00", "21:00", 16.0, "NE"));
     }
 }

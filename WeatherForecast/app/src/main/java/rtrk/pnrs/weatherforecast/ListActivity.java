@@ -10,6 +10,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import rtrk.pnrs.weatherforecast.MyLittleHelpers.DBCitiesHelper;
+import rtrk.pnrs.weatherforecast.MyLittleHelpers.DBWeatherHelper;
+import rtrk.pnrs.weatherforecast.MyLittleHelpers.Forecast;
 import rtrk.pnrs.weatherforecast.MyLittleHelpers.MyAdapter;
 import rtrk.pnrs.weatherforecast.MyLittleHelpers.MyCityItem;
 
@@ -19,6 +21,8 @@ public class ListActivity extends AppCompatActivity {
     private EditText editText;
     private MyAdapter adapter;
     private DBCitiesHelper dbCitiesHelper;
+    private DBWeatherHelper dbWeatherHelper;
+    private Forecast forecast;
 
     @Override
     protected void onResume() {
@@ -45,6 +49,7 @@ public class ListActivity extends AppCompatActivity {
         listView = findViewById(R.id.listViewListActivity);
 
         dbCitiesHelper = new DBCitiesHelper(this);
+        dbWeatherHelper = new DBWeatherHelper(this);
         adapter = new MyAdapter(this);
 
         listView.setAdapter(adapter);
@@ -69,11 +74,11 @@ public class ListActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String txt = editText.getText().toString();
-                txt = capWords(txt);
+                String city = editText.getText().toString();
+                city = capWords(city);
 
-                if (!txt.equals("")) {
-                    if (!adapter.addItem(new MyCityItem(txt))) {
+                if (!city.equals("")) {
+                    if (!adapter.addItem(new MyCityItem(city))) {
                         Toast.makeText(button.getContext(), "City already in the list", Toast.LENGTH_SHORT).show();
                     } else {
                         if (dbCitiesHelper.insert(txt)) {
@@ -126,5 +131,9 @@ public class ListActivity extends AppCompatActivity {
                 adapter.update(myItems);
             }
         });
+    }
+
+    private void addCityToDB() {
+
     }
 }

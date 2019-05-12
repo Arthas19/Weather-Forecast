@@ -1,7 +1,9 @@
 package rtrk.pnrs.weatherforecast;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TableLayout;
@@ -224,5 +226,22 @@ public class StatisticsActivity extends AppCompatActivity {
 
         maxTempDay.setText(forecasts[0].getWeekDay());
         maxTempValue.setText(String.valueOf(forecasts[0].getTemperature()));
+    }
+
+    private void addTableRow(String weekday, double temp) {
+        LayoutInflater inflater = (LayoutInflater) table.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = inflater.inflate(R.layout.table_row, null);
+
+        TextView tv1 = findViewById(R.id.tableRowCel1);
+        TextView tv2 = findViewById(R.id.tableRowCel2);
+        TextView tv3 = findViewById(R.id.tableRowCel3);
+        TextView tv4 = findViewById(R.id.tableRowCel4);
+
+        tv1.setText("");
+        tv2.setText(weekday);
+        tv3.setText("");
+        tv4.setText(String.valueOf(temp));
+
+        table.addView(view);
     }
 }

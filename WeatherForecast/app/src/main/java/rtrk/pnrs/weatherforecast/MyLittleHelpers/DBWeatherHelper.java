@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
+import android.util.Log;
 
 public class DBWeatherHelper extends SQLiteOpenHelper implements BaseColumns {
 
@@ -122,6 +123,11 @@ public class DBWeatherHelper extends SQLiteOpenHelper implements BaseColumns {
         for (cursor.moveToLast(); !cursor.isBeforeFirst(); cursor.moveToPrevious()) {
             forecasts[i++] = createForecastItem(cursor);
         }
+
+        Log.d("SAD CU DA SE POJAVIM", "SAD CU DA NESTANEM");
+        Log.d(forecasts[0].getDate(), String.valueOf(forecasts[0].getTemperature()));
+        Log.d(forecasts[1].getDate(), String.valueOf(forecasts[1].getTemperature()));
+        Log.d(forecasts[2].getDate(), String.valueOf(forecasts[2].getTemperature()));
 
         db.close();
 
