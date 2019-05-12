@@ -44,7 +44,7 @@ public class DetailsActivity extends AppCompatActivity {
     Forecast forecast;
     DBWeatherHelper dbWeatherHelper;
 
-    String currDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+    public static final String currDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

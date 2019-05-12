@@ -119,7 +119,7 @@ public class DBWeatherHelper extends SQLiteOpenHelper implements BaseColumns {
         Forecast[] forecasts = new Forecast[cursor.getCount()];
 
         int i = 0;
-        for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+        for (cursor.moveToLast(); !cursor.isBeforeFirst(); cursor.moveToPrevious()) {
             forecasts[i++] = createForecastItem(cursor);
         }
 
