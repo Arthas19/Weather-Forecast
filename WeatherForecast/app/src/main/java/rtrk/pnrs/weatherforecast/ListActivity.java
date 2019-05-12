@@ -2,6 +2,7 @@ package rtrk.pnrs.weatherforecast;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -9,20 +10,16 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import rtrk.pnrs.weatherforecast.MyLittleHelpers.DBCitiesHelper;
 import rtrk.pnrs.weatherforecast.MyLittleHelpers.DBWeatherHelper;
 import rtrk.pnrs.weatherforecast.MyLittleHelpers.Forecast;
-import rtrk.pnrs.weatherforecast.MyLittleHelpers.MyAdapter;
-import rtrk.pnrs.weatherforecast.MyLittleHelpers.MyCityItem;
+import rtrk.pnrs.weatherforecast.MyLittleHelpers.MyListAdapter;
 
 public class ListActivity extends AppCompatActivity {
 
     private Button button;
     private EditText editText;
-    private MyAdapter adapter;
-    private DBCitiesHelper dbCitiesHelper;
+    private MyListAdapter myListAdapter;
     private DBWeatherHelper dbWeatherHelper;
-    private Forecast forecast;
 
     @Override
     protected void onResume() {
@@ -48,16 +45,15 @@ public class ListActivity extends AppCompatActivity {
         ListView listView;
         listView = findViewById(R.id.listViewListActivity);
 
-        dbCitiesHelper = new DBCitiesHelper(this);
         dbWeatherHelper = new DBWeatherHelper(this);
-        adapter = new MyAdapter(this);
+        myListAdapter = new MyListAdapter(this);
 
-        listView.setAdapter(adapter);
+        listView.setAdapter(myListAdapter);
 
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                if (dbCitiesHelper.remove(adapter.getItem(position).getText())) {
+                if (dbWeatherHelper.remove(myListAdapter.getItem(position))) {
 
                     new Thread(new Runnable() {
                         @Override
@@ -78,18 +74,20 @@ public class ListActivity extends AppCompatActivity {
                 city = capWords(city);
 
                 if (!city.equals("")) {
-                    if (!adapter.addItem(new MyCityItem(city))) {
+                    if (myListAdapter.isItemInList(city)) {
                         Toast.makeText(button.getContext(), "City already in the list", Toast.LENGTH_SHORT).show();
                     } else {
-                        if (dbCitiesHelper.insert(txt)) {
-
-                            new Thread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    refreshData();
+                        final String finalCity = city;
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (dbWeatherHelper.insert(new Forecast(finalCity))) {
+                                    Log.d("Insert in DB", "SUCCESSFUL");
                                 }
-                            }).start();
-                        }
+
+                                refreshData();
+                            }
+                        }).start();
                     }
                 } else {
                     Toast.makeText(button.getContext(), "You need to enter a new city", Toast.LENGTH_SHORT).show();
@@ -124,16 +122,12 @@ public class ListActivity extends AppCompatActivity {
     }
 
     private void refreshData() {
-        final MyCityItem[] myItems = dbCitiesHelper.getItems();
+        final String[] cities = dbWeatherHelper.getCities();
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                adapter.update(myItems);
+                myListAdapter.update(cities);
             }
         });
-    }
-
-    private void addCityToDB() {
-
     }
 }

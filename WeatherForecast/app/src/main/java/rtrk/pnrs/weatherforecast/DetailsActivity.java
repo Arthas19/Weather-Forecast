@@ -22,13 +22,12 @@ import java.util.Locale;
 import rtrk.pnrs.weatherforecast.MyLittleHelpers.DBWeatherHelper;
 import rtrk.pnrs.weatherforecast.MyLittleHelpers.Forecast;
 
-import static rtrk.pnrs.weatherforecast.MyLittleHelpers.Forecast.BASE_URL;
-import static rtrk.pnrs.weatherforecast.MyLittleHelpers.Forecast.EXTRAS;
-import static rtrk.pnrs.weatherforecast.MyLittleHelpers.Forecast.SECRET_KEY;
 
 public class DetailsActivity extends AppCompatActivity {
 
     private static final String KEY = "city";
+    @SuppressLint("ConstantLocale")
+    public static final String currDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
 
     LinearLayout linearLayoutTemperature, linearLayoutSns, linearLayoutWind;
     TextView date, location;
@@ -41,10 +40,8 @@ public class DetailsActivity extends AppCompatActivity {
     ImageButton imageButtonRefresh;
     Spinner spinner;
 
-    Forecast forecast;
     DBWeatherHelper dbWeatherHelper;
-
-    public static final String currDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+    private static String CITY;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +50,21 @@ public class DetailsActivity extends AppCompatActivity {
 
         dbWeatherHelper = new DBWeatherHelper(this);
 
-        dummyValues();
+        CITY = getCity();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        setLatestData();
+                    }
+                });
+            }
+        }).start();
+
+
+        //dummyValues();
 
         date = findViewById(R.id.textViewDetailsDay);
 
@@ -85,13 +96,6 @@ public class DetailsActivity extends AppCompatActivity {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.spinnerDetailsCF, R.layout.spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                refreshData(0);
-            }
-        }).start();
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @SuppressLint("DefaultLocale")
@@ -128,7 +132,7 @@ public class DetailsActivity extends AppCompatActivity {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        refreshData(1);
+                        refreshData();
                     }
                 }).start();
             }
@@ -138,7 +142,7 @@ public class DetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(DetailsActivity.this, StatisticsActivity.class);
-                intent.putExtra(KEY, forecast.getCity());
+                intent.putExtra(KEY, CITY);
                 startActivity(intent);
             }
         });
@@ -180,7 +184,7 @@ public class DetailsActivity extends AppCompatActivity {
         });
     }
 
-    private String getLocation() {
+    private String getCity() {
 
         String city = "Novi Sad";
 
@@ -194,52 +198,52 @@ public class DetailsActivity extends AppCompatActivity {
         return city;
     }
 
-    @SuppressLint("DefaultLocale")
-    private void refreshData(int force) {
+    private void refreshData() {
 
-        final String CITY = getLocation();
-        final String URL = BASE_URL + CITY + EXTRAS + SECRET_KEY;
+        Forecast forecast = new Forecast(CITY);
 
-        forecast = dbWeatherHelper.getItem(CITY);
-
-        if (forecast == null || force == 1) {
-            forecast = new Forecast(URL);
-            if( dbWeatherHelper.insert(forecast) ) {
-                Log.d("Insert in DB", "SUCCESSFUL");
-            }
+        if (dbWeatherHelper.insert(forecast)) {
+            Log.d("Insert in DB", "SUCCESSFUL");
         }
 
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-
-                location.setText(String.format("%s %s", getString(R.string.textViewDetailsLocation), CITY));
-                date.setText(String.format("%s %s", getString(R.string.textViewDetailsDate), forecast.getDate()));
-
-                textViewTemperature.setText(String.format("%s %.2f", getString(R.string.textViewDetailsTemperature), forecast.getTemperature()));
-                textViewHumidity.setText(String.format("%s %.2f", getString(R.string.textViewDetailsHumidity), forecast.getHumidity()));
-                textViewPressure.setText(String.format("%s %.2f", getString(R.string.textViewDetailsPressure), forecast.getPressure()));
-
-                textViewWindSpeed.setText(String.format("%s %.2f", getString(R.string.textViewDetailsWindSpeed), forecast.getWindSpeed()));
-                textViewWindDirection.setText(String.format("%s %s", getString(R.string.textViewDetailsWindDirection), forecast.getWindDirection()));
-
-                textViewSunrise.setText(forecast.getSunrise());
-                textViewSunset.setText(forecast.getSunset());
-
-                if (currDate.equals(forecast.getDate()))
-                    lastUpdated.setVisibility(View.INVISIBLE);
-                else
-                    lastUpdated.setVisibility(View.VISIBLE);
+                setLatestData();
             }
         });
+    }
+
+    @SuppressLint("DefaultLocale")
+    private void setLatestData() {
+        Forecast forecast = dbWeatherHelper.getItem(CITY);
+
+        location.setText(String.format("%s %s", getString(R.string.textViewDetailsLocation), CITY));
+        date.setText(String.format("%s %s", getString(R.string.textViewDetailsDate), forecast.getDate()));
+
+        textViewTemperature.setText(String.format("%s %.2f", getString(R.string.textViewDetailsTemperature), forecast.getTemperature()));
+        textViewHumidity.setText(String.format("%s %.2f", getString(R.string.textViewDetailsHumidity), forecast.getHumidity()));
+        textViewPressure.setText(String.format("%s %.2f", getString(R.string.textViewDetailsPressure), forecast.getPressure()));
+
+        textViewWindSpeed.setText(String.format("%s %.2f", getString(R.string.textViewDetailsWindSpeed), forecast.getWindSpeed()));
+        textViewWindDirection.setText(String.format("%s %s", getString(R.string.textViewDetailsWindDirection), forecast.getWindDirection()));
+
+        textViewSunrise.setText(forecast.getSunrise());
+        textViewSunset.setText(forecast.getSunset());
+
+        if (currDate.equals(forecast.getDate()))
+            lastUpdated.setVisibility(View.INVISIBLE);
+        else
+            lastUpdated.setVisibility(View.VISIBLE);
     }
 
     private void dummyValues() {
         dbWeatherHelper.insert(new Forecast("Novi Sad", "06-05-2019", "Mon", 19.0, 0.66, 1.01, "05:00", "21:00", 16.0, "NE"));
         dbWeatherHelper.insert(new Forecast("Novi Sad", "07-05-2019", "Tue", 15.0, 0.66, 1.01, "05:00", "21:00", 16.0, "NE"));
         dbWeatherHelper.insert(new Forecast("Novi Sad", "08-05-2019", "Wed", 12.0, 0.66, 1.01, "05:00", "21:00", 16.0, "NE"));
-        dbWeatherHelper.insert(new Forecast("Novi Sad", "09-05-2019", "Thu", 10.0, 0.66, 1.01, "05:00", "21:00", 16.0, "NE"));
+        dbWeatherHelper.insert(new Forecast("Novi Sad", "09-05-2019", "Thu", -10.0, 0.66, 1.01, "05:00", "21:00", 16.0, "NE"));
         dbWeatherHelper.insert(new Forecast("Novi Sad", "10-05-2019", "Fri", 31.9, 0.66, 1.01, "05:00", "21:00", 16.0, "NE"));
         dbWeatherHelper.insert(new Forecast("Novi Sad", "11-05-2019", "Sat", 31.9, 0.66, 1.01, "05:00", "21:00", 16.0, "NE"));
+        dbWeatherHelper.insert(new Forecast("Novi Sad", "12-05-2019", "Sun", -13, 0.66, 1.01, "05:00", "21:00", 16.0, "NE"));
     }
 }

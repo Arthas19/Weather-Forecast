@@ -14,7 +14,7 @@
         android:layout_marginBottom="50dp"
         android:fontFamily="monospace"
         android:textColor="@color/colorPrimary"
-        android:textSize="50sp" />
+        android:textSize="40sp" />
 
     <TextView
         android:layout_width="match_parent"
@@ -25,450 +25,72 @@
         android:textColor="@color/colorPrimaryDark"
         android:textSize="30sp" />
 
-    <TableLayout
-        android:id="@+id/tableLayoutStats"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TableRow>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="sans-serif-condensed-medium"
-                android:gravity="start"
-                android:text="@string/week_day"
-                android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/table_font_size" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="sans-serif-condensed-medium"
-                android:gravity="end"
-                android:text="@string/temperature"
-                android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/table_font_size" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="sans-serif-condensed-medium"
-                android:gravity="end"
-                android:text="@string/pressure"
-                android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/table_font_size" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="sans-serif-condensed-medium"
-                android:gravity="end"
-                android:text="@string/humidity"
-                android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/table_font_size" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <TextView />
-        </TableRow>
-
-
-        <TableRow>
-            <TextView
-                android:id="@+id/textViewStatsTableMon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="sans-serif-condensed"
-                android:text="@string/monday"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/table_font_size" />
-
-            <TextView
-                android:id="@+id/textViewStatsTableMonTemp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="sans-serif-condensed"
-                android:gravity="end"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/table_font_size" />
-
-            <TextView
-                android:id="@+id/textViewStatsTableMonPressure"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="sans-serif-condensed"
-                android:gravity="end"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/table_font_size" />
-
-            <TextView
-                android:id="@+id/textViewStatsTableMonHumidity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="sans-serif-condensed"
-                android:gravity="end"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/table_font_size" />
-        </TableRow>
-
-        <TableRow>
-
-            <TextView
-                android:id="@+id/textViewStatsTableTue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="sans-serif-condensed"
-                android:text="@string/tuesday"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/table_font_size" />
-
-            <TextView
-                android:id="@+id/textViewStatsTableTueTemp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="sans-serif-condensed"
-                android:gravity="end"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/table_font_size" />
-
-            <TextView
-                android:id="@+id/textViewStatsTableTuePressure"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="sans-serif-condensed"
-                android:gravity="end"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/table_font_size" />
-
-            <TextView
-                android:id="@+id/textViewStatsTableTueHumidity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="sans-serif-condensed"
-                android:gravity="end"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/table_font_size" />
-
-        </TableRow>
-
-        <TableRow>
-
-            <TextView
-                android:id="@+id/textViewStatsTableWed"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="sans-serif-condensed"
-                android:text="@string/wednesday"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/table_font_size"
-
-                />
-
-            <TextView
-                android:id="@+id/textViewStatsTableWedTemp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="sans-serif-condensed"
-                android:gravity="end"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/table_font_size" />
-
-            <TextView
-                android:id="@+id/textViewStatsTableWedPressure"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="sans-serif-condensed"
-                android:gravity="end"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/table_font_size" />
-
-            <TextView
-                android:id="@+id/textViewStatsTableWedHumidity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="sans-serif-condensed"
-                android:gravity="end"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/table_font_size" />
-
-        </TableRow>
-
-        <TableRow>
-
-            <TextView
-                android:id="@+id/textViewStatsTableThu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="sans-serif-condensed"
-                android:text="@string/thursday"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/table_font_size" />
-
-            <TextView
-                android:id="@+id/textViewStatsTableThuTemp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="sans-serif-condensed"
-                android:gravity="end"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/table_font_size" />
-
-            <TextView
-                android:id="@+id/textViewStatsTableThuPressure"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="sans-serif-condensed"
-                android:gravity="end"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/table_font_size" />
-
-            <TextView
-                android:id="@+id/textViewStatsTableThuHumidity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="sans-serif-condensed"
-                android:gravity="end"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/table_font_size" />
-
-        </TableRow>
-
-        <TableRow>
-
-            <TextView
-                android:id="@+id/textViewStatsTableFri"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="sans-serif-condensed"
-                android:text="@string/friday"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/table_font_size"
-
-                />
-
-            <TextView
-                android:id="@+id/textViewStatsTableFriTemp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="sans-serif-condensed"
-                android:gravity="end"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/table_font_size" />
-
-            <TextView
-                android:id="@+id/textViewStatsTableFriPressure"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="sans-serif-condensed"
-                android:gravity="end"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/table_font_size" />
-
-            <TextView
-                android:id="@+id/textViewStatsTableFriHumidity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="sans-serif-condensed"
-                android:gravity="end"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/table_font_size" />
-
-        </TableRow>
-
-        <TableRow>
-
-            <TextView
-                android:id="@+id/textViewStatsTableSat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="sans-serif-condensed"
-                android:text="@string/saturday"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/table_font_size" />
-
-            <TextView
-                android:id="@+id/textViewStatsTableSatTemp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="sans-serif-condensed"
-                android:gravity="end"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/table_font_size" />
-
-            <TextView
-                android:id="@+id/textViewStatsTableSatPressure"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="sans-serif-condensed"
-                android:gravity="end"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/table_font_size" />
-
-            <TextView
-                android:id="@+id/textViewStatsTableSatHumidity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="sans-serif-condensed"
-                android:gravity="end"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/table_font_size" />
-        </TableRow>
-
-        <TableRow>
-
-            <TextView
-                android:id="@+id/textViewStatsTableSun"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="sans-serif-condensed"
-                android:text="@string/sunday"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/table_font_size" />
-
-            <TextView
-                android:id="@+id/textViewStatsTableSunTemp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="sans-serif-condensed"
-                android:gravity="end"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/table_font_size" />
-
-            <TextView
-                android:id="@+id/textViewStatsTableSunPressure"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="sans-serif-condensed"
-                android:gravity="end"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/table_font_size" />
-
-            <TextView
-                android:id="@+id/textViewStatsTableSunHumidity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="sans-serif-condensed"
-                android:gravity="end"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/table_font_size" />
-        </TableRow>
-
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView />
-        </TableRow>
-
-        <TableRow>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="sans-serif-condensed-medium"
-                android:text="@string/min_temperature"
-                android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/table_font_size" />
-
-            <TextView
-                android:id="@+id/textViewStatsTableMinTempDay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="end"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/table_font_size" />
-
-            <TextView />
-
-            <TextView
-                android:id="@+id/textViewStatsTableMinTempValue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="end"
-                android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/table_font_size" />
-        </TableRow>
-
-        <TableRow>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="sans-serif-condensed-medium"
-                android:text="@string/max_temperature"
-                android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/table_font_size" />
-
-            <TextView
-                android:id="@+id/textViewStatsTableMaxTempDay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="end"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/table_font_size" />
-
-            <TextView />
-
-            <TextView
-                android:id="@+id/textViewStatsTableMaxTempValue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="end"
-                android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/table_font_size" />
-        </TableRow>
-
-
-    </TableLayout>
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:gravity="start"
+            android:text="@string/week_day"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/table_font_size" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:gravity="end"
+            android:text="@string/temperature"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/table_font_size" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:gravity="end"
+            android:text="@string/pressure"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/table_font_size" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:gravity="end"
+            android:text="@string/humidity"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/table_font_size" />
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/listViewStatsBasic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:divider="@null"
+        android:dividerHeight="0dp">
+
+    </ListView>
+
+    <ListView
+        android:id="@+id/listViewStatsExtremes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@null"
+        android:dividerHeight="0dp">
+
+    </ListView>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -490,9 +112,9 @@
             android:id="@+id/imageButtonStatsSnowflake"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            android:layout_marginStart="50dp"
             android:background="?android:selectableItemBackgroundBorderless"
             android:scaleType="fitXY"
-            android:layout_marginStart="50dp"
             android:src="@drawable/ic_snowflake" />
     </LinearLayout>
 </LinearLayout>

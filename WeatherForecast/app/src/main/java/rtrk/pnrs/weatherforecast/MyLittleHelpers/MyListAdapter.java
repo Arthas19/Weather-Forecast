@@ -17,49 +17,30 @@ import java.util.Collections;
 import rtrk.pnrs.weatherforecast.DetailsActivity;
 import rtrk.pnrs.weatherforecast.R;
 
-public class MyAdapter extends BaseAdapter {
+public class MyListAdapter extends BaseAdapter {
 
     private static String KEY = "city";
 
     private Context mContext;
-    private ArrayList<MyCityItem> mList;
+    private ArrayList<String> mList;
 
-    public MyAdapter(Context context) {
+    public MyListAdapter(Context context) {
         this.mContext = context;
         mList = new ArrayList<>();
     }
 
-    public boolean addItem(MyCityItem item) {
-        if (!isItemInList(item)) {
-            mList.add(item);
-
-            notifyDataSetChanged();
-
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Currently not being used
-     */
-    public void remove(MyCityItem item) {
-        mList.remove(item);
-        notifyDataSetChanged();
-    }
-
-    public void update(MyCityItem[] myItems) {
+    public void update(String[] cities) {
         mList.clear();
-        if (myItems != null)
-            Collections.addAll(mList, myItems);
+        if (cities != null)
+            Collections.addAll(mList, cities);
 
         notifyDataSetChanged();
     }
 
-    private boolean isItemInList(MyCityItem item) {
-        for (MyCityItem it :
+    public boolean isItemInList(String item) {
+        for (String str :
                 mList) {
-            if (it.getText().equalsIgnoreCase(item.getText()))
+            if (item.equalsIgnoreCase(str))
                 return true;
         }
 
@@ -72,16 +53,16 @@ public class MyAdapter extends BaseAdapter {
     }
 
     @Override
-    public MyCityItem getItem(int position) {
-        MyCityItem rv = null;
+    public String getItem(int position) {
+        String city = null;
 
         try {
-            rv = mList.get(position);
+            city = mList.get(position);
         } catch (IndexOutOfBoundsException e) {
             e.printStackTrace();
         }
 
-        return rv;
+        return city;
     }
 
     @Override
@@ -106,16 +87,16 @@ public class MyAdapter extends BaseAdapter {
             rowView = convertView;
         }
 
-        final MyCityItem item = getItem(position);
+        final String item = getItem(position);
         final ViewHolder viewHolder = (ViewHolder) rowView.getTag();
 
-        viewHolder.textView.setText(item.getText());
+        viewHolder.textView.setText(item);
         viewHolder.radioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     Intent intent = new Intent(mContext, DetailsActivity.class);
-                    intent.putExtra(KEY, item.getText());
+                    intent.putExtra(KEY, item);
 
                     viewHolder.radioButton.setChecked(false);
 

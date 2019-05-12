@@ -5,32 +5,44 @@
 
     <TextView
         android:id="@+id/tableRowCel1"
-        android:layout_width="wrap_content"
-        android:gravity="start"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:text="" />
+        android:fontFamily="sans-serif-condensed"
+        android:gravity="start"
+        android:text=""
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="@dimen/table_font_size" />
 
     <TextView
         android:id="@+id/tableRowCel2"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:gravity="end" />
+        android:fontFamily="sans-serif-condensed"
+        android:gravity="end"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="@dimen/table_font_size" />
 
     <TextView
         android:id="@+id/tableRowCel3"
-        android:layout_width="wrap_content"
-        android:text=""
+        android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:gravity="end" />
+        android:fontFamily="sans-serif-condensed"
+        android:gravity="end"
+        android:text=""
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="@dimen/table_font_size" />
 
     <TextView
         android:id="@+id/tableRowCel4"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:gravity="end" />
+        android:fontFamily="sans-serif-condensed"
+        android:gravity="end"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="@dimen/table_font_size" />
 
 </LinearLayout>

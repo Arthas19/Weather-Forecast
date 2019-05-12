@@ -11,11 +11,11 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class HttpHelper {
+class HttpHelper {
 
     private static final int SUCCESS = 200;
 
-    public JSONObject getJSONObjectFromURL(String urlString) throws IOException, JSONException {
+    JSONObject getJSONObjectFromURL(String urlString) throws IOException, JSONException {
 
         URL url = new URL(urlString);
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();

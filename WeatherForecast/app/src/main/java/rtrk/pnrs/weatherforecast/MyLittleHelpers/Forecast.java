@@ -11,10 +11,6 @@ import java.util.Locale;
 
 public class Forecast {
 
-    public static final String BASE_URL = "https://api.openweathermap.org/data/2.5/weather?q=";
-    public static final String SECRET_KEY = "&APPID=8827e28e1ab35a7ff0a4a64651bea798";
-    public static final String EXTRAS = "&units=metric";
-
     private String city, date, weekday;
 
     private double temperature, humidity, pressure;
@@ -25,12 +21,18 @@ public class Forecast {
     private String windDirection;
 
     /* Friend of http and brother JSON, but we good  */
-    public Forecast(String url) {
+    public Forecast(String city) {
 
         HttpHelper httpHelper = new HttpHelper();
 
+        final String EXTRAS = "&units=metric";
+        final String SECRET_KEY = "&APPID=8827e28e1ab35a7ff0a4a64651bea798";
+        final String BASE_URL = "https://api.openweathermap.org/data/2.5/weather?q=";
+
+        final String URL = BASE_URL + city + EXTRAS + SECRET_KEY;
+
         try {
-            JSONObject json = httpHelper.getJSONObjectFromURL(url);
+            JSONObject json = httpHelper.getJSONObjectFromURL(URL);
 
             JSONObject main = json.getJSONObject("main");
             JSONObject wind = json.getJSONObject("wind");
@@ -84,12 +86,16 @@ public class Forecast {
         return DateFormat.getTimeInstance(DateFormat.SHORT, Locale.getDefault()).format(date);
     }
 
-    public String getCity() {
+    String getCity() {
         return city;
     }
 
     public String getDate() {
         return date;
+    }
+
+    public String getWeekDay() {
+        return weekday;
     }
 
     public double getTemperature() {
@@ -157,9 +163,5 @@ public class Forecast {
         } else {
             return "";
         }
-    }
-
-    public String getWeekDay() {
-        return weekday;
     }
 }
