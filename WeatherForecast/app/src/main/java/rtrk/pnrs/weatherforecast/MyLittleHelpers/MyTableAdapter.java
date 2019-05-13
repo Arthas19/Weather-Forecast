@@ -2,7 +2,6 @@ package rtrk.pnrs.weatherforecast.MyLittleHelpers;
 
 import android.annotation.SuppressLint;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +19,6 @@ public class MyTableAdapter extends BaseAdapter {
 
     @SuppressLint("ConstantLocale")
     private static final String day = new SimpleDateFormat("EEE", Locale.getDefault()).format(new Date());
-    private static boolean isChecked = false;
     private ArrayList<Item> mList = new ArrayList<>();
 
     @Override
@@ -54,6 +52,7 @@ public class MyTableAdapter extends BaseAdapter {
         return 0;
     }
 
+    @SuppressLint("InflateParams")
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
@@ -73,11 +72,9 @@ public class MyTableAdapter extends BaseAdapter {
         String[] strings = getItem(position);
         ViewHolder viewHolder = (ViewHolder) rowView.getTag();
 
-        if (!isChecked && day.equals(strings[0])) {
-            Log.d("               DANE BROJIM VISE NE POSTOJIM: " + day, strings[0]);
+        if (day.equals(strings[0]))
             viewHolder.tv1.setTextColor(Color.RED);
-            isChecked = true;
-        }
+
         viewHolder.tv1.setText(strings[0]);
         viewHolder.tv2.setText(strings[1]);
         viewHolder.tv3.setText(strings[2]);

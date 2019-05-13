@@ -79,13 +79,6 @@ public class Forecast {
         this.windDirection = windDirection;
     }
 
-    private static String convertUnixTime(String time) {
-        long ut = Long.parseLong(time);
-        Date date = new Date(ut * 1000L);
-
-        return DateFormat.getTimeInstance(DateFormat.SHORT, Locale.getDefault()).format(date);
-    }
-
     String getCity() {
         return city;
     }
@@ -124,6 +117,13 @@ public class Forecast {
 
     public String getWindDirection() {
         return windDirection;
+    }
+
+    private static String convertUnixTime(String time) {
+        long ut = Long.parseLong(time);
+        Date date = new Date(ut * 1000L);
+
+        return DateFormat.getTimeInstance(DateFormat.SHORT, Locale.getDefault()).format(date);
     }
 
     private static String convertDegreesToDirection(double deg) {

@@ -9,9 +9,9 @@
 
     <!-- Used in DetailsActivity -->
     <string name="textViewDetailsLocation"> Location:  </string>
-    <string name="textViewDetailsDate"> Date:  </string>
+    <string name="textViewDetailsDate"> Date: </string>
     <string name="textViewDetailsLastUpdated"> (last updated) </string>
-    <string name="textViewDetailsStats"> Statistics </string>
+    <string name="buttonDetailsStats"> Statistics </string>
 
     <string name="buttonDetailsTemperature"> Temperature </string>
     <!-- Used when temperature button is pressed -->
@@ -35,26 +35,20 @@
 
 
     <!-- Used in ListActivity -->
-    <string name="buttonList"> Add </string>
-    <string name="editTextList"> Enter new city </string>
+    <string name="buttonListAdd"> Add </string>
+    <string name="editTextListEnter"> Enter new city </string>
+
 
     <!-- Used in StatisticsActivity -->
     <string name="title_activity_statistics">StatisticsActivity</string>
     <string name="textViewStatsLastWeek">Last week:</string>
     <string name="textViewStatsWeekDay">Week day:</string>
-    <string name="last_week">Last week:</string>
-    <string name="week_day">Week day:</string>
     <string name="temperature">Temperature:</string>
     <string name="pressure">Pressure:</string>
     <string name="humidity">Humidity:</string>
-    <string name="monday">Monday</string>
-    <string name="tuesday">Tuesday</string>
-    <string name="wednesday">Wednesday</string>
-    <string name="thursday">Thursday</string>
-    <string name="friday">Friday</string>
     <string name="min_temperature">Min temperature:</string>
     <string name="max_temperature">Max temperature:</string>
-    <string name="saturday">Saturday</string>
-    <string name="sunday">Sunday</string>
+    <string name="snowflake">snowflake</string>
+    <string name="sun">sun</string>
 
 </resources>

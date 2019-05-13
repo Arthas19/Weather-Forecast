@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
-import android.util.Log;
 
 public class DBWeatherHelper extends SQLiteOpenHelper implements BaseColumns {
 
@@ -60,8 +59,6 @@ public class DBWeatherHelper extends SQLiteOpenHelper implements BaseColumns {
         SQLiteDatabase dbWrite = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
-        Forecast f = check(forecast.getCity(), forecast.getDate());
-
         contentValues.put(COLUMN_CITY, forecast.getCity());
         contentValues.put(COLUMN_DATE, forecast.getDate());
         contentValues.put(COLUMN_WEEKDAY, forecast.getWeekDay());
@@ -73,51 +70,48 @@ public class DBWeatherHelper extends SQLiteOpenHelper implements BaseColumns {
         contentValues.put(COLUMN_WIND_SPEED, forecast.getWindSpeed());
         contentValues.put(COLUMN_WIND_DIR, forecast.getWindDirection());
 
-        if (f == null) {
-
-            Log.d("USAO SAM DA UBACIM", "MEEEETNEEEEEM");
-            if (dbWrite.insert(TABLE_NAME, null, contentValues) == -1) {
-                dbWrite.close();
-                return false;
-            } else {
-                dbWrite.close();
-                return true;
-            }
-
-        } else {
-            Log.d("USAO SAM DA UPDATE", "UPDAAAAAAATEEEEEEEE");
-            dbWrite.update(TABLE_NAME, contentValues, COLUMN_CITY + " =? AND " + COLUMN_DATE + " =? ", new String[]{forecast.getCity(), forecast.getDate()});
+        if (dbWrite.insert(TABLE_NAME, null, contentValues) == -1) {
             dbWrite.close();
-
+            return false;
+        } else {
+            dbWrite.close();
             return true;
         }
-    }
-
-    private Forecast check(String city, String date) {
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_CITY + " = \"" + city + "\" AND " + COLUMN_DATE + " = \"" + date + "\" ;", null, null);
-
-        if (cursor.getCount() <= 0) {
-            return null;
-        }
-
-        cursor.moveToFirst();
-
-        return createForecastItem(cursor);
     }
 
     //Delete data from the database
     public boolean remove(String city) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        if (db.delete(TABLE_NAME, COLUMN_CITY + "=?", new String[]{city}) == -1) {
+        if (db.delete(TABLE_NAME, COLUMN_CITY + " =? n", new String[]{city}) == -1) {
             db.close();
             return false;
         } else {
             db.close();
             return true;
         }
+    }
+
+    // precise
+    public Forecast getItem(String city, String date) {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor;
+
+        if (date != null)
+            cursor = db.query(TABLE_NAME, null, COLUMN_CITY + "=? AND " + COLUMN_DATE + " =? ", new String[]{city, date}, null, null, null, null);
+        else
+            cursor = db.query(TABLE_NAME, null, COLUMN_CITY + "=? ", new String[]{city}, null, null, null, null);
+
+        if (cursor.getCount() <= 0)
+            return null;
+
+        cursor.moveToLast();
+        Forecast forecast = createForecastItem(cursor);
+
+        cursor.close();
+        db.close();
+
+        return forecast;
     }
 
     public Forecast[] getItems(String gotham, int batman) {
@@ -167,22 +161,6 @@ public class DBWeatherHelper extends SQLiteOpenHelper implements BaseColumns {
         cursor.close();
 
         return cities;
-    }
-
-    public Forecast getItem(String city) {
-        SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.query(TABLE_NAME, null, COLUMN_CITY + "=?", new String[]{city}, null, null, null, null);
-
-        if (cursor.getCount() <= 0)
-            return null;
-
-        cursor.moveToLast();
-        Forecast forecast = createForecastItem(cursor);
-
-        cursor.close();
-        db.close();
-
-        return forecast;
     }
 
     public Forecast getItemByWeekDay(String city, String weekday, int x) {

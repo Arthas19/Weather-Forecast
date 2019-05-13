@@ -81,11 +81,11 @@ public class ListActivity extends AppCompatActivity {
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
-                                if (dbWeatherHelper.insert(new Forecast(finalCity))) {
+                                Forecast forecast = new Forecast(finalCity);
+                                if (dbWeatherHelper.insert(forecast)) {
                                     Log.d("Insert in DB", "SUCCESSFUL");
+                                    refreshData();
                                 }
-
-                                refreshData();
                             }
                         }).start();
                     }

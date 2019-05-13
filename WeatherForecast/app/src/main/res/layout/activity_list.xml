@@ -16,9 +16,10 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="4"
+            android:autofillHints=""
             android:backgroundTint="@color/colorPrimaryDark"
             android:gravity="center"
-            android:hint="@string/editTextList"
+            android:hint="@string/editTextListEnter"
             android:inputType="textCapWords"
             android:textColor="@color/colorPrimary" />
 
@@ -28,8 +29,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:backgroundTint="@color/colorPrimaryDark"
-            android:text="@string/buttonList"
-            android:textColor="@color/colorAccent"
+            android:text="@string/buttonListAdd"
+            android:textColor="@color/colorWhite"
             android:textSize="19sp" />
 
     </LinearLayout>

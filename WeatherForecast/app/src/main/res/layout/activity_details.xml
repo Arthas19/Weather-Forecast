@@ -55,7 +55,7 @@
                 android:layout_weight="1"
                 android:fontFamily="sans-serif-condensed-light"
                 android:gravity="center"
-                android:textSize="11sp"
+                android:textSize="12sp"
                 android:text="@string/textViewDetailsLastUpdated"
                 android:textColor="@color/colorPrimaryDark"
                 android:visibility="invisible" />
@@ -79,7 +79,7 @@
             android:layout_weight="1"
             android:backgroundTint="@color/colorPrimary"
             android:fontFamily="sans-serif"
-            android:text="@string/textViewDetailsStats"
+            android:text="@string/buttonDetailsStats"
             android:textColor="@color/colorWhite"
             android:textSize="13sp" />
 
