@@ -64,7 +64,8 @@ public class DetailsActivity extends AppCompatActivity {
         }).start();
 
 
-        //dummyValues();
+        //dummyValues1();
+        //dummyValues2();
 
         date = findViewById(R.id.textViewDetailsDay);
 
@@ -215,7 +216,7 @@ public class DetailsActivity extends AppCompatActivity {
 
     @SuppressLint("DefaultLocale")
     private void setLatestData() {
-        Forecast forecast = dbWeatherHelper.getItem(CITY, currDate);
+        Forecast forecast = dbWeatherHelper.getItem(CITY, null);
 
         location.setText(String.format("%s %s", getString(R.string.textViewDetailsLocation), CITY));
         date.setText(String.format("%s %s", getString(R.string.textViewDetailsDate), forecast.getDate()));
@@ -236,7 +237,15 @@ public class DetailsActivity extends AppCompatActivity {
             lastUpdated.setVisibility(View.VISIBLE);
     }
 
-    private void dummyValues() {
+    private void dummyValues1() {
+        dbWeatherHelper.insert(new Forecast("Novi Sad", "11-05-2018", "Sat", 15.4, 51.0, 1018.0, "05:12", "19:56", 4.60, "South-East"));
+        dbWeatherHelper.insert(new Forecast("Novi Sad", "12-05-2018", "Sun", 18.2, 58.0, 1017.0, "05:11", "19:56", 3.12, "North-East"));
+        dbWeatherHelper.insert(new Forecast("Novi Sad", "13-05-2018", "Mon", 17.6, 67.0, 1017.0, "05:11", "19:58", 4.60, "South-West"));
+
+    }
+
+    private void dummyValues2() {
+        dbWeatherHelper.insert(new Forecast("Novi Sad", "13-05-2018", "Mon", 100, 0.66, 1.01, "05:00", "21:00", 16.0, "NE"));
         dbWeatherHelper.insert(new Forecast("Novi Sad", "06-05-2019", "Mon", 19.0, 0.66, 1.01, "05:00", "21:00", 16.0, "NE"));
         dbWeatherHelper.insert(new Forecast("Novi Sad", "07-05-2019", "Tue", 15.0, 0.66, 1.01, "05:00", "21:00", 16.0, "NE"));
         dbWeatherHelper.insert(new Forecast("Novi Sad", "08-05-2019", "Wed", 12.0, 0.66, 1.01, "05:00", "21:00", 16.0, "NE"));
@@ -244,7 +253,6 @@ public class DetailsActivity extends AppCompatActivity {
         dbWeatherHelper.insert(new Forecast("Novi Sad", "10-05-2019", "Fri", 31.9, 0.66, 1.01, "05:00", "21:00", 16.0, "NE"));
         dbWeatherHelper.insert(new Forecast("Novi Sad", "11-05-2019", "Sat", 31.9, 0.66, 1.01, "05:00", "21:00", 16.0, "NE"));
         dbWeatherHelper.insert(new Forecast("Novi Sad", "12-05-2019", "Sun", -13, 0.66, 1.01, "05:00", "21:00", 16.0, "NE"));
-        dbWeatherHelper.insert(new Forecast("Novi Sad", "13-05-2019", "Mon", 100, 0.66, 1.01, "05:00", "21:00", 16.0, "NE"));
         dbWeatherHelper.insert(new Forecast("Novi Sad", "13-05-2019", "Mon", 100, 0.66, 1.01, "05:00", "21:00", 16.0, "NE"));
         dbWeatherHelper.insert(new Forecast("Novi Sad", "13-05-2019", "Mon", 100, 0.66, 1.01, "05:00", "21:00", 16.0, "NE"));
     }

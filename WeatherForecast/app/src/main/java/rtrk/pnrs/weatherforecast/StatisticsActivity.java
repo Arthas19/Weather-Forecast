@@ -15,8 +15,6 @@ public class StatisticsActivity extends AppCompatActivity {
 
     private static String CITY;
 
-    private ImageButton sun;
-    private ImageButton snowflake;
     private DBWeatherHelper db;
     private ListView table1, table2;
     private MyTableAdapter tableAdapter1, tableAdapter2;
@@ -39,11 +37,16 @@ public class StatisticsActivity extends AppCompatActivity {
         tableAdapter1 = new MyTableAdapter();
         tableAdapter2 = new MyTableAdapter();
 
-        fillBasicData(0);
-        fillExtremesData();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                fillBasicData(0);
+                fillExtremesData();
+            }
+        }).start();
 
-        sun = findViewById(R.id.imageButtonStatsSun);
-        snowflake = findViewById(R.id.imageButtonStatsSnowflake);
+        ImageButton sun = findViewById(R.id.imageButtonStatsSun);
+        ImageButton snowflake = findViewById(R.id.imageButtonStatsSnowflake);
 
         sun.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,15 +79,15 @@ public class StatisticsActivity extends AppCompatActivity {
     }
 
     private void fillBasicData(int x) {
-        Forecast f;
+        Forecast forecast;
         String[] days = {"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
 
         tableAdapter1.clear();
 
         for (int i = 0; i < 7; i++) {
-            f = db.getItemByWeekDay(CITY, days[i], x);
-            if (f != null)
-                tableAdapter1.addItem(days[i], String.valueOf(f.getTemperature()), String.valueOf(f.getPressure()), String.valueOf(f.getHumidity()));
+            forecast = db.getItemByWeekDay(CITY, days[i], x);
+            if (forecast != null)
+                tableAdapter1.addItem(days[i], String.valueOf(forecast.getTemperature()), String.valueOf(forecast.getPressure()), String.valueOf(forecast.getHumidity()));
             else
                 tableAdapter1.addItem(days[i], "", "", "");
         }
@@ -94,6 +97,8 @@ public class StatisticsActivity extends AppCompatActivity {
 
     private void fillExtremesData() {
         Forecast[] forecasts;
+
+        tableAdapter2.clear();
 
         forecasts = db.getItems(CITY, 1);
         tableAdapter2.addItem("Min temp:", forecasts[0].getWeekDay(), "", String.valueOf(forecasts[0].getTemperature()));

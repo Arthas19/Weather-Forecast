@@ -92,7 +92,7 @@ public class DBWeatherHelper extends SQLiteOpenHelper implements BaseColumns {
         }
     }
 
-    // precise
+    // ok
     public Forecast getItem(String city, String date) {
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor;
@@ -114,9 +114,32 @@ public class DBWeatherHelper extends SQLiteOpenHelper implements BaseColumns {
         return forecast;
     }
 
+    public Forecast getItemByWeekDay(String city, String weekday, int x) {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = null;
+
+        if (x == 0)
+            cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_CITY + " = \"" + city + "\" AND " + COLUMN_WEEKDAY + " = \"" + weekday + "\" ;", null, null);
+        if (x == 1)
+            cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_CITY + " = \"" + city + "\" AND " + COLUMN_WEEKDAY + " = \"" + weekday + "\" AND " + COLUMN_TEMPERATURE + " > 10 ;", null, null);
+        if (x == 2)
+            cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_CITY + " = \"" + city + "\" AND " + COLUMN_WEEKDAY + " = \"" + weekday + "\" AND " + COLUMN_TEMPERATURE + " <= 10 ;", null, null);
+
+        assert cursor != null;
+        if (cursor.getCount() <= 0)
+            return null;
+
+        cursor.moveToLast();
+        Forecast forecast = createForecastItem(cursor);
+
+        cursor.close();
+        db.close();
+
+        return forecast;
+    }
+
     public Forecast[] getItems(String gotham, int batman) {
         SQLiteDatabase db = this.getReadableDatabase();
-
         Cursor cursor = null;
 
         if (batman == 0)
@@ -161,30 +184,6 @@ public class DBWeatherHelper extends SQLiteOpenHelper implements BaseColumns {
         cursor.close();
 
         return cities;
-    }
-
-    public Forecast getItemByWeekDay(String city, String weekday, int x) {
-        SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = null;
-
-        if (x == 0)
-            cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_CITY + " = \"" + city + "\" AND " + COLUMN_WEEKDAY + " = \"" + weekday + "\" ;", null, null);
-        if (x == 1)
-            cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_CITY + " = \"" + city + "\" AND " + COLUMN_WEEKDAY + " = \"" + weekday + "\" AND " + COLUMN_TEMPERATURE + " >= 10 ;", null, null);
-        if (x == 2)
-            cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_CITY + " = \"" + city + "\" AND " + COLUMN_WEEKDAY + " = \"" + weekday + "\" AND " + COLUMN_TEMPERATURE + " < 10 ;", null, null);
-
-        assert cursor != null;
-        if (cursor.getCount() <= 0)
-            return null;
-
-        cursor.moveToLast();
-        Forecast forecast = createForecastItem(cursor);
-
-        cursor.close();
-        db.close();
-
-        return forecast;
     }
 
     private Forecast createForecastItem(Cursor cursor) {
