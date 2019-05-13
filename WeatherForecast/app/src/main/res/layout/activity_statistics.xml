@@ -12,7 +12,7 @@
         android:id="@+id/textViewStatsCity"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"
+        android:layout_weight="1.5"
         android:layout_marginBottom="10dp"
         android:fontFamily="sans-serif-condensed-medium"
         android:textColor="@color/colorPrimary"
@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="10dp"
         android:fontFamily="sans-serif-condensed-light"
         android:text="@string/textViewStatsLastWeek"
         android:textColor="@color/colorPrimaryDark"
@@ -93,8 +93,9 @@
         android:id="@+id/listViewStatsExtremes"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"
+        android:layout_marginBottom="10dp"
         android:divider="@null"
+        android:layout_weight="2.5"
         android:dividerHeight="0dp">
 
     </ListView>
@@ -112,7 +113,7 @@
             android:layout_weight="0.5"
             android:layout_height="match_parent"
             android:background="?android:selectableItemBackgroundBorderless"
-            android:scaleType="fitCenter"
+            android:scaleType="fitStart"
             android:contentDescription="@string/sun"
             android:src="@drawable/ic_sunny"
             tools:ignore="NestedWeights" />
@@ -123,7 +124,7 @@
             android:layout_weight="0.5"
             android:layout_height="match_parent"
             android:background="?android:selectableItemBackgroundBorderless"
-            android:scaleType="fitCenter"
+            android:scaleType="fitEnd"
             android:contentDescription="@string/snowflake"
             android:src="@drawable/ic_snowflake" />
     </LinearLayout>

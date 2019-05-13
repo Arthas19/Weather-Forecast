@@ -2,6 +2,7 @@ package rtrk.pnrs.weatherforecast.MyLittleHelpers;
 
 import android.annotation.SuppressLint;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,15 @@ public class MyTableAdapter extends BaseAdapter {
     private static final String day = new SimpleDateFormat("EEE", Locale.getDefault()).format(new Date());
     private ArrayList<Item> mList = new ArrayList<>();
 
+    public void addItem(String string1, String string2, String string3, String string4) {
+        mList.add(new Item(string1, string2, string3, string4));
+    }
+
+    public void clear() {
+        mList.clear();
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getCount() {
         return mList.size();
@@ -36,15 +46,6 @@ public class MyTableAdapter extends BaseAdapter {
         }
 
         return rv;
-    }
-
-    public void addItem(String string1, String string2, String string3, String string4) {
-        mList.add(new Item(string1, string2, string3, string4));
-    }
-
-    public void clear() {
-        mList.clear();
-        notifyDataSetChanged();
     }
 
     @Override
@@ -72,8 +73,10 @@ public class MyTableAdapter extends BaseAdapter {
         String[] strings = getItem(position);
         ViewHolder viewHolder = (ViewHolder) rowView.getTag();
 
-        if (day.equals(strings[0]))
+        if (day.equals(strings[0])) {
             viewHolder.tv1.setTextColor(Color.RED);
+            viewHolder.tv1.setTypeface(Typeface.create("sans-serif-condensed-medium", Typeface.BOLD));
+        }
 
         viewHolder.tv1.setText(strings[0]);
         viewHolder.tv2.setText(strings[1]);
