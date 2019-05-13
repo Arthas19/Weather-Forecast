@@ -5,21 +5,24 @@
     android:layout_height="match_parent"
     android:layout_margin="@dimen/stats_margin"
     android:orientation="vertical"
+    android:weightSum="10.5"
     tools:context=".StatisticsActivity">
 
     <TextView
         android:id="@+id/textViewStatsCity"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:layout_marginBottom="10dp"
         android:fontFamily="monospace"
         android:textColor="@color/colorPrimary"
         android:textSize="40sp" />
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginBottom="20dp"
         android:fontFamily="monospace"
         android:text="@string/last_week"
         android:textColor="@color/colorPrimaryDark"
@@ -27,7 +30,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"
         android:layout_marginBottom="10dp"
         android:orientation="horizontal">
 
@@ -76,7 +80,8 @@
     <ListView
         android:id="@+id/listViewStatsBasic"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="3"
         android:layout_marginBottom="10dp"
         android:divider="@null"
         android:dividerHeight="0dp">
@@ -86,7 +91,8 @@
     <ListView
         android:id="@+id/listViewStatsExtremes"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="2"
         android:divider="@null"
         android:dividerHeight="0dp">
 
@@ -94,27 +100,28 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="30dp"
+        android:layout_height="0dp"
+        android:layout_weight="2"
         android:gravity="center"
         android:orientation="horizontal">
 
         <ImageButton
+
             android:id="@+id/imageButtonStatsSun"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginEnd="50dp"
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
+            android:layout_height="match_parent"
             android:background="?android:selectableItemBackgroundBorderless"
-            android:scaleType="fitXY"
+            android:scaleType="fitCenter"
             android:src="@drawable/ic_sunny" />
 
         <ImageButton
             android:id="@+id/imageButtonStatsSnowflake"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginStart="50dp"
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
+            android:layout_height="match_parent"
             android:background="?android:selectableItemBackgroundBorderless"
-            android:scaleType="fitXY"
+            android:scaleType="fitCenter"
             android:src="@drawable/ic_snowflake" />
     </LinearLayout>
 </LinearLayout>

@@ -64,7 +64,7 @@ public class DetailsActivity extends AppCompatActivity {
         }).start();
 
 
-        //dummyValues();
+        dummyValues();
 
         date = findViewById(R.id.textViewDetailsDay);
 
