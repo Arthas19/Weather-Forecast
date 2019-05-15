@@ -83,7 +83,7 @@ public class DBWeatherHelper extends SQLiteOpenHelper implements BaseColumns {
     public boolean remove(String city) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        if (db.delete(TABLE_NAME, COLUMN_CITY + " =? n", new String[]{city}) == -1) {
+        if (db.delete(TABLE_NAME, COLUMN_CITY + " =? ", new String[]{city}) == -1) {
             db.close();
             return false;
         } else {
