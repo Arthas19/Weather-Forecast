@@ -63,10 +63,6 @@ public class DetailsActivity extends AppCompatActivity {
             }
         }).start();
 
-
-        //dummyValues1();
-        //dummyValues2();
-
         date = findViewById(R.id.textViewDetailsDay);
 
         location = findViewById(R.id.textViewDetailsLocation);

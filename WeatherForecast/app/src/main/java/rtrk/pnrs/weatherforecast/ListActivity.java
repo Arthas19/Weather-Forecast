@@ -1,6 +1,9 @@
 package rtrk.pnrs.weatherforecast;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -13,6 +16,7 @@ import android.widget.Toast;
 import rtrk.pnrs.weatherforecast.MyLittleHelpers.DBWeatherHelper;
 import rtrk.pnrs.weatherforecast.MyLittleHelpers.Forecast;
 import rtrk.pnrs.weatherforecast.MyLittleHelpers.MyListAdapter;
+import rtrk.pnrs.weatherforecast.MyLittleHelpers.MyService;
 
 public class ListActivity extends AppCompatActivity {
 
@@ -20,6 +24,7 @@ public class ListActivity extends AppCompatActivity {
     private EditText editText;
     private MyListAdapter myListAdapter;
     private DBWeatherHelper dbWeatherHelper;
+
 
     @Override
     protected void onResume() {
@@ -96,7 +101,23 @@ public class ListActivity extends AppCompatActivity {
                 editText.setText(null);
             }
         });
+
+
+        Intent serviceIntent = new Intent(this, MyService.class);
+
+        serviceIntent.putExtra("service", "Hello world");
+        ContextCompat.startForegroundService(this, serviceIntent);
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+     //   Intent serviceIntent = new Intent(this, MyService.class);
+
+     //   stopService(serviceIntent);
+    }
+
 
     private String capWords(String string) {
         String rv = "";

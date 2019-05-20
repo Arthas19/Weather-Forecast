@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".MyLittleHelpers.Notification"
         android:allowBackup="true"
         android:icon="@drawable/ic_sunny"
         android:label="@string/appName"
@@ -21,6 +22,8 @@
         </activity>
         <activity android:name=".DetailsActivity" />
         <activity android:name=".MainActivity" />
+
+        <service android:name=".MyLittleHelpers.MyService" />
     </application>
 
 </manifest>
