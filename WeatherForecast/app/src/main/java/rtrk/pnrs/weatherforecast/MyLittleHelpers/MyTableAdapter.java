@@ -22,6 +22,10 @@ public class MyTableAdapter extends BaseAdapter {
     private static final String day = new SimpleDateFormat("EEE", Locale.getDefault()).format(new Date());
     private ArrayList<Item> mList = new ArrayList<>();
 
+    public ArrayList<Item> getmList() {
+        return mList;
+    }
+
     public void addItem(String string1, String string2, String string3, String string4) {
         mList.add(new Item(string1, string2, string3, string4));
     }

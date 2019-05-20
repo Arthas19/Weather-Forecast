@@ -7,6 +7,8 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.HashMap;
+
 import rtrk.pnrs.weatherforecast.MyLittleHelpers.DBWeatherHelper;
 import rtrk.pnrs.weatherforecast.MyLittleHelpers.Forecast;
 import rtrk.pnrs.weatherforecast.MyLittleHelpers.MyTableAdapter;
@@ -101,9 +103,11 @@ public class StatisticsActivity extends AppCompatActivity {
         tableAdapter2.clear();
 
         forecasts = db.getItems(CITY, 1);
+
         tableAdapter2.addItem("Min temp:", forecasts[0].getWeekDay(), "", String.valueOf(forecasts[0].getTemperature()));
-        for (int i = 1; i < forecasts.length; i++)
+        for (int i = 1; i < forecasts.length; i++) {
             tableAdapter2.addItem("", forecasts[i].getWeekDay(), "", String.valueOf(forecasts[i].getTemperature()));
+        }
 
         forecasts = db.getItems(CITY, 2);
         tableAdapter2.addItem("Max temp:", forecasts[0].getWeekDay(), "", String.valueOf(forecasts[0].getTemperature()));
