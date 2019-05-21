@@ -24,7 +24,7 @@ class HttpHelper {
         urlConnection.setRequestMethod("GET");
         urlConnection.setRequestProperty("Accept", "application/json");
 
-        urlConnection.setReadTimeout(3000 /* milliseconds */);
+        urlConnection.setReadTimeout(5000 /* milliseconds */);
         urlConnection.setConnectTimeout(10000 /* milliseconds */);
 
         try {

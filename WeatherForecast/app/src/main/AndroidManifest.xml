@@ -7,26 +7,23 @@
     <application
         android:name=".MyLittleHelpers.Notification"
         android:allowBackup="true"
+        android:fullBackupContent="true"
         android:icon="@drawable/ic_sunny"
         android:label="@string/appName"
         android:roundIcon="@drawable/ic_sunny"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <service
-            android:name=".MyLittleHelpers.MyService"
-            android:enabled="true"
-            android:exported="true"></service>
-
         <activity android:name=".StatisticsActivity" />
         <activity android:name=".ListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".DetailsActivity" />
         <activity android:name=".MainActivity" />
+
+        <service android:name=".MyLittleHelpers.LocalService" />
     </application>
 
 </manifest>

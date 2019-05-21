@@ -1,8 +1,12 @@
 package rtrk.pnrs.weatherforecast;
 
 import android.annotation.SuppressLint;
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -21,11 +25,22 @@ import java.util.Locale;
 
 import rtrk.pnrs.weatherforecast.MyLittleHelpers.DBWeatherHelper;
 import rtrk.pnrs.weatherforecast.MyLittleHelpers.Forecast;
+import rtrk.pnrs.weatherforecast.MyLittleHelpers.LocalService;
 
 
-public class DetailsActivity extends AppCompatActivity {
+public class DetailsActivity extends AppCompatActivity implements ServiceConnection {
 
     private static final String KEY = "city";
+    private static final String SERVICE_KEY = "service";
+
+    private static final String TAG = "DETAILS ACTIVITY";
+
+    private static String CITY;
+    DBWeatherHelper dbWeatherHelper;
+    private LocalService mService;
+    private boolean mBound;
+
+
     @SuppressLint("ConstantLocale")
     public static final String currDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
 
@@ -40,11 +55,9 @@ public class DetailsActivity extends AppCompatActivity {
     ImageButton imageButtonRefresh;
     Spinner spinner;
 
-    DBWeatherHelper dbWeatherHelper;
-    private static String CITY;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
 
@@ -126,6 +139,16 @@ public class DetailsActivity extends AppCompatActivity {
         imageButtonRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if (mBound) {
+                    Intent stopIntent = new Intent(DetailsActivity.this, LocalService.class);
+                    stopIntent.setAction("KILL SHOOT");
+
+                    startService(stopIntent);
+
+                    mBound = false;
+                }
+
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -181,6 +204,19 @@ public class DetailsActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        Intent startIntent = new Intent(this, LocalService.class);
+        startIntent.setAction("friends");
+        startIntent.putExtra(SERVICE_KEY, CITY);
+
+        ContextCompat.startForegroundService(this, startIntent);
+
+        mBound = true;
+    }
+
     private String getCity() {
 
         String city = "Novi Sad";
@@ -210,6 +246,7 @@ public class DetailsActivity extends AppCompatActivity {
         });
     }
 
+
     @SuppressLint("DefaultLocale")
     private void setLatestData() {
         Forecast forecast = dbWeatherHelper.getItem(CITY, null);
@@ -233,23 +270,18 @@ public class DetailsActivity extends AppCompatActivity {
             lastUpdated.setVisibility(View.VISIBLE);
     }
 
-    private void dummyValues1() {
-        dbWeatherHelper.insert(new Forecast("Novi Sad", "11-05-2018", "Sat", 15.4, 51.0, 1018.0, "05:12", "19:56", 4.60, "South-East"));
-        dbWeatherHelper.insert(new Forecast("Novi Sad", "12-05-2018", "Sun", 18.2, 58.0, 1017.0, "05:11", "19:56", 3.12, "North-East"));
-        dbWeatherHelper.insert(new Forecast("Novi Sad", "13-05-2018", "Mon", 17.6, 67.0, 1017.0, "05:11", "19:58", 4.60, "South-West"));
+    @Override
+    public void onServiceConnected(ComponentName name, IBinder service) {
+        Log.d(TAG, "__DOGOGIO_SE_BIND__");
 
+        LocalService.LocalBinder binder = (LocalService.LocalBinder) service;
+
+        mService = binder.getService();
+        mBound = true;
     }
 
-    private void dummyValues2() {
-        dbWeatherHelper.insert(new Forecast("Novi Sad", "13-05-2018", "Mon", 100, 0.66, 1.01, "05:00", "21:00", 16.0, "NE"));
-        dbWeatherHelper.insert(new Forecast("Novi Sad", "06-05-2019", "Mon", 19.0, 0.66, 1.01, "05:00", "21:00", 16.0, "NE"));
-        dbWeatherHelper.insert(new Forecast("Novi Sad", "07-05-2019", "Tue", 15.0, 0.66, 1.01, "05:00", "21:00", 16.0, "NE"));
-        dbWeatherHelper.insert(new Forecast("Novi Sad", "08-05-2019", "Wed", 12.0, 0.66, 1.01, "05:00", "21:00", 16.0, "NE"));
-        dbWeatherHelper.insert(new Forecast("Novi Sad", "09-05-2019", "Thu", -10.0, 0.66, 1.01, "05:00", "21:00", 16.0, "NE"));
-        dbWeatherHelper.insert(new Forecast("Novi Sad", "10-05-2019", "Fri", 31.9, 0.66, 1.01, "05:00", "21:00", 16.0, "NE"));
-        dbWeatherHelper.insert(new Forecast("Novi Sad", "11-05-2019", "Sat", 31.9, 0.66, 1.01, "05:00", "21:00", 16.0, "NE"));
-        dbWeatherHelper.insert(new Forecast("Novi Sad", "12-05-2019", "Sun", -13, 0.66, 1.01, "05:00", "21:00", 16.0, "NE"));
-        dbWeatherHelper.insert(new Forecast("Novi Sad", "13-05-2019", "Mon", 100, 0.66, 1.01, "05:00", "21:00", 16.0, "NE"));
-        dbWeatherHelper.insert(new Forecast("Novi Sad", "13-05-2019", "Mon", 100, 0.66, 1.01, "05:00", "21:00", 16.0, "NE"));
+    @Override
+    public void onServiceDisconnected(ComponentName name) {
+        mBound = false;
     }
 }

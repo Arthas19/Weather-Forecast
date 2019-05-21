@@ -20,10 +20,10 @@ public class Forecast {
     private double windSpeed;
     private String windDirection;
 
+
     /* Friend of http and brother JSON, but we good  */
     public Forecast(String city) {
 
-        HttpHelper httpHelper = new HttpHelper();
 
         final String EXTRAS = "&units=metric";
         final String SECRET_KEY = "&APPID=8827e28e1ab35a7ff0a4a64651bea798";
@@ -32,6 +32,7 @@ public class Forecast {
         final String URL = BASE_URL + city + EXTRAS + SECRET_KEY;
 
         try {
+            HttpHelper httpHelper = new HttpHelper();
             JSONObject json = httpHelper.getJSONObjectFromURL(URL);
 
             JSONObject main = json.getJSONObject("main");

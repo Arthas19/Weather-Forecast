@@ -1,12 +1,6 @@
 package rtrk.pnrs.weatherforecast;
 
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.Intent;
-import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.os.IBinder;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -18,18 +12,15 @@ import android.widget.Toast;
 
 import rtrk.pnrs.weatherforecast.MyLittleHelpers.DBWeatherHelper;
 import rtrk.pnrs.weatherforecast.MyLittleHelpers.Forecast;
-import rtrk.pnrs.weatherforecast.MyLittleHelpers.MyBinder;
 import rtrk.pnrs.weatherforecast.MyLittleHelpers.MyListAdapter;
-import rtrk.pnrs.weatherforecast.MyLittleHelpers.MyService;
 
-public class ListActivity extends AppCompatActivity implements ServiceConnection {
+public class ListActivity extends AppCompatActivity {
+
 
     private Button button;
     private EditText editText;
     private MyListAdapter myListAdapter;
     private DBWeatherHelper dbWeatherHelper;
-
-    private MyService myService;
 
 
     @Override
@@ -43,6 +34,7 @@ public class ListActivity extends AppCompatActivity implements ServiceConnection
             }
         }).start();
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,19 +99,6 @@ public class ListActivity extends AppCompatActivity implements ServiceConnection
                 editText.setText(null);
             }
         });
-
-
-        Intent serviceIntent = new Intent(this, MyService.class);
-        bindService(serviceIntent, this, Context.BIND_AUTO_CREATE);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-     //   Intent serviceIntent = new Intent(this, MyService.class);
-
-     //   stopService(serviceIntent);
     }
 
 
@@ -154,16 +133,5 @@ public class ListActivity extends AppCompatActivity implements ServiceConnection
                 myListAdapter.update(cities);
             }
         });
-    }
-
-
-    @Override
-    public void onServiceConnected(ComponentName name, IBinder service) {
-// https://developer.android.com/guide/components/bound-services#java
-    }
-
-    @Override
-    public void onServiceDisconnected(ComponentName name) {
-
     }
 }
