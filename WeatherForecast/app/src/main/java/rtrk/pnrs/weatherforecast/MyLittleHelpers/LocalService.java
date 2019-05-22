@@ -52,13 +52,13 @@ public class LocalService extends Service {
 
         } else {
 
-            CITY = intent.getStringExtra(SERVICE_KEY);
-            Log.d(TAG, "[ON_START_COMMAND] I just got " + CITY);
+            //  CITY = intent.getStringExtra(SERVICE_KEY);
+            //  Log.d(TAG, "[ON_START_COMMAND] I just got " + CITY);
 
             mNM = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
             startForeground(NOTIFICATION, makeNewNotification("0"));
-            running.start();
+            //  running.start();
         }
 
         return START_NOT_STICKY;
@@ -107,7 +107,7 @@ public class LocalService extends Service {
         private DBWeatherHelper dbWeatherHelper;
 
 
-        void start() {
+        public void start() {
             handler = new Handler(Looper.getMainLooper());
             dbWeatherHelper = new DBWeatherHelper(LocalService.this);
 

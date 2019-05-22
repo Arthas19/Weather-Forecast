@@ -146,6 +146,8 @@ public class DetailsActivity extends AppCompatActivity implements ServiceConnect
 
                     startService(stopIntent);
 
+                    unbindService(DetailsActivity.this);
+
                     mBound = false;
                 }
 
@@ -214,6 +216,8 @@ public class DetailsActivity extends AppCompatActivity implements ServiceConnect
 
         ContextCompat.startForegroundService(this, startIntent);
 
+        bindService(startIntent, this, BIND_AUTO_CREATE);
+
         mBound = true;
     }
 
@@ -278,6 +282,7 @@ public class DetailsActivity extends AppCompatActivity implements ServiceConnect
 
         mService = binder.getService();
         mBound = true;
+        mService.running.start();
     }
 
     @Override
