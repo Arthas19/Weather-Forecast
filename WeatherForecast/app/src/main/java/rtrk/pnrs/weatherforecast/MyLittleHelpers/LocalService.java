@@ -45,34 +45,29 @@ public class LocalService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
-        if (intent.getAction().equals("KILL SHOOT")) {
-            stopForeground(true);
-            running.stop();
-            stopSelf();
+        mNM = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
-        } else {
-
-            //  CITY = intent.getStringExtra(SERVICE_KEY);
-            //  Log.d(TAG, "[ON_START_COMMAND] I just got " + CITY);
-
-            mNM = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-
-            startForeground(NOTIFICATION, makeNewNotification("0"));
-            //  running.start();
-        }
+        startForeground(NOTIFICATION, makeNewNotification("0"));
 
         return START_NOT_STICKY;
     }
 
     @Override
     public boolean onUnbind(Intent intent) {
-        return super.onUnbind(intent);
+        Log.d(TAG, " SAD CU DA GA UNBINDUJEM");
+
+        stopForeground(true);
+        running.stop();
+        stopSelf();
+
+        return true;
     }
 
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+
         mNM.cancel(NOTIFICATION);
     }
 

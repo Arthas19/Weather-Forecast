@@ -57,6 +57,18 @@ public class DetailsActivity extends AppCompatActivity implements ServiceConnect
 
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        Log.d(TAG, " POZVAN JE DESTROY");
+
+        if (mBound) {
+            unbindService(DetailsActivity.this);
+            mBound = false;
+        }
+    }
+
+    @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
@@ -139,18 +151,6 @@ public class DetailsActivity extends AppCompatActivity implements ServiceConnect
         imageButtonRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if (mBound) {
-                    Intent stopIntent = new Intent(DetailsActivity.this, LocalService.class);
-                    stopIntent.setAction("KILL SHOOT");
-
-                    startService(stopIntent);
-
-                    unbindService(DetailsActivity.this);
-
-                    mBound = false;
-                }
-
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -204,14 +204,8 @@ public class DetailsActivity extends AppCompatActivity implements ServiceConnect
                 }
             }
         });
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
 
         Intent startIntent = new Intent(this, LocalService.class);
-        startIntent.setAction("friends");
         startIntent.putExtra(SERVICE_KEY, CITY);
 
         ContextCompat.startForegroundService(this, startIntent);
