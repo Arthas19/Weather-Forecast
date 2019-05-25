@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -31,14 +30,14 @@ import rtrk.pnrs.weatherforecast.MyLittleHelpers.LocalService;
 public class DetailsActivity extends AppCompatActivity implements ServiceConnection {
 
     private static final String KEY = "city";
-    private static final String SERVICE_KEY = "service";
+    private static final String SERVICE_KEY = "service_key";
 
     private static final String TAG = "DETAILS ACTIVITY";
 
     private static String CITY;
     DBWeatherHelper dbWeatherHelper;
     private LocalService mService;
-    private boolean mBound;
+    private static boolean mBound;
 
 
     @SuppressLint("ConstantLocale")
@@ -55,18 +54,6 @@ public class DetailsActivity extends AppCompatActivity implements ServiceConnect
     ImageButton imageButtonRefresh;
     Spinner spinner;
 
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-        Log.d(TAG, " POZVAN JE DESTROY");
-
-        if (mBound) {
-            unbindService(DetailsActivity.this);
-            mBound = false;
-        }
-    }
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -205,14 +192,28 @@ public class DetailsActivity extends AppCompatActivity implements ServiceConnect
             }
         });
 
-        Intent startIntent = new Intent(this, LocalService.class);
-        startIntent.putExtra(SERVICE_KEY, CITY);
 
-        ContextCompat.startForegroundService(this, startIntent);
+        if (!mBound) {
+            Intent startIntent = new Intent(this, LocalService.class);
+            startIntent.putExtra(SERVICE_KEY, CITY);
 
-        bindService(startIntent, this, BIND_AUTO_CREATE);
+            if (bindService(startIntent, this, BIND_AUTO_CREATE)) {
+                mBound = true;
+            }
+        }
+    }
 
-        mBound = true;
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        Log.d(TAG, "I AM DESTROYED");
+
+        if (mService != null) {
+            Log.d(TAG, "OUR BOND HAS BEEN BROKEN");
+            mBound = false;
+            unbindService(this);
+        }
     }
 
     private String getCity() {
@@ -244,7 +245,6 @@ public class DetailsActivity extends AppCompatActivity implements ServiceConnect
         });
     }
 
-
     @SuppressLint("DefaultLocale")
     private void setLatestData() {
         Forecast forecast = dbWeatherHelper.getItem(CITY, null);
@@ -270,13 +270,14 @@ public class DetailsActivity extends AppCompatActivity implements ServiceConnect
 
     @Override
     public void onServiceConnected(ComponentName name, IBinder service) {
-        Log.d(TAG, "__DOGOGIO_SE_BIND__");
+        Log.d(TAG, "WE HAVE A STRONG BOUND");
 
         LocalService.LocalBinder binder = (LocalService.LocalBinder) service;
 
         mService = binder.getService();
-        mBound = true;
         mService.running.start();
+
+        mBound = true;
     }
 
     @Override

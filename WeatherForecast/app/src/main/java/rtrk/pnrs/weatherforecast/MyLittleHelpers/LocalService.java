@@ -21,7 +21,7 @@ import static rtrk.pnrs.weatherforecast.MyLittleHelpers.Notification.CHANNEL_ID;
 public class LocalService extends Service {
 
     private static final String TAG = "FROM_CHICAGO_YOURS";
-    private static final String SERVICE_KEY = "service";
+    private static final String SERVICE_KEY = "service_key";
     private static final int NOTIFICATION = 19;
 
     private static String CITY;
@@ -35,40 +35,31 @@ public class LocalService extends Service {
 
     @Override
     public IBinder onBind(Intent intent) {
-        CITY = intent.getStringExtra("service");
-        Log.d(TAG, "[ON_BIND] I just got " + CITY);
+        CITY = intent.getStringExtra(SERVICE_KEY);
+        Log.d(TAG, "[BLOOD BOUND] " + CITY);
+
+        mNM = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        startForeground(NOTIFICATION, makeNewNotification("~"));
 
         return binder;
     }
 
 
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-
-        mNM = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-
-        startForeground(NOTIFICATION, makeNewNotification("0"));
-
-        return START_NOT_STICKY;
-    }
-
-    @Override
     public boolean onUnbind(Intent intent) {
-        Log.d(TAG, " SAD CU DA GA UNBINDUJEM");
 
-        stopForeground(true);
         running.stop();
         stopSelf();
 
-        return true;
+        return super.onUnbind(intent);
     }
 
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
+        Log.d(TAG, "NEMA VISE CETNICKOGA TICA, NEMA VISE SLAVKA JANKOVICA");
 
-        mNM.cancel(NOTIFICATION);
+        super.onDestroy();
     }
 
     private Notification makeNewNotification(String temp) {
@@ -86,6 +77,7 @@ public class LocalService extends Service {
                 .build();
     }
 
+    // Binder Class
     public class LocalBinder extends Binder {
 
         public LocalService getService() {
@@ -93,12 +85,13 @@ public class LocalService extends Service {
         }
     }
 
+    // Runnable class
     public class RunBoiRun implements Runnable {
 
         private static final long PERIOD = 10000L;
-        private Handler handler = null;
-        private boolean run = false;
 
+        private boolean run = false;
+        private Handler handler = null;
         private DBWeatherHelper dbWeatherHelper;
 
 
@@ -112,8 +105,8 @@ public class LocalService extends Service {
         }
 
         void stop() {
-            run = false;
             handler.removeCallbacks(this);
+            run = false;
         }
 
         @Override
