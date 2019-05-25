@@ -22,6 +22,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import rtrk.pnrs.weatherforecast.MyLittleHelpers.Conversion;
 import rtrk.pnrs.weatherforecast.MyLittleHelpers.DBWeatherHelper;
 import rtrk.pnrs.weatherforecast.MyLittleHelpers.Forecast;
 import rtrk.pnrs.weatherforecast.MyLittleHelpers.LocalService;
@@ -117,10 +118,12 @@ public class DetailsActivity extends AppCompatActivity implements ServiceConnect
                     try {
                         double temp = Double.parseDouble(textViewTemperature.getText().toString().split(" ")[1]);
 
+                        Conversion conversion = new Conversion();
+
                         if (parent.getItemAtPosition(position).toString().equals("F"))
-                            temp = temp * 1.8 + 32;
+                            temp = conversion.conversion(temp, 1);
                         else
-                            temp = (temp - 32) / 1.8;
+                            temp = conversion.conversion(temp, 0);
 
                         textViewTemperature.setText(String.format("%s %.2f", getString(R.string.textViewDetailsTemperature), temp));
 
