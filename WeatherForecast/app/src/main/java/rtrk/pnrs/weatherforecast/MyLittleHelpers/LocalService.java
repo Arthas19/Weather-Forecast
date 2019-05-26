@@ -39,7 +39,7 @@ public class LocalService extends Service {
         Log.d(TAG, "[BLOOD BOUND] " + CITY);
 
         mNM = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        startForeground(NOTIFICATION, makeNewNotification("~"));
+        startForeground(NOTIFICATION, makeNewNotification("0"));
 
         return binder;
     }
@@ -48,6 +48,7 @@ public class LocalService extends Service {
     @Override
     public boolean onUnbind(Intent intent) {
 
+        mNM.cancel(NOTIFICATION);
         running.stop();
         stopSelf();
 
