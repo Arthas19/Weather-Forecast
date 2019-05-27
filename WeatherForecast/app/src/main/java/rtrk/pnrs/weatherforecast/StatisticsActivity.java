@@ -37,13 +37,13 @@ public class StatisticsActivity extends AppCompatActivity {
         tableAdapter1 = new MyTableAdapter();
         tableAdapter2 = new MyTableAdapter();
 
-        new Thread(new Runnable() {
+        runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 fillBasicData(0);
                 fillExtremesData();
             }
-        }).start();
+        });
 
         ImageButton sun = findViewById(R.id.imageButtonStatsSun);
         ImageButton snowflake = findViewById(R.id.imageButtonStatsSnowflake);
@@ -51,14 +51,24 @@ public class StatisticsActivity extends AppCompatActivity {
         sun.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fillBasicData(1);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        fillBasicData(1);
+                    }
+                });
             }
         });
 
         snowflake.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fillBasicData(2);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        fillBasicData(2);
+                    }
+                });
             }
         });
     }
