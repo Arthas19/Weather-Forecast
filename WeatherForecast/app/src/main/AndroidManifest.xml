@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="rtrk.pnrs.weatherforecast">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".MyLittleHelpers.Notification"
+        android:name="$MyLittleHelpers.Notification"
         android:allowBackup="true"
         android:fullBackupContent="true"
         android:icon="@drawable/ic_sunny"
         android:label="@string/appName"
         android:roundIcon="@drawable/ic_sunny"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".StatisticsActivity" />
         <activity android:name=".ListActivity">
             <intent-filter>
@@ -23,7 +25,7 @@
         <activity android:name=".DetailsActivity" />
         <activity android:name=".MainActivity" />
 
-        <service android:name=".MyLittleHelpers.LocalService" />
+        <service android:name="$MyLittleHelpers.LocalService" />
     </application>
 
 </manifest>
